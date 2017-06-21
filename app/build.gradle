@@ -49,10 +49,16 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
 
     //万能适配器
-    compile'com.joanzapata.android:base-adapter-helper:1.1.11'
+    //compile'com.joanzapata.android:base-adapter-helper:1.1.11'
 
     //圆形图标
     compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    //万能RecyclerView适配器
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18'
+
+    //图片加载框架
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     testCompile 'junit:junit:4.12'
 }
