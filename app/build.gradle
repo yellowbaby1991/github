@@ -38,9 +38,21 @@ dependencies {
 
     //rxjava1
     compile 'io.reactivex:rxjava:1.0.9'
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    //retrofit2
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
 
     //Material Design风格的搜索 https://github.com/MiguelCatalan/MaterialSearchView
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    //万能适配器
+    compile'com.joanzapata.android:base-adapter-helper:1.1.11'
+
+    //圆形图标
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
     testCompile 'junit:junit:4.12'
 }
