@@ -76,11 +76,22 @@ public abstract class BaseListFragment<T> extends Fragment {
         }, 0);
     }
 
+    public void showLoadMoreEnd() {
+        mlistRv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.loadMoreEnd();
+            }
+        }, 0);
+    }
+
     protected abstract int getItemLayout();
 
     protected abstract void convert(BaseViewHolder helper, T bean);
 
     protected abstract void loadMoreRequest();
+
+
 
     public class ListAdapter extends BaseRecyclerViewAdapter<T> {
 

@@ -1,15 +1,13 @@
 package app.yellow.github.data.home.explore;
 
 
-import java.util.List;
-
-import app.yellow.github.bean.home.explore.RepositoryBean;
-import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.bean.home.explore.SearchParams;
+import app.yellow.github.data.DataSource;
 import rx.Observable;
 
-public interface ExploreDataSource {
+public interface ExploreDataSource extends DataSource {
 
-    Observable<List<RepositoryBean>> getRepositorys(int pageIndex);
+    Observable getRepositoryListByParams(SearchParams params);
 
-    Observable<List<UserBean>> getUsers(int pageIndex);
+    Observable getUserListByParams(SearchParams params);
 }

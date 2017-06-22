@@ -19,7 +19,7 @@ package app.yellow.github.data;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public class DataRepository<T> implements DataSource {
+public class DataRepository<T extends DataSource> implements DataSource {
 
     @Nullable
     protected static DataRepository INSTANCE = null;

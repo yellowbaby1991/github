@@ -32,7 +32,11 @@ public class BaseListObserver<T> implements Observer<List<T>> {
     @Override
     public void onNext(List<T> list) {
         if (list.isEmpty()) {
-            mView.showEmpty();
+            if (isLoadMore()){
+                mView.showLoadMoreEnd();
+            }else {
+                mView.showEmpty();
+            }
         } else {
             if (isLoadMore()) {
                 mView.showMoreAdd(list);

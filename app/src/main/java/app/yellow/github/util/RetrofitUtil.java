@@ -1,6 +1,7 @@
 package app.yellow.github.util;
 
-import app.yellow.github.api.HomeService;
+import app.yellow.github.api.RepositroyService;
+import app.yellow.github.api.UserService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -32,8 +33,12 @@ public class RetrofitUtil {
         return mInstance;
     }
 
-    public static HomeService getHomeService() {
-        return getInstance().mRetrofit.create(HomeService.class);
+    public static RepositroyService getRepositroyService() {
+        return getInstance().mRetrofit.create(RepositroyService.class);
+    }
+
+    public static UserService getUserService() {
+        return getInstance().mRetrofit.create(UserService.class);
     }
 
 }

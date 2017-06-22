@@ -2,6 +2,7 @@ package app.yellow.github.home.explore;
 
 import app.yellow.github.base.BasePresenter;
 import app.yellow.github.base.BaseView;
+import app.yellow.github.bean.home.explore.SearchParams;
 
 public class ExploreContract {
 
@@ -11,13 +12,16 @@ public class ExploreContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadRepositoryList(int pageIndex);
+        void searchRepository(SearchParams params);
 
-        void loadMoreRepository(int pageIndex);
+        void searchUser(SearchParams params);
 
-        void loadUserList(int pageIndex);
+        void loadMoreRepository(SearchParams params);
 
-        void loadMoreUser(int pageIndex);
+        void loadMoreUser(SearchParams params);
+
+
+
 
     }
 

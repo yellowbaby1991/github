@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 
 import app.yellow.github.base.BaseListObserver;
 import app.yellow.github.bean.home.explore.RepositoryBean;
+import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.data.home.explore.ExploreDataRepository;
-import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -31,21 +31,39 @@ public class ExplorePresenter implements ExploreContract.Presenter {
     }
 
     @Override
-    public void loadRepositoryList(int pageIndex) {
+    public void searchRepository(SearchParams params) {
 
         mView.showLoading();
 
         Subscription subscription =
-                getRepositoryList(pageIndex)
+                mRepository.getRepositoryListByParams(params)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new BaseListObserver<RepositoryBean>(mView));
 
         mSubscriptions.add(subscription);
     }
 
     @Override
-    public void loadMoreRepository(int pageIndex) {
+    public void searchUser(SearchParams params) {
+
+        mView.showLoading();
+
         Subscription subscription =
-                getRepositoryList(pageIndex)
+                mRepository.getUserListByParams(params)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseListObserver<UserBean>(mView));
+
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void loadMoreRepository(SearchParams params) {
+        Subscription subscription =
+                mRepository.getRepositoryListByParams(params)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new BaseListObserver<RepositoryBean>(mView) {
                             @Override
                             protected boolean isLoadMore() {
@@ -57,20 +75,11 @@ public class ExplorePresenter implements ExploreContract.Presenter {
     }
 
     @Override
-    public void loadUserList(int pageIndex) {
-        mView.showLoading();
-
+    public void loadMoreUser(SearchParams params) {
         Subscription subscription =
-                getUserList(pageIndex)
-                        .subscribe(new BaseListObserver<UserBean>(mView));
-
-        mSubscriptions.add(subscription);
-    }
-
-    @Override
-    public void loadMoreUser(int pageIndex) {
-        Subscription subscription =
-                getUserList(pageIndex)
+                mRepository.getUserListByParams(params)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new BaseListObserver<UserBean>(mView) {
                             @Override
                             protected boolean isLoadMore() {
@@ -81,24 +90,17 @@ public class ExplorePresenter implements ExploreContract.Presenter {
         mSubscriptions.add(subscription);
     }
 
-    private Observable getRepositoryList(int pageIndex) {
+/*    private Observable getRepositoryListByParams(SearchParams params) {
         return mRepository
-                .getRepositorys(pageIndex)
+                .getRepositoryListByParams(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-    }
+    }*/
 
-    private Observable getUserList(int pageIndex) {
-        return mRepository
-                .getUsers(pageIndex)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 
     @Override
     public void subscribe() {
-        loadRepositoryList(1);
-        loadUserList(1);
+
     }
 
     @Override

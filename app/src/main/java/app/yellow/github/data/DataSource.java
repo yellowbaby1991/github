@@ -18,4 +18,5 @@ package app.yellow.github.data;
 
 public interface DataSource {
 
+
 }

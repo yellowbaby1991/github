@@ -20,6 +20,5 @@ public interface BaseView<T> {
 
     void hideLoading();
 
-
-
+    void showLoadMoreEnd();
 }

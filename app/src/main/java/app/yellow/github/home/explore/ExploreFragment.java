@@ -27,10 +27,11 @@ import java.util.List;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
+import app.yellow.github.bean.home.explore.RepositoryBean;
+import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.data.home.explore.ExploreDataRepository;
 import app.yellow.github.data.home.explore.ExploreRemoteDataSource;
-import app.yellow.github.bean.home.explore.RepositoryBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -60,6 +61,9 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     private ExploreContract.Presenter mPresenter;
     private ExploreFragmentPagerAdapter mPageAdapter;
 
+    private SearchParams mRepositoryParams;
+    private SearchParams mUserParams;
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -69,6 +73,26 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
         mPresenter = new ExplorePresenter(
                 ExploreDataRepository.getInstance(ExploreRemoteDataSource.getInstance(), null),
                 this);
+
+        mRepositoryParams = new SearchParams();
+        mRepositoryParams.page = 1;
+        mRepositoryParams.pageSize = 5;
+        mRepositoryParams.sort = "stars";
+        mRepositoryParams.language = "language:java";
+        mRepositoryParams.key = mRepositoryParams.language;
+        mRepositoryParams.type = "repositories";
+        mRepositoryParams.order = "desc";
+        mPresenter.searchRepository(mRepositoryParams);
+
+        mUserParams = new SearchParams();
+        mUserParams.page = 1;
+        mUserParams.pageSize = 5;
+        mUserParams.language = "language:java";
+        mUserParams.key = mUserParams.language;
+        mUserParams.type = "users";
+        mUserParams.sort = "stars";
+        mUserParams.order = "desc";
+        mPresenter.searchUser(mUserParams);
     }
 
     private void initEvents() {
@@ -76,8 +100,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
             @Override
             public void onClick(View v) {
                 mErrorTv.setVisibility(View.GONE);
-                mPresenter.loadRepositoryList(1);
-                mPresenter.loadUserList(1);
+                mPresenter.searchRepository(mRepositoryParams);
+                mPresenter.searchUser(mUserParams);
             }
         });
 
@@ -118,6 +142,32 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
         mSearchView.setHintTextColor(getResources().getColor(R.color.colorTranslucent));
         mSearchView.setTextColor(Color.WHITE);
         mSearchView.setBackIcon(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchByInput(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+    }
+
+    private void searchByInput(String query) {
+        if (mViewPager.getCurrentItem() == 0) {
+            mRepositoryParams.key = query;
+            mRepositoryParams.page = 1;
+            mPresenter.searchRepository(mRepositoryParams);
+        }
+        if (mViewPager.getCurrentItem() == 1) {
+            mUserParams.key = query;
+            mUserParams.page = 1;
+            mPresenter.searchUser(mUserParams);
+        }
     }
 
     @Nullable
@@ -138,7 +188,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
         refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mPresenter.loadRepositoryList(0);
+                mPresenter.searchRepository(mRepositoryParams);
+                mPresenter.searchUser(mUserParams);
                 return false;
             }
         });
@@ -187,6 +238,13 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     }
 
     @Override
+    public void showLoadMoreEnd() {
+        BaseListFragment fragment = mFragments[mViewPager.getCurrentItem()];
+        fragment.showLoadMoreEnd();
+    }
+
+
+    @Override
     public void showEmpty() {
         mViewPager.setVisibility(View.GONE);
         mEmptyTv.setVisibility(View.VISIBLE);
@@ -210,14 +268,17 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
         mProgressBar.setVisibility(View.GONE);
     }
 
+
     @Override
     public void loadMoreRepository(int nextPage) {
-        mPresenter.loadMoreRepository(nextPage);
+        mRepositoryParams.page = nextPage;
+        mPresenter.loadMoreRepository(mRepositoryParams);
     }
 
     @Override
     public void loadMoreUser(int nextPage) {
-        mPresenter.loadMoreUser(nextPage);
+        mUserParams.page = nextPage;
+        mPresenter.loadMoreUser(mUserParams);
     }
 
 
