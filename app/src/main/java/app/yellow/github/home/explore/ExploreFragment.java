@@ -21,6 +21,8 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.List;
@@ -55,6 +57,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     TextView mEmptyTv;
     @BindView(R.id.error_tv)
     TextView mErrorTv;
+    @BindView(R.id.multiple_actions)
+    FloatingActionsMenu mMultipleActions;
 
     private BaseListFragment[] mFragments;
 
@@ -63,6 +67,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
     private SearchParams mRepositoryParams;
     private SearchParams mUserParams;
+
+    private String mLanguageTitle[] = new String[]{"Java", "JavaScript","C++", "C", "Python"};
 
 
     @Override
@@ -76,22 +82,16 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
         mRepositoryParams = new SearchParams();
         mRepositoryParams.page = 1;
-        mRepositoryParams.pageSize = 5;
-        mRepositoryParams.sort = "stars";
         mRepositoryParams.language = "language:java";
         mRepositoryParams.key = mRepositoryParams.language;
         mRepositoryParams.type = "repositories";
-        mRepositoryParams.order = "desc";
         mPresenter.searchRepository(mRepositoryParams);
 
         mUserParams = new SearchParams();
         mUserParams.page = 1;
-        mUserParams.pageSize = 5;
         mUserParams.language = "language:java";
         mUserParams.key = mUserParams.language;
         mUserParams.type = "users";
-        mUserParams.sort = "stars";
-        mUserParams.order = "desc";
         mPresenter.searchUser(mUserParams);
     }
 
@@ -155,6 +155,35 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
                 return false;
             }
         });
+
+
+        for (String title : mLanguageTitle) {
+            final FloatingActionButton action = new FloatingActionButton(getContext());
+            action.setTitle(title);
+            action.setColorNormalResId(R.color.yellow);
+            action.setColorPressedResId(R.color.white_pressed);
+            action.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchByLanguage(action.getTitle());
+                    mMultipleActions.collapse();
+                }
+            });
+            mMultipleActions.addButton(action);
+        }
+
+    }
+
+    private void searchByLanguage(String title) {
+        mRepositoryParams.language = "language:" + title;
+        mRepositoryParams.key = mRepositoryParams.language;
+        mRepositoryParams.page = 1;
+        mPresenter.searchRepository(mRepositoryParams);
+
+        mUserParams.language = "language:" + title;
+        mUserParams.key = mRepositoryParams.language;
+        mUserParams.page = 1;
+        mPresenter.searchUser(mUserParams);
     }
 
     private void searchByInput(String query) {

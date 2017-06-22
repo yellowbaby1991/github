@@ -83,6 +83,60 @@
             android:text="加载失败，点击重试！"
             android:textSize="18dp"
             android:visibility="gone"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:layout_gravity="bottom|right"
+            android:id="@+id/multiple_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            app:fab_addButtonColorNormal="@color/yellow"
+            app:fab_addButtonColorPressed="@color/white_pressed"
+            app:fab_addButtonPlusIconColor="@color/white"
+            app:fab_labelStyle="@style/menu_labels_style"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="50dp">
+
+            <!--<com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/yellow"
+                app:fab_title="Andoird"
+                app:fab_colorPressed="@color/white_pressed"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/yellow"
+                app:fab_title="Java"
+                app:fab_colorPressed="@color/white_pressed"/>
+
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/yellow"
+                app:fab_title="IOS"
+                app:fab_colorPressed="@color/white_pressed"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/yellow"
+                app:fab_title="Python"
+                app:fab_colorPressed="@color/white_pressed"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/yellow"
+                app:fab_title="PHP"
+                app:fab_colorPressed="@color/white_pressed"/>-->
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

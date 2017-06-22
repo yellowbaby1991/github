@@ -60,5 +60,8 @@ dependencies {
     //recyclerview缩放动画 https://github.com/wasabeef/recyclerview-animators
     compile 'jp.wasabeef:recyclerview-animators:2.2.6'
 
+    //Material Design风格的浮动按钮
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+
     testCompile 'junit:junit:4.12'
 }
