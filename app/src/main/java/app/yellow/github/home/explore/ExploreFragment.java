@@ -68,7 +68,9 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     private SearchParams mRepositoryParams;
     private SearchParams mUserParams;
 
-    private String mLanguageTitle[] = new String[]{"Java", "JavaScript","C++", "C", "Python"};
+    private String mLanguageTitle[] = new String[]{"Java", "JavaScript", "C++", "C"};
+    private String mSortTypeTitle[] = new String[]{"Most stars", "Best match", "Most forks", "Recently updated"};
+    private int mSortType = 0;
 
 
     @Override
@@ -151,11 +153,46 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 return false;
             }
         });
 
+        final FloatingActionButton sortTypeAction = new FloatingActionButton(getContext());
+        sortTypeAction.setTitle(mSortTypeTitle[mSortType]);
+        sortTypeAction.setColorNormalResId(R.color.pink);
+        sortTypeAction.setColorPressedResId(R.color.white_pressed);
+        sortTypeAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSortType++;
+                if (mSortType == mSortTypeTitle.length) {
+                    mSortType = 0;
+                }
+                sortTypeAction.setTitle(mSortTypeTitle[mSortType]);
+                switch (mSortTypeTitle[mSortType]) {
+                    case "Most stars":
+                        mRepositoryParams.sort = "stars";
+                        mUserParams.sort = "stars";
+                        break;
+                    case "Best match":
+                        mRepositoryParams.sort = null;
+                        mUserParams.sort = null;
+                        break;
+                    case "Most forks":
+                        mRepositoryParams.sort = "forks";
+                        mUserParams.sort = "forks";
+                        break;
+                    case "Recently updated":
+                        mRepositoryParams.sort = "updated";
+                        mUserParams.sort = "updated";
+                        break;
+                }
+                mPresenter.searchRepository(mRepositoryParams);
+                mPresenter.searchUser(mUserParams);
+            }
+        });
+
+        mMultipleActions.addButton(sortTypeAction);
 
         for (String title : mLanguageTitle) {
             final FloatingActionButton action = new FloatingActionButton(getContext());
