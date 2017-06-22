@@ -1,6 +1,6 @@
 package app.yellow.github.util;
 
-import app.yellow.github.api.home.HomeService;
+import app.yellow.github.api.HomeService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

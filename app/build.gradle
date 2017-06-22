@@ -48,9 +48,6 @@ dependencies {
     //Material Design风格的搜索 https://github.com/MiguelCatalan/MaterialSearchView
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
 
-    //万能适配器
-    //compile'com.joanzapata.android:base-adapter-helper:1.1.11'
-
     //圆形图标
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
@@ -59,6 +56,9 @@ dependencies {
 
     //图片加载框架
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //recyclerview缩放动画 https://github.com/wasabeef/recyclerview-animators
+    compile 'jp.wasabeef:recyclerview-animators:2.2.6'
 
     testCompile 'junit:junit:4.12'
 }

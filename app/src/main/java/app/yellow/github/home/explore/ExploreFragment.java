@@ -18,20 +18,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.List;
 
 import app.yellow.github.R;
+import app.yellow.github.base.BaseListFragment;
+import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.data.home.explore.ExploreDataRepository;
 import app.yellow.github.data.home.explore.ExploreRemoteDataSource;
-import app.yellow.github.data.home.explore.RepositoryBean;
+import app.yellow.github.bean.home.explore.RepositoryBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ExploreFragment extends Fragment implements ExploreContract.View {
+public class ExploreFragment extends Fragment implements ExploreContract.View, RepositoryListFragment.RepositoryListListener, UserListFragment.UserListListener {
 
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
@@ -44,6 +48,14 @@ public class ExploreFragment extends Fragment implements ExploreContract.View {
     @BindView(R.id.tabs)
     TabLayout mTabs;
     Unbinder unbinder;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
+    @BindView(R.id.empty_tv)
+    TextView mEmptyTv;
+    @BindView(R.id.error_tv)
+    TextView mErrorTv;
+
+    private BaseListFragment[] mFragments;
 
     private ExploreContract.Presenter mPresenter;
     private ExploreFragmentPagerAdapter mPageAdapter;
@@ -53,9 +65,22 @@ public class ExploreFragment extends Fragment implements ExploreContract.View {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
+        initEvents();
         mPresenter = new ExplorePresenter(
                 ExploreDataRepository.getInstance(ExploreRemoteDataSource.getInstance(), null),
                 this);
+    }
+
+    private void initEvents() {
+        mErrorTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mErrorTv.setVisibility(View.GONE);
+                mPresenter.loadRepositoryList(1);
+                mPresenter.loadUserList(1);
+            }
+        });
+
     }
 
     @Override
@@ -93,8 +118,6 @@ public class ExploreFragment extends Fragment implements ExploreContract.View {
         mSearchView.setHintTextColor(getResources().getColor(R.color.colorTranslucent));
         mSearchView.setTextColor(Color.WHITE);
         mSearchView.setBackIcon(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
-
-
     }
 
     @Nullable
@@ -109,8 +132,16 @@ public class ExploreFragment extends Fragment implements ExploreContract.View {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView.setMenuItem(item);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        mSearchView.setMenuItem(searchItem);
+        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
+        refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                mPresenter.loadRepositoryList(0);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -120,27 +151,85 @@ public class ExploreFragment extends Fragment implements ExploreContract.View {
     }
 
     @Override
-    public void showRepositoryList(List<RepositoryBean> repositoryList) {
-        RepositoryListFragment fragment = (RepositoryListFragment) mPageAdapter.getItem(0);
-        fragment.updateRepositoryList(repositoryList);
-    }
-
-    @Override
     public void setPresenter(ExploreContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
-    class ExploreFragmentPagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void showList(List list) {
+        mViewPager.setVisibility(View.VISIBLE);
+        mEmptyTv.setVisibility(View.GONE);
+        mErrorTv.setVisibility(View.GONE);
+        BaseListFragment fragment = getCurrentBaseListFragment(list);
+        fragment.createList(list);
+    }
 
-        private Fragment[] mFragments;
+    private BaseListFragment getCurrentBaseListFragment(List list) {
+        BaseListFragment fragment = null;
+        if (list.get(0) instanceof RepositoryBean) {
+            fragment = mFragments[0];
+        } else if (list.get(0) instanceof UserBean) {
+            fragment = mFragments[1];
+        }
+        return fragment;
+    }
+
+    @Override
+    public void showMoreAdd(List moreData) {
+        BaseListFragment fragment = getCurrentBaseListFragment(moreData);
+        fragment.updateList(moreData);
+    }
+
+    @Override
+    public void showLoadMoreError() {
+        BaseListFragment fragment = mFragments[mViewPager.getCurrentItem()];
+        fragment.showLoadMoreError();
+    }
+
+    @Override
+    public void showEmpty() {
+        mViewPager.setVisibility(View.GONE);
+        mEmptyTv.setVisibility(View.VISIBLE);
+        mErrorTv.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError() {
+        mViewPager.setVisibility(View.GONE);
+        mEmptyTv.setVisibility(View.GONE);
+        mErrorTv.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void loadMoreRepository(int nextPage) {
+        mPresenter.loadMoreRepository(nextPage);
+    }
+
+    @Override
+    public void loadMoreUser(int nextPage) {
+        mPresenter.loadMoreUser(nextPage);
+    }
+
+
+    class ExploreFragmentPagerAdapter extends FragmentPagerAdapter {
 
         private String[] mTitles = new String[]{"REPOSITORY", "USER"};
 
         public ExploreFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragments = new Fragment[2];
-            mFragments[0] = new RepositoryListFragment();
-            mFragments[1] = new UserListFragment();
+            mFragments = new BaseListFragment[2];
+            mFragments[0] = new RepositoryListFragment(ExploreFragment.this);
+            mFragments[1] = new UserListFragment(ExploreFragment.this);
         }
 
         @Override

@@ -1,4 +1,4 @@
-package app.yellow.github.data.home.explore;
+package app.yellow.github.bean.home.explore;
 
 public class RepositoryBean {
     /**

@@ -2,11 +2,11 @@ package app.yellow.github.home.explore;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
+import app.yellow.github.base.BaseListObserver;
+import app.yellow.github.bean.home.explore.RepositoryBean;
+import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.data.home.explore.ExploreDataRepository;
-import app.yellow.github.data.home.explore.RepositoryBean;
-import rx.Observer;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -31,34 +31,74 @@ public class ExplorePresenter implements ExploreContract.Presenter {
     }
 
     @Override
-    public void loadRepositoryList() {
-        mSubscriptions.clear();
-        Subscription subscription = mRepository
-                .getRepositorys()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<RepositoryBean>>() {
-                    @Override
-                    public void onCompleted() {
+    public void loadRepositoryList(int pageIndex) {
 
-                    }
+        mView.showLoading();
 
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
+        Subscription subscription =
+                getRepositoryList(pageIndex)
+                        .subscribe(new BaseListObserver<RepositoryBean>(mView));
 
-                    @Override
-                    public void onNext(List<RepositoryBean> repositoryList) {
-                        mView.showRepositoryList(repositoryList);
-                    }
-                });
         mSubscriptions.add(subscription);
     }
 
     @Override
+    public void loadMoreRepository(int pageIndex) {
+        Subscription subscription =
+                getRepositoryList(pageIndex)
+                        .subscribe(new BaseListObserver<RepositoryBean>(mView) {
+                            @Override
+                            protected boolean isLoadMore() {
+                                return true;
+                            }
+                        });
+
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void loadUserList(int pageIndex) {
+        mView.showLoading();
+
+        Subscription subscription =
+                getUserList(pageIndex)
+                        .subscribe(new BaseListObserver<UserBean>(mView));
+
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void loadMoreUser(int pageIndex) {
+        Subscription subscription =
+                getUserList(pageIndex)
+                        .subscribe(new BaseListObserver<UserBean>(mView) {
+                            @Override
+                            protected boolean isLoadMore() {
+                                return true;
+                            }
+                        });
+
+        mSubscriptions.add(subscription);
+    }
+
+    private Observable getRepositoryList(int pageIndex) {
+        return mRepository
+                .getRepositorys(pageIndex)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private Observable getUserList(int pageIndex) {
+        return mRepository
+                .getUsers(pageIndex)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public void subscribe() {
-        loadRepositoryList();
+        loadRepositoryList(1);
+        loadUserList(1);
     }
 
     @Override

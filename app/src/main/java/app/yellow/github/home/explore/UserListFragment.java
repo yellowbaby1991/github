@@ -1,20 +1,48 @@
 package app.yellow.github.home.explore;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseViewHolder;
 
 import app.yellow.github.R;
+import app.yellow.github.base.BaseListFragment;
+import app.yellow.github.bean.home.explore.UserBean;
 
-public class UserListFragment extends Fragment {
+public class UserListFragment extends BaseListFragment<UserBean> {
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_explore_userlist, container, false);
-        return view;
+    private UserListFragment.UserListListener mListener;
+
+    public UserListFragment(UserListFragment.UserListListener listener) {
+        mListener = listener;
     }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.frag_explore_userlist;
+    }
+
+    @Override
+    protected int getItemLayout() {
+        return R.layout.explore_userlist_item;
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, UserBean bean) {
+        Glide.with(getContext()).load(bean.getAvatar_url()).crossFade().into((ImageView) helper.getView(R.id.avatar_url_img));
+        helper.setText(R.id.name_tv, bean.getLogin());
+    }
+
+    @Override
+    protected void loadMoreRequest() {
+        if (mListener != null) {
+            mCurrentPage++;
+            mListener.loadMoreUser(mCurrentPage);
+        }
+    }
+
+    public interface UserListListener {
+        void loadMoreUser(int nextPage);
+    }
+
 }

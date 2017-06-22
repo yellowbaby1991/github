@@ -2,6 +2,8 @@ package app.yellow.github.data.home.explore;
 
 import java.util.List;
 
+import app.yellow.github.bean.home.explore.RepositoryBean;
+import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.data.DataRepository;
 import rx.Observable;
 
@@ -23,7 +25,12 @@ public class ExploreDataRepository extends DataRepository<ExploreDataSource> imp
     }
 
     @Override
-    public Observable<List<RepositoryBean>> getRepositorys() {
-        return mRemoteDataSource.getRepositorys();
+    public Observable<List<RepositoryBean>> getRepositorys(int pageIndex) {
+        return mRemoteDataSource.getRepositorys(pageIndex);
+    }
+
+    @Override
+    public Observable<List<UserBean>> getUsers(int pageIndex) {
+        return mRemoteDataSource.getUsers(pageIndex);
     }
 }
