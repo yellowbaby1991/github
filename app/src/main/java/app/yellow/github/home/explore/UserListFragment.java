@@ -23,6 +23,12 @@ public class UserListFragment extends BaseListFragment<UserBean> {
     }
 
     @Override
+    protected void goToDetaiActivity(UserBean userBean) {
+
+    }
+
+
+    @Override
     protected int getItemLayout() {
         return R.layout.explore_userlist_item;
     }

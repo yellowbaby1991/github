@@ -10,7 +10,7 @@ import rx.Observable;
 
 public interface UserService {
     @Headers("Cache-Control: public, max-age=180")
-    @GET("/search/{type}")
+    @GET("/search/{type}?access_token=af83a0399a3d5a4af5499abd142acda66178d90b")
     Observable<BaseResponse<UserBean>> loadData(@Path("type") String type,
                                                 @Query("q") String q,
                                                 @Query("page") int pageIndex,

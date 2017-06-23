@@ -82,7 +82,7 @@
             android:layout_gravity="center"
             android:text="加载数据失败，请检查网络！"
             android:textSize="18dp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"

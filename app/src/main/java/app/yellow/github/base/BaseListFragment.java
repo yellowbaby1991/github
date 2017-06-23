@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public abstract class BaseListFragment<T> extends Fragment {
 
     protected ListAdapter mAdapter;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +56,17 @@ public abstract class BaseListFragment<T> extends Fragment {
         mDataSet = list;
         mAdapter = new ListAdapter();
         mlistRv.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                goToDetaiActivity(mDataSet.get(position));
+            }
+        });
     }
+
+    protected abstract void goToDetaiActivity(T t);
+
+
 
     @Override
     public void onDestroyView() {
@@ -90,7 +102,6 @@ public abstract class BaseListFragment<T> extends Fragment {
     protected abstract void convert(BaseViewHolder helper, T bean);
 
     protected abstract void loadMoreRequest();
-
 
 
     public class ListAdapter extends BaseRecyclerViewAdapter<T> {
