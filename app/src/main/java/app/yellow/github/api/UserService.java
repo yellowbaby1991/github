@@ -3,11 +3,13 @@ package app.yellow.github.api;
 import app.yellow.github.bean.home.explore.BaseResponse;
 import app.yellow.github.bean.home.explore.UserBean;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
 public interface UserService {
+    @Headers("Cache-Control: public, max-age=180")
     @GET("/search/{type}")
     Observable<BaseResponse<UserBean>> loadData(@Path("type") String type,
                                                 @Query("q") String q,

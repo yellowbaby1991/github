@@ -44,6 +44,8 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
     //Material Design风格的搜索 https://github.com/MiguelCatalan/MaterialSearchView
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
@@ -62,6 +64,9 @@ dependencies {
 
     //Material Design风格的浮动按钮
     compile 'com.getbase:floatingactionbutton:1.10.1'
+
+    //闪烁的loding进度条 https://github.com/d-max/spots-dialog
+    compile 'com.github.d-max:spots-dialog:0.7@aar'
 
     testCompile 'junit:junit:4.12'
 }

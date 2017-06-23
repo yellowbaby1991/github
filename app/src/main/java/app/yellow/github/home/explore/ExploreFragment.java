@@ -37,6 +37,7 @@ import app.yellow.github.data.home.explore.ExploreRemoteDataSource;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dmax.dialog.SpotsDialog;
 
 public class ExploreFragment extends Fragment implements ExploreContract.View, RepositoryListFragment.RepositoryListListener, UserListFragment.UserListListener {
 
@@ -72,6 +73,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     private String mSortTypeTitle[] = new String[]{"Most stars", "Best match", "Most forks", "Recently updated"};
     private int mSortType = 0;
 
+    private SpotsDialog mLodingDialog;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -122,6 +124,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     }
 
     private void initView() {
+
+        mLodingDialog = new SpotsDialog(getContext());
 
         mToolbar.setTitleTextColor(Color.WHITE);
 
@@ -326,12 +330,15 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
     @Override
     public void showLoading() {
-        mProgressBar.setVisibility(View.VISIBLE);
+        //mProgressBar.setVisibility(View.VISIBLE);
+        mLodingDialog.show();
+
     }
 
     @Override
     public void hideLoading() {
-        mProgressBar.setVisibility(View.GONE);
+        mLodingDialog.dismiss();
+        //mProgressBar.setVisibility(View.GONE);
     }
 
 

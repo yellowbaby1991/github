@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="加载失败，点击重试！\n（查询频率太高了拉！）"
+            android:text="加载数据失败，请检查网络！"
             android:textSize="18dp"
             android:visibility="visible"/>
 
@@ -98,42 +98,6 @@
             app:fab_addButtonColorPressed="@color/white_pressed"
             app:fab_addButtonPlusIconColor="@color/white"
             app:fab_labelStyle="@style/menu_labels_style">
-
-            <!--<com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/yellow"
-                app:fab_title="Andoird"
-                app:fab_colorPressed="@color/white_pressed"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/yellow"
-                app:fab_title="Java"
-                app:fab_colorPressed="@color/white_pressed"/>
-
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/yellow"
-                app:fab_title="IOS"
-                app:fab_colorPressed="@color/white_pressed"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/yellow"
-                app:fab_title="Python"
-                app:fab_colorPressed="@color/white_pressed"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/yellow"
-                app:fab_title="PHP"
-                app:fab_colorPressed="@color/white_pressed"/>-->
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
