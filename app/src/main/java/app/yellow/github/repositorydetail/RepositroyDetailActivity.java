@@ -3,8 +3,13 @@ package app.yellow.github.repositorydetail;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
@@ -47,6 +52,8 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositiryDetai
     TextView mForksTv;
     @BindView(R.id.code_tv)
     TextView mCodeTv;
+    @BindView(R.id.progress_wheel)
+    ProgressWheel mProgressWheel;
 
     @Override
     protected int getLayout() {
@@ -64,7 +71,24 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositiryDetai
         mForksTv.setText("Forks（" + mDetailBean.forksCount + "）");
         mDescriptionTv.setText(mDetailBean.description);
         mCreatetimeTv.setText("Create at " + mDetailBean.createdAt);
-        Glide.with(this).load(mDetailBean.avatarUrl).into(mAvatarUrlImg);
+        mProgressWheel.setProgress(1);
+        Glide.with(this)
+                .load(mDetailBean.avatarUrl)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        Toast.makeText(getApplicationContext(), "图片加载异常", Toast.LENGTH_SHORT).show();
+                        mProgressWheel.setProgress(0);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        mProgressWheel.setProgress(0);
+                        return false;
+                    }
+                })
+                .into(mAvatarUrlImg);
     }
 
     @Override
