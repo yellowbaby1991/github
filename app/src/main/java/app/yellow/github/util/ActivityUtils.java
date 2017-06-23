@@ -22,4 +22,9 @@ public class ActivityUtils {
         transaction.commit();
     }
 
+    public static String dealDataString(String dateString) {
+        int index = dateString.indexOf("T");
+        return dateString.substring(0, index);
+    }
+
 }

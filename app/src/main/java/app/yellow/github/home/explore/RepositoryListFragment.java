@@ -12,6 +12,7 @@ import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
 import app.yellow.github.repositorydetail.RepositroyDetailActivity;
+import app.yellow.github.util.ActivityUtils;
 
 public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
 
@@ -38,11 +39,12 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
 
     protected RepositiryDetailBean createDetailBean(RepositoryBean bean) {
         RepositiryDetailBean detailBean = new RepositiryDetailBean();
+        detailBean.name = bean.getName();
         detailBean.authority = (bean.isPrivateX() ? "Private" : "Public");
         detailBean.avatarUrl = bean.getOwner().getAvatar_url();
         detailBean.capacity = Formatter.formatFileSize(getContext(), Long.valueOf(bean.getSize()));
-        detailBean.createdAt = dealDataString(bean.getCreated_at());
-        detailBean.lastUpdated = dealDataString(bean.getUpdated_at());
+        detailBean.createdAt = ActivityUtils.dealDataString(bean.getCreated_at());
+        detailBean.lastUpdated = ActivityUtils.dealDataString(bean.getUpdated_at());
         detailBean.description = bean.getDescription();
         detailBean.forksCount = bean.getForks_count() + "";
         detailBean.stargazersCount = bean.getStargazers_count() + "";
@@ -68,13 +70,10 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
     }
 
     private String getUpdateData(RepositoryBean bean) {
-        return "Update at " + dealDataString(bean.getUpdated_at());
+        return "Update at " + ActivityUtils.dealDataString(bean.getUpdated_at());
     }
 
-    private String dealDataString(String dateString) {
-        int index = dateString.indexOf("T");
-        return dateString.substring(0, index);
-    }
+
 
     private String getStatistic(RepositoryBean bean) {
         int stargazersCount = bean.getStargazers_count();

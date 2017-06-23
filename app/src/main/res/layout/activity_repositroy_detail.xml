@@ -82,8 +82,9 @@
                             android:id="@+id/avatar_url_img"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="20dp"
                             android:gravity="center"
+                            android:layout_marginRight="10dp"
                             android:src="@color/yellow"
                             app:layout_collapseMode="parallax"/>
 

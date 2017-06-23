@@ -1,5 +1,7 @@
 package app.yellow.github.bean.home.explore;
 
-public class RepositoryResponse extends BaseResponse<RepositoryBean>{
+import app.yellow.github.base.BaseResponse;
+
+public class RepositoryResponse extends BaseResponse<RepositoryBean> {
 
 }

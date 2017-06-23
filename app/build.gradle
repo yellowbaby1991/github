@@ -68,5 +68,8 @@ dependencies {
     //闪烁的loding进度条 https://github.com/d-max/spots-dialog
     compile 'com.github.d-max:spots-dialog:0.7@aar'
 
+    //旋转的菊花圈 https://github.com/pnikosis/materialish-progress
+    compile 'com.pnikosis:materialish-progress:1.7'
+
     testCompile 'junit:junit:4.12'
 }

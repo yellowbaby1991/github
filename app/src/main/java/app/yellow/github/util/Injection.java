@@ -19,9 +19,6 @@ package app.yellow.github.util;
 //为Presenter注入数据仓库和线程切换器
 public class Injection {
 
-   /* public static DataRepository provideTasksRepository(@NonNull Context context) {
-        return TasksRepository.getInstance(FakeTasksRemoteDataSource.getInstance(),
-                TasksLocalDataSource.getInstance(context, provideSchedulerProvider()));
-    }*/
+
 
 }

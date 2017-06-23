@@ -1,5 +1,6 @@
 package app.yellow.github.home.explore;
 
+import android.content.Intent;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -8,8 +9,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.userdetail.UserDetailActivity;
 
 public class UserListFragment extends BaseListFragment<UserBean> {
+
+    public final static String USER_DETAIL = "user_detail";
 
     private UserListFragment.UserListListener mListener;
 
@@ -23,8 +28,18 @@ public class UserListFragment extends BaseListFragment<UserBean> {
     }
 
     @Override
-    protected void goToDetaiActivity(UserBean userBean) {
+    protected void goToDetaiActivity(UserBean bean) {
+        Intent intent = new Intent(getContext(), UserDetailActivity.class);
+        UserDetailBean detailBean = createDetailBean(bean);
+        intent.putExtra(USER_DETAIL, detailBean);
+        startActivity(intent);
+    }
 
+    protected UserDetailBean createDetailBean(UserBean bean) {
+        UserDetailBean detailBean = new UserDetailBean();
+        detailBean.avatarUrl = bean.getAvatar_url();
+        detailBean.name = bean.getLogin();
+        return detailBean;
     }
 
 

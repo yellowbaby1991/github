@@ -3,31 +3,20 @@ package app.yellow.github.home.explore;
 import android.support.annotation.NonNull;
 
 import app.yellow.github.base.BaseListObserver;
+import app.yellow.github.base.BasePresenterImpl;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
-import app.yellow.github.data.home.explore.ExploreDataRepository;
+import app.yellow.github.data.GithubDataRepository;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
-public class ExplorePresenter implements ExploreContract.Presenter {
+public class ExplorePresenter extends BasePresenterImpl<ExploreContract.View> implements ExploreContract.Presenter {
 
-    @NonNull
-    private final ExploreDataRepository mRepository;
+    public ExplorePresenter(@NonNull GithubDataRepository repository, @NonNull ExploreContract.View view) {
+        super(repository,view);
 
-    @NonNull
-    private final ExploreContract.View mView;
-
-    @NonNull
-    private CompositeSubscription mSubscriptions;
-
-    public ExplorePresenter(@NonNull ExploreDataRepository repository, @NonNull ExploreContract.View view) {
-        mRepository = repository;
-        mView = view;
-        mSubscriptions = new CompositeSubscription();
-        mView.setPresenter(this);
     }
 
     @Override
@@ -90,21 +79,6 @@ public class ExplorePresenter implements ExploreContract.Presenter {
         mSubscriptions.add(subscription);
     }
 
-/*    private Observable getRepositoryListByParams(SearchParams params) {
-        return mRepository
-                .getRepositoryListByParams(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }*/
 
 
-    @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-        mSubscriptions.clear();
-    }
 }

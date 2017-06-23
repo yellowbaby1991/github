@@ -1,16 +1,6 @@
 package app.yellow.github.base;
 
-import java.util.List;
-
 public interface BaseView<T> {
-
-    void setPresenter(T presenter);
-
-    void showList(List list);
-
-    void showMoreAdd(List moreData);
-
-    void showLoadMoreError();
 
     void showEmpty();
 
@@ -20,5 +10,5 @@ public interface BaseView<T> {
 
     void hideLoading();
 
-    void showLoadMoreEnd();
+    void setPresenter(T presenter);
 }

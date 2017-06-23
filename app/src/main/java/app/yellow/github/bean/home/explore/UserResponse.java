@@ -1,6 +1,8 @@
 package app.yellow.github.bean.home.explore;
 
-public class UserResponse extends BaseResponse<UserBean>{
+import app.yellow.github.base.BaseResponse;
+
+public class UserResponse extends BaseResponse<UserBean> {
 
 
 }

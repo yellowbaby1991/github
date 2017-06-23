@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import app.yellow.github.api.RepositroyService;
+import app.yellow.github.api.RepositoryService;
 import app.yellow.github.api.UserService;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -61,8 +61,8 @@ public class RetrofitUtil {
         return mInstance;
     }
 
-    public static RepositroyService getRepositroyService() {
-        return getInstance().mRetrofit.create(RepositroyService.class);
+    public static RepositoryService getRepositroyService() {
+        return getInstance().mRetrofit.create(RepositoryService.class);
     }
 
     public static UserService getUserService() {

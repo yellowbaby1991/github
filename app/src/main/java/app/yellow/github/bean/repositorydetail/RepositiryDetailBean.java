@@ -1,12 +1,10 @@
 package app.yellow.github.bean.repositorydetail;
 
-import java.io.Serializable;
+import app.yellow.github.base.BaseDetailBean;
 
-public class RepositiryDetailBean implements Serializable{
+public class RepositiryDetailBean extends BaseDetailBean {
 
     public String description;
-
-    public String avatarUrl;
 
     public String createdAt;
 

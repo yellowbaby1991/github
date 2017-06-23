@@ -7,9 +7,9 @@ import rx.Observer;
 
 public class BaseListObserver<T> implements Observer<List<T>> {
 
-    private BaseView mView;
+    private BaseListView mView;
 
-    public BaseListObserver(BaseView view) {
+    public BaseListObserver(BaseListView view) {
         mView = view;
     }
 

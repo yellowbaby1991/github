@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".repositorydetail.RepositroyDetailActivity">
         </activity>
+        <activity android:name=".userdetail.UserDetailActivity">
+        </activity>
     </application>
 
 </manifest>

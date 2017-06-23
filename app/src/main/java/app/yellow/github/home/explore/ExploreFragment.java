@@ -32,8 +32,8 @@ import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
-import app.yellow.github.data.home.explore.ExploreDataRepository;
-import app.yellow.github.data.home.explore.ExploreRemoteDataSource;
+import app.yellow.github.data.GithubDataRepository;
+import app.yellow.github.data.GithubRemoteDataSource;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -81,7 +81,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
         initView();
         initEvents();
         mPresenter = new ExplorePresenter(
-                ExploreDataRepository.getInstance(ExploreRemoteDataSource.getInstance(), null),
+                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
                 this);
 
         mRepositoryParams = new SearchParams();

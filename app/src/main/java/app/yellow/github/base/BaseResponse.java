@@ -1,4 +1,4 @@
-package app.yellow.github.bean.home.explore;
+package app.yellow.github.base;
 
 import java.util.List;
 

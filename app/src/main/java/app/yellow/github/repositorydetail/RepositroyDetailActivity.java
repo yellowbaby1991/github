@@ -1,28 +1,20 @@
 package app.yellow.github.repositorydetail;
 
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import app.yellow.github.R;
+import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
 import app.yellow.github.home.explore.RepositoryListFragment;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RepositroyDetailActivity extends AppCompatActivity {
+public class RepositroyDetailActivity extends BaseDetailActivity<RepositiryDetailBean> {
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
     @BindView(R.id.description_tv)
     TextView mDescriptionTv;
     @BindView(R.id.createtime_tv)
@@ -56,19 +48,12 @@ public class RepositroyDetailActivity extends AppCompatActivity {
     @BindView(R.id.code_tv)
     TextView mCodeTv;
 
-    private RepositiryDetailBean mDetailBean;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_repositroy_detail);
-        ButterKnife.bind(this);
-        initView();
-        initData();
+    protected int getLayout() {
+        return R.layout.activity_repositroy_detail;
     }
 
-    private void initData() {
-        mDetailBean = (RepositiryDetailBean) getIntent().getSerializableExtra(RepositoryListFragment.REPOSITORY_DETAIL);
+    protected void initData() {
         mOwnerTv.setText("Owner：" + mDetailBean.owener);
         mUpdatedTv.setText("Last Updated：" + mDetailBean.lastUpdated);
         mLanguageTv.setText("Language：" + mDetailBean.language);
@@ -83,32 +68,9 @@ public class RepositroyDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detail_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+    protected RepositiryDetailBean createDetailBean() {
+        return (RepositiryDetailBean) getIntent().getSerializableExtra(RepositoryListFragment.REPOSITORY_DETAIL);
     }
 
-    private void initView() {
-        ButterKnife.bind(this);
 
-        setSupportActionBar(mToolbar);
-
-        ActionBar actionBar = getSupportActionBar();//得到Toolbar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
-            actionBar.setTitle("RxJava");
-        }
-
-    }
-
-    //Home的展开事件
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
