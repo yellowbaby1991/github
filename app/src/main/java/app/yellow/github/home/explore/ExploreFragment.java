@@ -163,6 +163,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
         mSearchView.setHintTextColor(getResources().getColor(R.color.colorTranslucent));
         mSearchView.setTextColor(Color.WHITE);
+        mSearchView.setEllipsize(true);
         mSearchView.setBackIcon(getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha));
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -176,6 +177,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
                 return false;
             }
         });
+
+        //mSearchView.setSuggestions(new String[]{"Java","Javas","JJJ","JB"});
 
         final FloatingActionButton sortTypeAction = new FloatingActionButton(getContext());
         sortTypeAction.setTitle(mSortTypeTitle[mSortType]);
@@ -232,15 +235,19 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     }
 
     private void searchByLanguage(String title) {
-        mRepositoryParams.language = "language:" + title;
-        mRepositoryParams.key = mRepositoryParams.language;
-        mRepositoryParams.page = 1;
-        mPresenter.searchRepository(mRepositoryParams);
+        if (mViewPager.getCurrentItem() == 0){
+            mRepositoryParams.language = "language:" + title;
+            mRepositoryParams.key = mRepositoryParams.language;
+            mRepositoryParams.page = 1;
+            mPresenter.searchRepository(mRepositoryParams);
+        }
 
-        mUserParams.language = "language:" + title;
-        mUserParams.key = mRepositoryParams.language;
-        mUserParams.page = 1;
-        mPresenter.searchUser(mUserParams);
+        if (mViewPager.getCurrentItem() == 1){
+            mUserParams.language = "language:" + title;
+            mUserParams.key = mUserParams.language;
+            mUserParams.page = 1;
+            mPresenter.searchUser(mUserParams);
+        }
     }
 
     private void searchByInput(String query) {
