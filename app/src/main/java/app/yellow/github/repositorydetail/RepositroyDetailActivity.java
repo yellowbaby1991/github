@@ -3,18 +3,14 @@ package app.yellow.github.repositorydetail;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
 import app.yellow.github.home.explore.RepositoryListFragment;
+import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -71,24 +67,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositiryDetai
         mForksTv.setText("Forks（" + mDetailBean.forksCount + "）");
         mDescriptionTv.setText(mDetailBean.description);
         mCreatetimeTv.setText("Create at " + mDetailBean.createdAt);
-        mProgressWheel.setProgress(1);
-        Glide.with(this)
-                .load(mDetailBean.avatarUrl)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        Toast.makeText(getApplicationContext(), "图片加载异常", Toast.LENGTH_SHORT).show();
-                        mProgressWheel.setProgress(0);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        mProgressWheel.setProgress(0);
-                        return false;
-                    }
-                })
-                .into(mAvatarUrlImg);
+        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl,mAvatarUrlImg,mProgressWheel);
     }
 
     @Override

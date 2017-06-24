@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/g1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_explore"
+            android:icon="@drawable/ic_search_2x"
+            android:title="Explore"
+            app:showAsAction="always"/>
+        <item
+            android:id="@+id/action_events"
+            android:icon="@drawable/ic_event_2x"
+            android:title="Event"/>
+        <item
+            android:id="@+id/action_repository"
+            android:icon="@drawable/ic_repository_2x"
+            android:title="Repository"/>
+
+        <item
+            android:id="@+id/action_follow"
+            android:icon="@drawable/ic_follow_2x"
+            android:title="Follow"/>
+        <item
+            android:id="@+id/action_star"
+            android:icon="@drawable/ic_star_2x"
+            android:title="Starred"/>
+        <item
+            android:id="@+id/action_issue"
+            android:icon="@drawable/ic_issue_2x"
+            android:title="Issues"/>
+
+        <item
+            android:id="@+id/action_gists"
+            android:icon="@drawable/ic_gists_2x"
+            android:title="Gists"/>
+
+    </group>
+
+    <group
+        android:id="@+id/g2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_setting"
+            android:icon="@drawable/ic_settings_2x"
+            android:title="Setting"/>
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_about_2x"
+            android:title="About"/>
+
+    </group>
+
+
+</menu>

@@ -1,27 +1,34 @@
 package app.yellow.github.home;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.home.explore.ExploreFragment;
 import app.yellow.github.util.ActivityUtils;
+import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
     public final static String USER_DETAIL = "user_detail";
-    private UserDetailBean mBean;
 
     @BindView(R.id.nav_view)
     NavigationView mNavView;
@@ -30,29 +37,72 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
+    CircleImageView mAvatarUrlImg;
+    ProgressWheel mProgressWheel;
+    TextView mNameTv;
+    TextView mCompanyTv;
+    TextView mLocationTv;
+    TextView mBlogTv;
+    TextView mEmailTv;
+
+    private UserDetailBean mBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        initView();
         initData();
+        initView();
     }
 
     private void initData() {
-        mBean= (UserDetailBean) getIntent().getSerializableExtra(USER_DETAIL);
-        Log.d("","");
+        mBean = (UserDetailBean) getIntent().getSerializableExtra(USER_DETAIL);
     }
 
     private void initView() {
-        ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mDrawerLayout.setFitsSystemWindows(true);
+            mDrawerLayout.setClipToPadding(false);
+        }
+
+        View view = LayoutInflater.from(this).inflate(R.layout.drawer_header, null);
+        mNavView.addHeaderView(view);
+
+        mProgressWheel = (ProgressWheel) view.findViewById(R.id.progress_wheel);
+        mAvatarUrlImg = (CircleImageView) view.findViewById(R.id.avatar_url_img);
+        mNameTv = (TextView) view.findViewById(R.id.name_tv);
+        mCompanyTv = (TextView) view.findViewById(R.id.company_tv);
+        mLocationTv = (TextView) view.findViewById(R.id.location_tv);
+        mBlogTv = (TextView) view.findViewById(R.id.blog_tv);
+        mEmailTv = (TextView) view.findViewById(R.id.email_tv);
+
 
         if (mNavView != null) {
             setupDrawerContent(mNavView);
         }
 
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),new ExploreFragment(),R.id.fragment_container);
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), new ExploreFragment(), R.id.fragment_container);
+
+        GlideUtil.loadImageWithProgressWheel(mBean.avatarUrl,mAvatarUrlImg,mProgressWheel);
+        mNameTv.setText(mBean.name);
+        setText(mLocationTv, mBean.location);
+        setText(mBlogTv, mBean.blog);
+        setText(mCompanyTv, mBean.company);
+        setText(mEmailTv, mBean.email);
     }
+
+    private void setText(TextView textView, String value) {
+        if (TextUtils.isEmpty(value) || value.equals("null") || value.equals("Not set")) {
+            textView.setVisibility(View.GONE);
+        } else {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(value);
+        }
+    }
+
+    ;
 
     //Home的展开事件
     @Override

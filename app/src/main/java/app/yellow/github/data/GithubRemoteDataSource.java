@@ -100,6 +100,7 @@ public class GithubRemoteDataSource implements GithubDataSource {
 
     private UserDetailBean createUserDetailBean(UserDetailResponse bean) {
         UserDetailBean userDetailBean = new UserDetailBean();
+        userDetailBean.avatarUrl = bean.getAvatar_url();
         userDetailBean.blog = bean.getBlog();
         userDetailBean.company = bean.getCompany();
         userDetailBean.email = (bean.getEmail() == null ? "Not set" : bean.getEmail().toString());
@@ -108,7 +109,7 @@ public class GithubRemoteDataSource implements GithubDataSource {
         userDetailBean.gistsCount = bean.getPublic_gists() + "";
         userDetailBean.jointime = bean.getCreated_at();
         userDetailBean.location = bean.getLocation();
-        userDetailBean.name = bean.getName();
+        userDetailBean.name = bean.getLogin();
         userDetailBean.repositorysCount = bean.getPublic_repos() + "";
         return userDetailBean;
     }

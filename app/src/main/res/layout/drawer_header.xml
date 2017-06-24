@@ -1,8 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorPrimary"
               android:orientation="vertical">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        app:cardBackgroundColor="#303030"
+        app:cardCornerRadius="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.pnikosis.materialishprogress.ProgressWheel
+                android:id="@+id/progress_wheel"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                app:matProg_barColor="@color/yellow"
+                app:matProg_barWidth="3dp"
+                app:matProg_circleRadius="48dp"
+                app:matProg_progressIndeterminate="true"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar_url_img"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:src="@color/yellow"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/avatar_url_img"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name_tv"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="Jake Wharton"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/company_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_business_white_18dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="start|center_vertical"
+                        android:singleLine="true"
+                        android:text="11"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:id="@+id/location_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_place_white_18dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="start|center_vertical"
+                        android:singleLine="true"
+                        android:text="11111"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"/>
+
+
+                    <TextView
+                        android:id="@+id/blog_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_rss_feed_white_18dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="start|center_vertical"
+                        android:singleLine="true"
+                        android:text="1111"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/email_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_email_white_18dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="start|center_vertical"
+                        android:singleLine="true"
+                        android:text="1111"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

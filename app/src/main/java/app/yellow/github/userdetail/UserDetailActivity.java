@@ -4,7 +4,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
@@ -14,6 +13,7 @@ import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.home.explore.UserListFragment;
 import app.yellow.github.util.ActivityUtils;
+import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -67,7 +67,7 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
         mPresenter.loadUserByName(mDetailBean.name);
 
-        Glide.with(this).load(mDetailBean.avatarUrl).into(mAvatarUrlImg);
+        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl,mAvatarUrlImg,mProgressWheel);
         mNameTv.setText(mDetailBean.name);
     }
 
