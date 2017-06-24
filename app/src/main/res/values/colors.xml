@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#00BCD4</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FFC107</color>
+    <color name="colorAccent">#00BCD4</color>
 
-    <color name="colorIndicatorColor">#FFC107</color>
+    <color name="colorIndicatorColor">#00BCD4</color>
     <color name="colorTranslucent">#80FFFFFF</color>
 
     <color name="black_semi_transparent">#B2000000</color>

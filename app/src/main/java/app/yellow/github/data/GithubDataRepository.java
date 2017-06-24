@@ -47,4 +47,9 @@ public class GithubDataRepository implements GithubDataSource {
         return mRemoteDataSource
                 .getUserByName(name);
     }
+
+    @Override
+    public Observable login(String username, String password) {
+        return null;
+    }
 }

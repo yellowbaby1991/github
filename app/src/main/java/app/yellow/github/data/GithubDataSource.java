@@ -11,4 +11,7 @@ public interface GithubDataSource {
     Observable getUserListByParams(SearchParams params);
 
     Observable getUserByName(String name);
+
+    Observable login(String username, String password);
+
 }

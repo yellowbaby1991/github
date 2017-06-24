@@ -73,4 +73,9 @@ public class GithubRemoteDataSource implements GithubDataSource {
                 });
     }
 
+    @Override
+    public Observable login(String username, String password) {
+        return null;
+    }
+
 }

@@ -61,10 +61,9 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
     @Override
     protected void initData() {
-
-        mPresenter = new UserDetailPresenter(
+        setPresenter(new UserDetailPresenter(
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
-                this);
+                this));
 
         mPresenter.loadUserByName(mDetailBean.name);
 
@@ -112,7 +111,7 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
     @Override
     public void setPresenter(UserDetailContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 
 }
