@@ -8,10 +8,20 @@ public class LoginContract {
 
     interface View extends BaseView<Presenter> {
         void goToHome(UserDetailBean bean);
+
+        void showLoginUi();
+
+        void showLodingUi();
     }
 
     interface Presenter extends BasePresenter {
+
         void login(String username, String password);
+
+        void loginWithAuth(String baseAuth);
+
+        void checkToken();
+
     }
 
 }

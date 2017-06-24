@@ -15,7 +15,7 @@ public class BaseListObserver<T> implements Observer<List<T>> {
 
     @Override
     public void onCompleted() {
-        mView.hideLoading();
+
     }
 
     @Override
@@ -42,6 +42,7 @@ public class BaseListObserver<T> implements Observer<List<T>> {
                 mView.showMoreAdd(list);
             } else {
                 mView.showList(list);
+                mView.hideLoading();
             }
         }
     }

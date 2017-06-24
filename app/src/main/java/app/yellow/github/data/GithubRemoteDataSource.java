@@ -70,9 +70,11 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
-    public Observable login(String username, String password) {
+    public Observable loginWithAuth(String basicAuth) {
 
-        final AuthService authService = RetrofitUtil.getAutoService(username, password);
+        SPUtils.putString(UIUtils.getContext(), Constants.SP_BASEAUTH, basicAuth);
+
+        final AuthService authService = RetrofitUtil.getAutoService(basicAuth);
 
         CreateAuthorization createAuthorization = new CreateAuthorization();
         createAuthorization.note = GithubConfig.NOTE;

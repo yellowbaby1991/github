@@ -46,6 +46,7 @@ public class BasePresenterImpl<T extends BaseView> implements BasePresenter {
 
     @Override
     public void unsubscribe() {
+        mView.hideLoading();
         mSubscriptions.clear();
     }
 }

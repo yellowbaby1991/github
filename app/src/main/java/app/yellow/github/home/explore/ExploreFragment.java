@@ -88,13 +88,9 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
         mRepositoryParams.type = "repositories";
         mPresenter.searchRepository(mRepositoryParams);
 
-        mUserParams = new SearchParams();
-        mUserParams.page = 1;
-        mUserParams.language = "language:java";
-        mUserParams.key = mUserParams.language;
-        mUserParams.type = "users";
-        mPresenter.searchUser(mUserParams);
     }
+
+
 
     private void initEvents() {
         mErrorTv.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +133,29 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
         mPageAdapter = new ExploreFragmentPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(mUserParams == null){
+                    mUserParams = new SearchParams();
+                    mUserParams.page = 1;
+                    mUserParams.language = "language:java";
+                    mUserParams.key = mUserParams.language;
+                    mUserParams.type = "users";
+                    mPresenter.searchUser(mUserParams);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         mTabs.setupWithViewPager(mViewPager);
         mTabs.setTabTextColors(getResources().getColor(R.color.colorTranslucent), Color.WHITE);
         mTabs.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorIndicatorColor));
@@ -335,7 +354,8 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     @Override
     public void hideLoading() {
         mLodingDialog.dismiss();
-        //mProgressBar.setVisibility(View.GONE);
+        BaseListFragment fragment = mFragments[mViewPager.getCurrentItem()];
+        fragment.hideLoadMore();
     }
 
 

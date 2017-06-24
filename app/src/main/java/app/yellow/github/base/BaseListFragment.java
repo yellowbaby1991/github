@@ -79,6 +79,15 @@ public abstract class BaseListFragment<T> extends Fragment {
         mAdapter.loadMoreComplete();
     }
 
+    public void hideLoadMore(){
+        mlistRv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.loadMoreComplete();
+            }
+        }, 0);
+    }
+
     public void showLoadMoreError() {
         mlistRv.postDelayed(new Runnable() {
             @Override

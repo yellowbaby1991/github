@@ -49,7 +49,7 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
-    public Observable login(String username, String password) {
-        return mRemoteDataSource.login(username,password);
+    public Observable loginWithAuth(String baseAuth) {
+        return mRemoteDataSource.loginWithAuth(baseAuth);
     }
 }

@@ -17,8 +17,8 @@ public class RetrofitUtil {
         return GithubRetrofit.getInstance().get().create(UserService.class);
     }
 
-    public static AuthService getAutoService(String username, String password) {
-        return GithubAuthRetrofit.getInstance(username, password).get().create(AuthService.class);
+    public static AuthService getAutoService(String basicAuth) {
+        return GithubAuthRetrofit.getInstance(basicAuth).get().create(AuthService.class);
     }
 
 

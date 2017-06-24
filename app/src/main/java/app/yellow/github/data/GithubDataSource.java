@@ -12,6 +12,6 @@ public interface GithubDataSource {
 
     Observable getUserByName(String name);
 
-    Observable login(String username, String password);
+    Observable loginWithAuth(String baseAuth);
 
 }

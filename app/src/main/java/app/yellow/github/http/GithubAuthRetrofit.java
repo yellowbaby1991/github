@@ -1,76 +1,25 @@
 package app.yellow.github.http;
 
-import android.text.TextUtils;
-import android.util.Base64;
-
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 public class GithubAuthRetrofit extends BaseRetrofit {
 
     protected static GithubAuthRetrofit INSTANCE = null;
 
-    public static GithubAuthRetrofit getInstance(String username, String password) {
+    private String mBasicAuth;
+
+    public static GithubAuthRetrofit getInstance(String basicAuth) {
         if (INSTANCE == null) {
-            INSTANCE = new GithubAuthRetrofit(username, password);
+            INSTANCE = new GithubAuthRetrofit(basicAuth);
         }
         return INSTANCE;
     }
 
-    private GithubAuthRetrofit(String username, String password) {
-        this.username = username;
-        this.password = password;
+    private GithubAuthRetrofit(String basicAuth) {
+        mBasicAuth = basicAuth;
     }
-
-    private String username;
-    private String password;
 
     @Override
-    public OkHttpClient getHttpClient() {
-        return new AuthHttpClient(username, password).get();
+    protected String createHeaderValue() {
+        return mBasicAuth.trim();
     }
 
-    private class AuthHttpClient extends BaseOkHttpClient {
-
-        private String username;
-        private String password;
-
-        public AuthHttpClient(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        @Override
-        public OkHttpClient.Builder customize(OkHttpClient.Builder builder) {
-
-            if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
-                builder.addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-
-                        // https://developer.github.com/v3/auth/#basic-authentication
-                        // https://developer.github.com/v3/oauth/#non-web-application-flow
-                        String userCredentials = username + ":" + password;
-
-                        String basicAuth =
-                                "Basic " + new String(Base64.encode(userCredentials.getBytes(), Base64.DEFAULT));
-
-                        Request original = chain.request();
-
-                        Request.Builder requestBuilder = original.newBuilder()
-                                .header("Authorization", basicAuth.trim());
-
-                        Request request = requestBuilder.build();
-                        return chain.proceed(request);
-                    }
-                });
-            }
-
-            return builder;
-        }
-    }
 }
