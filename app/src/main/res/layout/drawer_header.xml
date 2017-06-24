@@ -11,9 +11,10 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
+        app:cardElevation="10dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
-        app:cardBackgroundColor="#303030"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="#a9a9a9"
         app:cardCornerRadius="20dp">
 
         <RelativeLayout
@@ -25,7 +26,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:matProg_barColor="@color/yellow"
                 app:matProg_barWidth="3dp"
                 app:matProg_circleRadius="48dp"
@@ -36,9 +37,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:src="@color/yellow"
-                app:civ_border_color="@color/white"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/icon_login"
                 app:civ_border_width="2dp"/>
 
             <LinearLayout
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
                     <TextView
