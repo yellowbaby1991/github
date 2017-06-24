@@ -12,13 +12,22 @@ import okhttp3.Response;
 
 public class GithubAuthRetrofit extends BaseRetrofit {
 
-    private String username;
-    private String password;
+    protected static GithubAuthRetrofit INSTANCE = null;
 
-    public void setAuthInfo(String username, String password) {
+    public static GithubAuthRetrofit getInstance(String username, String password) {
+        if (INSTANCE == null) {
+            INSTANCE = new GithubAuthRetrofit(username, password);
+        }
+        return INSTANCE;
+    }
+
+    private GithubAuthRetrofit(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
+    private String username;
+    private String password;
 
     @Override
     public OkHttpClient getHttpClient() {

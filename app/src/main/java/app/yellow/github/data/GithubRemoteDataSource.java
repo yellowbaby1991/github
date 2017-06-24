@@ -2,12 +2,19 @@ package app.yellow.github.data;
 
 import java.util.List;
 
+import app.yellow.github.api.AuthService;
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
+import app.yellow.github.bean.login.AuthorizationResponse;
+import app.yellow.github.bean.login.CreateAuthorization;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.bean.userdetail.UserDetailResponse;
+import app.yellow.github.config.GithubConfig;
+import app.yellow.github.util.Constants;
 import app.yellow.github.util.RetrofitUtil;
+import app.yellow.github.util.SPUtils;
+import app.yellow.github.util.UIUtils;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -55,19 +62,8 @@ public class GithubRemoteDataSource implements GithubDataSource {
                 .getUserByName(name)
                 .flatMap(new Func1<UserDetailResponse, Observable<UserDetailBean>>() {
                     @Override
-                    public Observable<UserDetailBean> call(UserDetailResponse bean) {
-                        UserDetailBean userDetailBean = new UserDetailBean();
-                        userDetailBean.blog = bean.getBlog();
-                        userDetailBean.company = bean.getCompany();
-                        userDetailBean.email = (bean.getEmail() == null ? "Not set" : bean.getEmail().toString());
-                        userDetailBean.followersCount = bean.getFollowers() + "";
-                        userDetailBean.followingCount = bean.getFollowing() + "";
-                        userDetailBean.gistsCount = bean.getPublic_gists() + "";
-                        userDetailBean.jointime = bean.getCreated_at();
-                        userDetailBean.location = bean.getLocation();
-                        userDetailBean.name = bean.getName();
-                        userDetailBean.repositorysCount = bean.getPublic_repos() + "";
-                        return Observable.just(userDetailBean);
+                    public Observable<UserDetailBean> call(UserDetailResponse response) {
+                        return Observable.just(createUserDetailBean(response));
                     }
 
                 });
@@ -75,7 +71,46 @@ public class GithubRemoteDataSource implements GithubDataSource {
 
     @Override
     public Observable login(String username, String password) {
-        return null;
+
+        final AuthService authService = RetrofitUtil.getAutoService(username, password);
+
+        CreateAuthorization createAuthorization = new CreateAuthorization();
+        createAuthorization.note = GithubConfig.NOTE;
+        createAuthorization.client_id = GithubConfig.CLIENT_ID;
+        createAuthorization.client_secret = GithubConfig.CLIENT_SECRET;
+        createAuthorization.scopes = GithubConfig.SCOPES;
+
+        return authService
+                .createAuthorization(createAuthorization)
+                .flatMap(new Func1<AuthorizationResponse, Observable<UserDetailResponse>>() {
+                    @Override
+                    public Observable<UserDetailResponse> call(AuthorizationResponse authorizationResponse) {
+                        String token = authorizationResponse.getToken();
+                        SPUtils.putString(UIUtils.getContext(), Constants.SP_TOKEN, token);
+                        return authService.getUserInfo(token);
+                    }
+                })
+                .flatMap(new Func1<UserDetailResponse, Observable<UserDetailBean>>() {
+                    @Override
+                    public Observable<UserDetailBean> call(UserDetailResponse response) {
+                        return Observable.just(createUserDetailBean(response));
+                    }
+                });
+    }
+
+    private UserDetailBean createUserDetailBean(UserDetailResponse bean) {
+        UserDetailBean userDetailBean = new UserDetailBean();
+        userDetailBean.blog = bean.getBlog();
+        userDetailBean.company = bean.getCompany();
+        userDetailBean.email = (bean.getEmail() == null ? "Not set" : bean.getEmail().toString());
+        userDetailBean.followersCount = bean.getFollowers() + "";
+        userDetailBean.followingCount = bean.getFollowing() + "";
+        userDetailBean.gistsCount = bean.getPublic_gists() + "";
+        userDetailBean.jointime = bean.getCreated_at();
+        userDetailBean.location = bean.getLocation();
+        userDetailBean.name = bean.getName();
+        userDetailBean.repositorysCount = bean.getPublic_repos() + "";
+        return userDetailBean;
     }
 
 }

@@ -9,13 +9,7 @@
     tools:context="app.yellow.test.MainActivity">
 
 
-    <com.pnikosis.materialishprogress.ProgressWheel
-        android:id="@+id/progress_wheel"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        wheel:matProg_barColor="#5588FF"
-        wheel:matProg_fillRadius="true"
-        wheel:matProg_progressIndeterminate="true"/>
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
 </RelativeLayout>

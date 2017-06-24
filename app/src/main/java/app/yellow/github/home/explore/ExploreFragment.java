@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -52,8 +51,6 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     @BindView(R.id.tabs)
     TabLayout mTabs;
     Unbinder unbinder;
-    @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
     @BindView(R.id.empty_tv)
     TextView mEmptyTv;
     @BindView(R.id.error_tv)

@@ -50,6 +50,6 @@ public class GithubDataRepository implements GithubDataSource {
 
     @Override
     public Observable login(String username, String password) {
-        return null;
+        return mRemoteDataSource.login(username,password);
     }
 }

@@ -7,10 +7,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import app.yellow.github.R;
+import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.home.explore.ExploreFragment;
 import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
@@ -18,6 +20,8 @@ import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity {
 
+    public final static String USER_DETAIL = "user_detail";
+    private UserDetailBean mBean;
 
     @BindView(R.id.nav_view)
     NavigationView mNavView;
@@ -32,6 +36,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         initView();
+        initData();
+    }
+
+    private void initData() {
+        mBean= (UserDetailBean) getIntent().getSerializableExtra(USER_DETAIL);
+        Log.d("","");
     }
 
     private void initView() {
