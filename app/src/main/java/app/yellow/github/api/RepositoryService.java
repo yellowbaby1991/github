@@ -22,11 +22,16 @@ public interface RepositoryService {
 
     @Headers("Cache-Control: public, max-age=180")
     @GET("/users/{username}/repos")
-    Observable<List<RepositoryBean>> getRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
-                                                       @Query("per_page") int pageSize);
+    Observable<List<RepositoryBean>> getPublicRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
+                                                             @Query("per_page") int pageSize);
 
     @Headers("Cache-Control: public, max-age=180")
     @GET("/users/{username}/starred")
     Observable<List<RepositoryBean>> getStaredRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
                                                        @Query("per_page") int pageSize);
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("/user/repos")
+    Observable<List<RepositoryBean>> getUserAllRepositoryList(@Query("page") int pageIndex,
+                                                             @Query("per_page") int pageSize);
 }

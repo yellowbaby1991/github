@@ -14,6 +14,7 @@ import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.home.explore.UserListFragment;
+import app.yellow.github.home.repository.RepositoryFragment;
 import app.yellow.github.repositorylist.RepositoryListActivity;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
@@ -82,14 +83,14 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
     public void showRepositoryList(View view) {
         Intent intent = new Intent(this, RepositoryListActivity.class);
         intent.putExtra(USER_NAME, mDetailBean.name);
-        intent.putExtra(REP_TYPE, RepositoryListActivity.SEACH_ALL_REP);
+        intent.putExtra(REP_TYPE, RepositoryFragment.SEACH_PUBLIC_REP);
         startActivity(intent);
     }
 
     public void showStarredRepositoryList(View view) {
         Intent intent = new Intent(this, RepositoryListActivity.class);
         intent.putExtra(USER_NAME, mDetailBean.name);
-        intent.putExtra(REP_TYPE, RepositoryListActivity.SEACH_STARRED);
+        intent.putExtra(REP_TYPE, RepositoryFragment.SEACH_STARRED);
         startActivity(intent);
     }
 

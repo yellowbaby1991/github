@@ -22,6 +22,14 @@ public class ActivityUtils {
         transaction.commit();
     }
 
+    public static void replaceFragmentToActivity (@NonNull FragmentManager fragmentManager,
+                                              @NonNull Fragment fragment, int frameId) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(frameId, fragment);
+        transaction.commit();
+    }
+
+
     public static String dealDataString(String dateString) {
         int index = dateString.indexOf("T");
         return dateString.substring(0, index);

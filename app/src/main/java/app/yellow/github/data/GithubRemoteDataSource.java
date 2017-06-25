@@ -12,7 +12,7 @@ import app.yellow.github.bean.login.CreateAuthorization;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.bean.userdetail.UserDetailResponse;
 import app.yellow.github.config.GithubConfig;
-import app.yellow.github.repositorylist.RepositoryListActivity;
+import app.yellow.github.home.repository.RepositoryFragment;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.RetrofitUtil;
 import app.yellow.github.util.SPUtils;
@@ -49,10 +49,12 @@ public class GithubRemoteDataSource implements GithubDataSource {
         RepositoryService service = RetrofitUtil
                 .getRepositroyService();
         switch (seachType) {
-            case RepositoryListActivity.SEACH_ALL_REP:
-                return service.getRepositoryList(username, page, Constants.PER_PAGE);
-            case RepositoryListActivity.SEACH_STARRED:
+            case RepositoryFragment.SEACH_PUBLIC_REP:
+                return service.getPublicRepositoryList(username, page, Constants.PER_PAGE);
+            case RepositoryFragment.SEACH_STARRED:
                 return service.getStaredRepositoryList(username, page, Constants.PER_PAGE);
+            case RepositoryFragment.SEACH_ALL_REP:
+                return service.getUserAllRepositoryList(page, Constants.PER_PAGE);
         }
         return null;
     }

@@ -1,4 +1,4 @@
-package app.yellow.github.repositorylist;
+package app.yellow.github.home.repository;
 
 import android.support.annotation.NonNull;
 
@@ -10,9 +10,9 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class RepositoryListPresenter extends BasePresenterImpl<RepositoryListContract.View> implements RepositoryListContract.Presenter {
+public class RepositoryPresenter extends BasePresenterImpl<RepositorContract.View> implements RepositorContract.Presenter {
 
-    public RepositoryListPresenter(@NonNull GithubDataRepository repository, RepositoryListContract.View view) {
+    public RepositoryPresenter(@NonNull GithubDataRepository repository, RepositorContract.View view) {
         super(repository, view);
     }
 

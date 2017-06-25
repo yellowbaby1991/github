@@ -20,6 +20,7 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.home.explore.ExploreFragment;
+import app.yellow.github.home.repository.RepositoryFragment;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
@@ -85,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), new ExploreFragment(), R.id.fragment_container);
 
-        GlideUtil.loadImageWithProgressWheel(mBean.avatarUrl,mAvatarUrlImg,mProgressWheel);
+        GlideUtil.loadImageWithProgressWheel(mBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
         mNameTv.setText(mBean.name);
         setText(mLocationTv, mBean.location);
         setText(mBlogTv, mBean.blog);
@@ -102,7 +103,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    ;
 
     //Home的展开事件
     @Override
@@ -112,20 +112,33 @@ public class HomeActivity extends AppCompatActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 
     //菜单的点击事件
     private void setupDrawerContent(NavigationView navigationView) {
-        mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
                 switch (item.getItemId()) {
-
+                    case R.id.action_repository:
+                        RepositoryFragment repositoryFragment = new RepositoryFragment();
+                        repositoryFragment.setUsername(mBean.name);
+                        repositoryFragment.setSerchType(RepositoryFragment.SEACH_ALL_REP);
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new RepositoryFragment(), R.id.fragment_container);
+                        mDrawerLayout.closeDrawer(mNavView);
+                        break;
+                    case R.id.action_explore:
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new ExploreFragment(), R.id.fragment_container);
+                        mDrawerLayout.closeDrawer(mNavView);
+                        break;
                 }
-                return false;
+                return true;
             }
         });
     }
+
+
 }

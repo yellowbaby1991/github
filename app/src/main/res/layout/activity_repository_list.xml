@@ -5,73 +5,13 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <!--用来实现沉浸式状态栏，将CoordinatorLayout顶下来-->
-    <View
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/colorPrimary"></View>
+        android:layout_height="match_parent"
+        android:background="#EEEEEE">
+    </FrameLayout>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="10dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginBottom="15dp"
-                app:expandedTitleMarginStart="15dp"
-                app:layout_scrollFlags="scroll">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="parallax"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="60dp"
-                    android:background="@color/colorPrimary"
-                    app:layout_collapseMode="parallax"></View>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#EEEEEE"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </FrameLayout>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/backtotp_fa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="50dp"
-            android:layout_marginRight="20dp"
-            app:fab_colorNormal="@color/yellow"
-            app:fab_colorPressed="@color/white_pressed"
-            app:fab_icon="@drawable/ic_arrow_upward_white"/>
-
-
-    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>
 
