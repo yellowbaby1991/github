@@ -33,6 +33,7 @@ import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.repositorylist.RepositoryListFragment;
+import app.yellow.github.userlist.UserListFragment;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
@@ -75,6 +76,7 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initEvents();
+        initView();
         mPresenter = new ExplorePresenter(
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
                 this);
@@ -85,6 +87,7 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
         mRepositoryParams.key = mRepositoryParams.language;
         mRepositoryParams.type = "repositories";
         mPresenter.searchRepository(mRepositoryParams);
+
 
     }
 

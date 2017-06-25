@@ -3,7 +3,7 @@ package app.yellow.github.home.repository;
 import app.yellow.github.base.BaseListView;
 import app.yellow.github.base.BasePresenter;
 
-public class RepositorContract {
+public class RepositoryContract {
 
     interface View extends BaseListView<Presenter> {
 

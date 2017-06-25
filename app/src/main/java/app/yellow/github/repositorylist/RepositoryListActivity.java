@@ -25,7 +25,7 @@ public class RepositoryListActivity extends AppCompatActivity {
         RepositoryFragment repositoryFragment = new RepositoryFragment();
         repositoryFragment.setUsername(mUsername);
         repositoryFragment.setSerchType(mSearchType);
-        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new RepositoryFragment(), R.id.fragment_container);
+        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), repositoryFragment, R.id.fragment_container);
 
     }
 

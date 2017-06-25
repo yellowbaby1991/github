@@ -23,14 +23,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment{
         setHasOptionsMenu(true);
         View root = inflater.inflate(getLayout(), container, false);
         unbinder = ButterKnife.bind(this, root);
-        initView();
         return root;
     }
 
     protected abstract int getLayout();
-
-    protected void initView() {
-    }
 
 
     public void setPresenter(T presenter) {

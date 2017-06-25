@@ -1,4 +1,4 @@
-package app.yellow.github.home.explore;
+package app.yellow.github.userlist;
 
 import android.content.Intent;
 import android.widget.ImageView;

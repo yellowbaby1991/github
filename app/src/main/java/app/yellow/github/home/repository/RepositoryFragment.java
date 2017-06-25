@@ -55,6 +55,7 @@ public class RepositoryFragment extends BaseFragment<RepositorContract.Presenter
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initView();
         setPresenter(new RepositoryPresenter(
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
                 this));
@@ -79,11 +80,11 @@ public class RepositoryFragment extends BaseFragment<RepositorContract.Presenter
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
             if (mSeachType.equals(SEACH_PUBLIC_REP)) {
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
                 actionBar.setTitle(mUsername);
             }
             if (mSeachType.equals(SEACH_STARRED)) {
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back);
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
                 actionBar.setTitle("STARRED");
             }
             if (mSeachType.equals(SEACH_ALL_REP)) {

@@ -13,7 +13,7 @@ import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.home.explore.UserListFragment;
+import app.yellow.github.userlist.UserListFragment;
 import app.yellow.github.home.repository.RepositoryFragment;
 import app.yellow.github.repositorylist.RepositoryListActivity;
 import app.yellow.github.util.ActivityUtils;
