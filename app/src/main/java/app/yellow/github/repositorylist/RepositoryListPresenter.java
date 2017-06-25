@@ -17,12 +17,12 @@ public class RepositoryListPresenter extends BasePresenterImpl<RepositoryListCon
     }
 
     @Override
-    public void searchUserRepository(String username) {
+    public void searchUserRepository(String username, String seachType) {
 
         mView.showLoading();
 
         Subscription subscription = mRepository
-                .getUsersRepositoryList(username, 1)
+                .getUsersRepositoryList(username, 1, seachType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseListObserver<RepositoryBean>(mView));
@@ -32,10 +32,10 @@ public class RepositoryListPresenter extends BasePresenterImpl<RepositoryListCon
     }
 
     @Override
-    public void loadMoreRepository(String username, int nextPage) {
+    public void loadMoreRepository(String username, int nextPage, String seachType) {
 
         Subscription subscription = mRepository
-                .getUsersRepositoryList(username, 1)
+                .getUsersRepositoryList(username, 1, seachType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseListObserver<RepositoryBean>(mView) {

@@ -1,4 +1,4 @@
-package app.yellow.github.home.explore;
+package app.yellow.github.repositorylist;
 
 import android.content.Intent;
 import android.text.format.Formatter;

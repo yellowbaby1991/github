@@ -22,6 +22,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> implements UserDetailContract.View {
 
+    public static final String USER_NAME = "user_name";
+
+    public static final String REP_TYPE = "rep_type";
+
     @BindView(R.id.avatar_url_img)
     CircleImageView mAvatarUrlImg;
     @BindView(R.id.jointime_tv)
@@ -77,6 +81,15 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
     public void showRepositoryList(View view) {
         Intent intent = new Intent(this, RepositoryListActivity.class);
+        intent.putExtra(USER_NAME, mDetailBean.name);
+        intent.putExtra(REP_TYPE, RepositoryListActivity.SEACH_ALL_REP);
+        startActivity(intent);
+    }
+
+    public void showStarredRepositoryList(View view) {
+        Intent intent = new Intent(this, RepositoryListActivity.class);
+        intent.putExtra(USER_NAME, mDetailBean.name);
+        intent.putExtra(REP_TYPE, RepositoryListActivity.SEACH_STARRED);
         startActivity(intent);
     }
 

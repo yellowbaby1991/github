@@ -59,8 +59,8 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:src="@color/black"
-                        app:civ_border_width="2dp"
                         app:civ_border_color="@color/white"
+                        app:civ_border_width="2dp"
                         app:layout_collapseMode="parallax"/>
 
 
@@ -76,7 +76,6 @@
                         android:visibility="gone"/>
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:id="@+id/jointime_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,6 +83,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
                         android:text="Join：2009-03-24"
                         android:textSize="16dp"
                         app:layout_collapseMode="parallax"/>
@@ -394,6 +394,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showStarredRepositoryList"
                                 android:text="Starred"
                                 android:textColor="@color/black"/>
 
@@ -499,11 +500,11 @@
                             android:background="@color/white">
 
                             <TextView
-                                android:onClick="showRepositoryList"
                                 android:id="@+id/repositorys_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showRepositoryList"
                                 android:text="Repositorys（95）"
                                 android:textColor="@color/black"/>
 

@@ -3,6 +3,7 @@ package app.yellow.github.data;
 import java.util.List;
 
 import app.yellow.github.api.AuthService;
+import app.yellow.github.api.RepositoryService;
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
@@ -11,6 +12,7 @@ import app.yellow.github.bean.login.CreateAuthorization;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.bean.userdetail.UserDetailResponse;
 import app.yellow.github.config.GithubConfig;
+import app.yellow.github.repositorylist.RepositoryListActivity;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.RetrofitUtil;
 import app.yellow.github.util.SPUtils;
@@ -43,10 +45,16 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
-    public Observable getUsersRepositoryList(String username, int page) {
-        return RetrofitUtil
-                .getRepositroyService()
-                .getRepositoryList(username, page, Constants.PER_PAGE);
+    public Observable getUsersRepositoryList(String username, int page, String seachType) {
+        RepositoryService service = RetrofitUtil
+                .getRepositroyService();
+        switch (seachType) {
+            case RepositoryListActivity.SEACH_ALL_REP:
+                return service.getRepositoryList(username, page, Constants.PER_PAGE);
+            case RepositoryListActivity.SEACH_STARRED:
+                return service.getStaredRepositoryList(username, page, Constants.PER_PAGE);
+        }
+        return null;
     }
 
     @Override

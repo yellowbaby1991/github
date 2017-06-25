@@ -12,9 +12,9 @@ public class RepositoryListContract {
 
     interface Presenter extends BasePresenter {
 
-        void searchUserRepository(String username);
+        void searchUserRepository(String username, String seachType);
 
-        void loadMoreRepository(String username, int nextPage);
+        void loadMoreRepository(String username, int nextPage, String seachType);
 
     }
 

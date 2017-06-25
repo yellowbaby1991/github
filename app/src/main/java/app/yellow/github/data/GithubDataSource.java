@@ -8,7 +8,7 @@ public interface GithubDataSource {
 
     Observable getRepositoryListByParams(SearchParams params);
 
-    Observable getUsersRepositoryList(String username, int page);
+    Observable getUsersRepositoryList(String username, int page, String seachType);
 
     Observable getUserListByParams(SearchParams params);
 

@@ -9,7 +9,7 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
-import app.yellow.github.home.explore.RepositoryListFragment;
+import app.yellow.github.repositorylist.RepositoryListFragment;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;

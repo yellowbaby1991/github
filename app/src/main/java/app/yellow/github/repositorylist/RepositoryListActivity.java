@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -17,7 +18,7 @@ import java.util.List;
 import app.yellow.github.R;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.home.explore.RepositoryListFragment;
+import app.yellow.github.userdetail.UserDetailActivity;
 import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +41,14 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
 
     private SpotsDialog mLodingDialog;
 
+    private String mUsername;
+
+    private String mSeachType = "all_rep";
+
+    public static final String SEACH_ALL_REP = "all_rep";
+
+    public static final String SEACH_STARRED = "starred";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +60,14 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
                 this));
 
-        mPresenter.searchUserRepository("JakeWharton");
-
+        mPresenter.searchUserRepository(mUsername, mSeachType);
 
     }
 
     private void initView() {
+
+        mUsername = getIntent().getStringExtra(UserDetailActivity.USER_NAME);
+        mSeachType = getIntent().getStringExtra(UserDetailActivity.REP_TYPE);
 
         mLodingDialog = new SpotsDialog(this);
 
@@ -68,7 +79,7 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
         ActionBar actionBar = getSupportActionBar();//得到Toolbar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
-            actionBar.setTitle("JakeWharton");
+            actionBar.setTitle(mUsername);
         }
 
         mBackToTopButon.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +144,17 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
 
     @Override
     public void loadMoreRepository(int nextPage) {
-        mPresenter.loadMoreRepository("JakeWharton", nextPage);
+        mPresenter.loadMoreRepository("JakeWharton", nextPage, mSeachType);
+    }
+
+    //Home的展开事件
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
