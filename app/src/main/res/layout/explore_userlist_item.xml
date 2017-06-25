@@ -24,7 +24,7 @@
                 android:id="@+id/avatar_url_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@color/colorPrimary"/>
+                android:src="@mipmap/icon_login"/>
 
         </LinearLayout>
 

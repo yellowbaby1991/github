@@ -11,6 +11,8 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.core.followlist.FollowListActivity;
+import app.yellow.github.core.home.follow.FollowFragment;
 import app.yellow.github.core.home.repository.RepositoryFragment;
 import app.yellow.github.core.repositorylist.RepositoryListActivity;
 import app.yellow.github.core.userlist.UserListFragment;
@@ -26,6 +28,8 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
     public static final String USER_NAME = "user_name";
 
     public static final String REP_TYPE = "rep_type";
+
+    public static final String FOLLOW_TYPE = "follow_type";
 
     @BindView(R.id.avatar_url_img)
     CircleImageView mAvatarUrlImg;
@@ -93,6 +97,21 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
         intent.putExtra(REP_TYPE, RepositoryFragment.SEACH_STARRED);
         startActivity(intent);
     }
+
+    public void showFollowingList(View view){
+        Intent intent = new Intent(this, FollowListActivity.class);
+        intent.putExtra(USER_NAME, mDetailBean.name);
+        intent.putExtra(FOLLOW_TYPE, FollowFragment.FOLLOWING);
+        startActivity(intent);
+    }
+
+    public void showFollowerList(View view){
+        Intent intent = new Intent(this, FollowListActivity.class);
+        intent.putExtra(USER_NAME, mDetailBean.name);
+        intent.putExtra(FOLLOW_TYPE, FollowFragment.FOLLOWER);
+        startActivity(intent);
+    }
+
 
     @Override
     protected UserDetailBean createDetailBean() {

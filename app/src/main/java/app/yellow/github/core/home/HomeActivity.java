@@ -128,6 +128,7 @@ public class HomeActivity extends AppCompatActivity {
                         RepositoryFragment repositoryFragment = new RepositoryFragment();
                         repositoryFragment.setUsername(mBean.name);
                         repositoryFragment.setSerchType(RepositoryFragment.SEACH_ALL_REP);
+                        repositoryFragment.setIsShowHome(true);
                         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new RepositoryFragment(), R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
@@ -136,7 +137,18 @@ public class HomeActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                     case R.id.action_follow:
-                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new FollowFragment(), R.id.fragment_container);
+                        FollowFragment followFragment = new FollowFragment();
+                        followFragment.setUsername(mBean.name);
+                        followFragment.setSerchType(FollowFragment.FOLLOWER);
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(),followFragment , R.id.fragment_container);
+                        mDrawerLayout.closeDrawer(mNavView);
+                        break;
+                    case R.id.action_star:
+                        RepositoryFragment starRepositoryFragment = new RepositoryFragment();
+                        starRepositoryFragment.setUsername(mBean.name);
+                        starRepositoryFragment.setSerchType(RepositoryFragment.SEACH_STARRED);
+                        starRepositoryFragment.setIsShowHome(true);
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), starRepositoryFragment, R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                 }

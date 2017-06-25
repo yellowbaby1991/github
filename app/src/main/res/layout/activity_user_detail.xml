@@ -416,6 +416,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showFollowerList"
                                 android:text="Followers（35999）"
                                 android:textColor="@color/black"/>
 
@@ -434,6 +435,7 @@
 
                             <TextView
                                 android:id="@+id/following_tv"
+                                android:onClick="showFollowingList"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"

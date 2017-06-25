@@ -38,6 +38,8 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
     @BindView(R.id.backtotp_fa)
     FloatingActionButton mBackToTopButon;
 
+    private boolean mShowHome = false;
+
     private RepositoryListFragment mRepositoryListFragment;
 
     private SpotsDialog mLodingDialog;
@@ -79,16 +81,18 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();//得到Toolbar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
-            if (mSeachType.equals(SEACH_PUBLIC_REP)) {
+            if (!mShowHome){
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
+            }else {
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            }
+            if (mSeachType.equals(SEACH_PUBLIC_REP)) {
                 actionBar.setTitle(mUsername);
             }
             if (mSeachType.equals(SEACH_STARRED)) {
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
                 actionBar.setTitle("STARRED");
             }
             if (mSeachType.equals(SEACH_ALL_REP)) {
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
                 actionBar.setTitle("Repository");
             }
         }
@@ -100,6 +104,10 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
             }
         });
 
+    }
+
+    public void setIsShowHome(boolean showHome){
+        mShowHome = showHome;
     }
 
     @Override

@@ -41,19 +41,26 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
     @BindView(R.id.error_tv)
     TextView mErrorTv;
 
+    public static final String FOLLOWER = "follower";
+    public static final String FOLLOWING = "following";
+
     private FollowerFragmentPagerAdapter mPageAdapter;
 
     private BaseListFragment[] mFragments;
 
     private SpotsDialog mLodingDialog;
 
+    private String mSearchType;
+
+    private boolean isOnce = false;
+
+    private String mUsername;
+
     @Override
     protected int getLayout() {
         return R.layout.frag_follow;
     }
 
-    private boolean isOnce = true;
-    private String mUsername;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -64,10 +71,16 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         mPresenter = new FollowPresenter(
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
                 this);
-        ;
-        mUsername = "yellowbaby1991";
 
-        mPresenter.searchFollowers(mUsername);
+        if (mSearchType.equals(FOLLOWER)) {
+            mViewPager.setCurrentItem(0);
+            mPresenter.searchFollowers(mUsername);
+        }
+        if (mSearchType.equals(FOLLOWING)) {
+            mViewPager.setCurrentItem(1);
+            mPresenter.searchFollowing(mUsername);
+        }
+
 
     }
 
@@ -96,9 +109,13 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 1 && isOnce) {
+                if (!isOnce && mSearchType.equals(FOLLOWER) && position == 1) {
                     mPresenter.searchFollowing(mUsername);
-                    isOnce = false;
+                    isOnce = true;
+                }
+                if (!isOnce && mSearchType.equals(FOLLOWING) && position == 0) {
+                    mPresenter.searchFollowers(mUsername);
+                    isOnce = true;
                 }
             }
 
@@ -175,6 +192,14 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         if (mViewPager.getCurrentItem() == 1) {
             mPresenter.loadMoreFollowing(mUsername, nextPage);
         }
+    }
+
+    public void setUsername(String username) {
+        mUsername = username;
+    }
+
+    public void setSerchType(String searchType) {
+        mSearchType = searchType;
     }
 
     class FollowerFragmentPagerAdapter extends FragmentPagerAdapter {
