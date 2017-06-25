@@ -73,8 +73,6 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
         return "Update at " + ActivityUtils.dealDataString(bean.getUpdated_at());
     }
 
-
-
     private String getStatistic(RepositoryBean bean) {
         int stargazersCount = bean.getStargazers_count();
         int forkCount = bean.getForks_count();

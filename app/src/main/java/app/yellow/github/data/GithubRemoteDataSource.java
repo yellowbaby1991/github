@@ -43,6 +43,13 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
+    public Observable getUsersRepositoryList(String username, int page) {
+        return RetrofitUtil
+                .getRepositroyService()
+                .getRepositoryList(username, page, Constants.PER_PAGE);
+    }
+
+    @Override
     public Observable getUserListByParams(SearchParams params) {
         return RetrofitUtil
                 .getUserService()

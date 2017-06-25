@@ -20,9 +20,6 @@ public class ExploreContract {
 
         void loadMoreUser(SearchParams params);
 
-
-
-
     }
 
 }

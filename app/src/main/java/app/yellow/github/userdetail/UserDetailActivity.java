@@ -1,7 +1,9 @@
 package app.yellow.github.userdetail;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.view.View;
 import android.widget.TextView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -12,6 +14,7 @@ import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.home.explore.UserListFragment;
+import app.yellow.github.repositorylist.RepositoryListActivity;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
@@ -67,8 +70,14 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
         mPresenter.loadUserByName(mDetailBean.name);
 
-        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl,mAvatarUrlImg,mProgressWheel);
+        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
         mNameTv.setText(mDetailBean.name);
+
+    }
+
+    public void showRepositoryList(View view) {
+        Intent intent = new Intent(this, RepositoryListActivity.class);
+        startActivity(intent);
     }
 
     @Override

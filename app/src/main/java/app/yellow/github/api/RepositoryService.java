@@ -1,5 +1,7 @@
 package app.yellow.github.api;
 
+import java.util.List;
+
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import retrofit2.http.GET;
@@ -17,4 +19,9 @@ public interface RepositoryService {
                                                                         @Query("per_page") int pageSize,
                                                                         @Query("sort") String sort,
                                                                         @Query("order") String order);
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("/users/{username}/repos")
+    Observable<List<RepositoryBean>> getRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
+                                                       @Query("per_page") int pageSize);
 }

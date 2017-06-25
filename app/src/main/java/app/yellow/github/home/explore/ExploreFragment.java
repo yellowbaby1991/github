@@ -91,7 +91,6 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
     }
 
 
-
     private void initEvents() {
         mErrorTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +140,7 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
             @Override
             public void onPageSelected(int position) {
-                if(mUserParams == null){
+                if (mUserParams == null) {
                     mUserParams = new SearchParams();
                     mUserParams.page = 1;
                     mUserParams.language = "language:java";
@@ -194,20 +193,20 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
                 sortTypeAction.setTitle(mSortTypeTitle[mSortType]);
                 switch (mSortTypeTitle[mSortType]) {
                     case "Most stars":
-                        mRepositoryParams.sort = "stars";
-                        mUserParams.sort = "stars";
+                        setSortType(mRepositoryParams,"stars");
+                        setSortType(mUserParams,"stars");
                         break;
                     case "Best match":
-                        mRepositoryParams.sort = null;
-                        mUserParams.sort = null;
+                        setSortType(mRepositoryParams,null);
+                        setSortType(mUserParams,null);
                         break;
                     case "Most forks":
-                        mRepositoryParams.sort = "forks";
-                        mUserParams.sort = "forks";
+                        setSortType(mRepositoryParams,"forks");
+                        setSortType(mUserParams,"forks");
                         break;
                     case "Recently updated":
-                        mRepositoryParams.sort = "updated";
-                        mUserParams.sort = "updated";
+                        setSortType(mRepositoryParams,"updated");
+                        setSortType(mUserParams,"updated");
                         break;
                 }
                 mPresenter.searchRepository(mRepositoryParams);
@@ -234,15 +233,21 @@ public class ExploreFragment extends Fragment implements ExploreContract.View, R
 
     }
 
+    private void setSortType(SearchParams params, String type) {
+        if (params != null) {
+            params.sort = type;
+        }
+    }
+
     private void searchByLanguage(String title) {
-        if (mViewPager.getCurrentItem() == 0){
+        if (mViewPager.getCurrentItem() == 0) {
             mRepositoryParams.language = "language:" + title;
             mRepositoryParams.key = mRepositoryParams.language;
             mRepositoryParams.page = 1;
             mPresenter.searchRepository(mRepositoryParams);
         }
 
-        if (mViewPager.getCurrentItem() == 1){
+        if (mViewPager.getCurrentItem() == 1) {
             mUserParams.language = "language:" + title;
             mUserParams.key = mUserParams.language;
             mUserParams.page = 1;

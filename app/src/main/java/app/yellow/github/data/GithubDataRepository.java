@@ -38,6 +38,11 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
+    public Observable getUsersRepositoryList(String username, int page) {
+        return mRemoteDataSource.getUsersRepositoryList(username, page);
+    }
+
+    @Override
     public Observable getUserListByParams(SearchParams params) {
         return mRemoteDataSource.getUserListByParams(params);
     }
