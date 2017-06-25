@@ -1,4 +1,4 @@
-package app.yellow.github.repositorydetail;
+package app.yellow.github.core.repositorydetail;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,7 +9,7 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
-import app.yellow.github.repositorylist.RepositoryListFragment;
+import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;

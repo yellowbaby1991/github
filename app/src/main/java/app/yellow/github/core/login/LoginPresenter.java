@@ -1,4 +1,4 @@
-package app.yellow.github.login;
+package app.yellow.github.core.login;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;

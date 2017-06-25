@@ -1,11 +1,11 @@
-package app.yellow.github.repositorylist;
+package app.yellow.github.core.repositorylist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import app.yellow.github.R;
-import app.yellow.github.home.repository.RepositoryFragment;
-import app.yellow.github.userdetail.UserDetailActivity;
+import app.yellow.github.core.home.repository.RepositoryFragment;
+import app.yellow.github.core.userdetail.UserDetailActivity;
 import app.yellow.github.util.ActivityUtils;
 
 public class RepositoryListActivity extends AppCompatActivity {

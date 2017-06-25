@@ -1,4 +1,4 @@
-package app.yellow.github.login;
+package app.yellow.github.core.login;
 
 import app.yellow.github.base.BasePresenter;
 import app.yellow.github.base.BaseView;

@@ -1,4 +1,4 @@
-package app.yellow.github.home.explore;
+package app.yellow.github.core.home.explore;
 
 import app.yellow.github.base.BaseListView;
 import app.yellow.github.base.BasePresenter;

@@ -1,4 +1,4 @@
-package app.yellow.github.userdetail;
+package app.yellow.github.core.userdetail;
 
 import android.support.annotation.NonNull;
 

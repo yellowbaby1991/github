@@ -1,4 +1,4 @@
-package app.yellow.github.home.repository;
+package app.yellow.github.core.home.repository;
 
 import app.yellow.github.base.BaseListView;
 import app.yellow.github.base.BasePresenter;
@@ -6,7 +6,6 @@ import app.yellow.github.base.BasePresenter;
 public class RepositoryContract {
 
     interface View extends BaseListView<Presenter> {
-
 
     }
 

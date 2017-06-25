@@ -13,7 +13,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment{
 
-    Unbinder unbinder;
+    protected Unbinder unbinder;
 
     protected T mPresenter;
 

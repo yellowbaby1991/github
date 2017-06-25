@@ -1,4 +1,4 @@
-package app.yellow.github.home;
+package app.yellow.github.core.home;
 
 
 import android.os.Build;
@@ -19,8 +19,9 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.bean.userdetail.UserDetailBean;
-import app.yellow.github.home.explore.ExploreFragment;
-import app.yellow.github.home.repository.RepositoryFragment;
+import app.yellow.github.core.home.explore.ExploreFragment;
+import app.yellow.github.core.home.follow.FollowFragment;
+import app.yellow.github.core.home.repository.RepositoryFragment;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
@@ -132,6 +133,10 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.action_explore:
                         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new ExploreFragment(), R.id.fragment_container);
+                        mDrawerLayout.closeDrawer(mNavView);
+                        break;
+                    case R.id.action_follow:
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new FollowFragment(), R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                 }

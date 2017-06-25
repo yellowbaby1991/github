@@ -1,4 +1,4 @@
-package app.yellow.github.userlist;
+package app.yellow.github.core.userlist;
 
 import android.content.Intent;
 import android.widget.ImageView;
@@ -10,7 +10,7 @@ import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.bean.userdetail.UserDetailBean;
-import app.yellow.github.userdetail.UserDetailActivity;
+import app.yellow.github.core.userdetail.UserDetailActivity;
 
 public class UserListFragment extends BaseListFragment<UserBean> {
 

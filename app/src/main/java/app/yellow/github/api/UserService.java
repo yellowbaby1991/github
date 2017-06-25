@@ -1,5 +1,7 @@
 package app.yellow.github.api;
 
+import java.util.List;
+
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.bean.userdetail.UserDetailResponse;
@@ -22,5 +24,17 @@ public interface UserService {
     @Headers("Cache-Control: public, max-age=180")
     @GET("/users/{name}")
     Observable<UserDetailResponse> getUserByName(@Path("name") String name);
+
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("/users/{name}/following")
+    Observable<List<UserBean>> getUserFollowing(@Path("name") String name, @Query("page") int pageIndex,
+                                               @Query("per_page") int pageSize);
+
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("/users/{name}/followers")
+    Observable<List<UserBean>> getUserFollowers(@Path("name") String name, @Query("page") int pageIndex,
+                                      @Query("per_page") int pageSize);
 
 }

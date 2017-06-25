@@ -1,4 +1,4 @@
-package app.yellow.github.home.explore;
+package app.yellow.github.core.home.explore;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,10 +30,10 @@ import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.core.repositorylist.RepositoryListFragment;
+import app.yellow.github.core.userlist.UserListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.repositorylist.RepositoryListFragment;
-import app.yellow.github.userlist.UserListFragment;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
@@ -86,8 +86,8 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
         mRepositoryParams.language = "language:java";
         mRepositoryParams.key = mRepositoryParams.language;
         mRepositoryParams.type = "repositories";
-        mPresenter.searchRepository(mRepositoryParams);
 
+        mPresenter.searchRepository(mRepositoryParams);
 
     }
 

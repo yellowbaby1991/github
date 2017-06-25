@@ -1,4 +1,4 @@
-package app.yellow.github.userdetail;
+package app.yellow.github.core.userdetail;
 
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -11,11 +11,11 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.core.home.repository.RepositoryFragment;
+import app.yellow.github.core.repositorylist.RepositoryListActivity;
+import app.yellow.github.core.userlist.UserListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.userlist.UserListFragment;
-import app.yellow.github.home.repository.RepositoryFragment;
-import app.yellow.github.repositorylist.RepositoryListActivity;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;

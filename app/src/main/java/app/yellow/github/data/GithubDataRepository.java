@@ -57,4 +57,14 @@ public class GithubDataRepository implements GithubDataSource {
     public Observable loginWithAuth(String baseAuth) {
         return mRemoteDataSource.loginWithAuth(baseAuth);
     }
+
+    @Override
+    public Observable getFollowing(String username, int page) {
+        return mRemoteDataSource.getFollowing(username, page);
+    }
+
+    @Override
+    public Observable getFollowers(String username, int page) {
+        return mRemoteDataSource.getFollowers(username,page);
+    }
 }

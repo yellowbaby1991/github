@@ -12,20 +12,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".core.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".core.home.HomeActivity">
         </activity>
-        <activity android:name=".repositorydetail.RepositroyDetailActivity">
+        <activity android:name=".core.repositorydetail.RepositroyDetailActivity">
         </activity>
-        <activity android:name=".userdetail.UserDetailActivity">
+        <activity android:name=".core.userdetail.UserDetailActivity">
         </activity>
-        <activity android:name=".repositorylist.RepositoryListActivity">
+        <activity android:name=".core.repositorylist.RepositoryListActivity">
         </activity>
     </application>
 

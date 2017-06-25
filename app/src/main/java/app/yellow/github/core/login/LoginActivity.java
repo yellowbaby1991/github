@@ -1,4 +1,4 @@
-package app.yellow.github.login;
+package app.yellow.github.core.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.core.home.HomeActivity;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.home.HomeActivity;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.SPUtils;
 import app.yellow.github.util.UIUtils;

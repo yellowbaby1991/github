@@ -1,4 +1,4 @@
-package app.yellow.github.repositorylist;
+package app.yellow.github.core.repositorylist;
 
 import android.content.Intent;
 import android.text.format.Formatter;
@@ -11,7 +11,7 @@ import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
-import app.yellow.github.repositorydetail.RepositroyDetailActivity;
+import app.yellow.github.core.repositorydetail.RepositroyDetailActivity;
 import app.yellow.github.util.ActivityUtils;
 
 public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {

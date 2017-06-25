@@ -7,12 +7,13 @@ import app.yellow.github.api.RepositoryService;
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
+import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.bean.login.AuthorizationResponse;
 import app.yellow.github.bean.login.CreateAuthorization;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.bean.userdetail.UserDetailResponse;
 import app.yellow.github.config.GithubConfig;
-import app.yellow.github.home.repository.RepositoryFragment;
+import app.yellow.github.core.home.repository.RepositoryFragment;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.RetrofitUtil;
 import app.yellow.github.util.SPUtils;
@@ -64,9 +65,9 @@ public class GithubRemoteDataSource implements GithubDataSource {
         return RetrofitUtil
                 .getUserService()
                 .getUserListsByParams(params.type, params.key, params.page, params.pageSize, params.sort, params.order)
-                .flatMap(new Func1<BaseResponse, Observable<List<RepositoryBean>>>() {
+                .flatMap(new Func1<BaseResponse, Observable<List<UserBean>>>() {
                     @Override
-                    public Observable<List<RepositoryBean>> call(BaseResponse baseResponse) {
+                    public Observable<List<UserBean>> call(BaseResponse baseResponse) {
                         return Observable.from(baseResponse.getItems()).toList();
                     }
                 });
@@ -115,6 +116,18 @@ public class GithubRemoteDataSource implements GithubDataSource {
                         return Observable.just(createUserDetailBean(response));
                     }
                 });
+    }
+
+    @Override
+    public Observable getFollowing(String username, int page) {
+        return RetrofitUtil
+                .getUserService().getUserFollowing(username, page, Constants.PER_PAGE);
+    }
+
+    @Override
+    public Observable getFollowers(String username, int page) {
+        return RetrofitUtil
+                .getUserService().getUserFollowers(username, page, Constants.PER_PAGE);
     }
 
     private UserDetailBean createUserDetailBean(UserDetailResponse bean) {

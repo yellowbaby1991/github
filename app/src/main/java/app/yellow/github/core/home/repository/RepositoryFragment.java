@@ -1,4 +1,4 @@
-package app.yellow.github.home.repository;
+package app.yellow.github.core.home.repository;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,14 +18,14 @@ import java.util.List;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseFragment;
+import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.repositorylist.RepositoryListFragment;
 import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
 import dmax.dialog.SpotsDialog;
 
-public class RepositoryFragment extends BaseFragment<RepositorContract.Presenter> implements RepositorContract.View, RepositoryListFragment.RepositoryListListener {
+public class RepositoryFragment extends BaseFragment<RepositoryContract.Presenter> implements RepositoryContract.View, RepositoryListFragment.RepositoryListListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
