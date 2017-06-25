@@ -1,4 +1,4 @@
-package app.yellow.github.api;
+package app.yellow.github.data.api;
 
 import java.util.List;
 

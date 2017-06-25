@@ -17,6 +17,7 @@ import app.yellow.github.core.home.repository.RepositoryFragment;
 import app.yellow.github.core.repositorylist.RepositoryListActivity;
 import app.yellow.github.core.userlist.UserListFragment;
 import app.yellow.github.data.GithubDataRepository;
+import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
@@ -74,7 +75,7 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
     @Override
     protected void initData() {
         setPresenter(new UserDetailPresenter(
-                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
+                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this));
 
         mPresenter.loadUserByName(mDetailBean.name);

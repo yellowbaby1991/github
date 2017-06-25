@@ -15,17 +15,17 @@ public class GithubDataRepository implements GithubDataSource {
     protected GithubDataSource mRemoteDataSource;
 
     @NonNull
-    protected GithubDataSource mLocalDataSource;
+    protected GithubLocalDataSource mLocalDataSource;
 
     // Prevent direct instantiation.
     private GithubDataRepository(GithubDataSource remoteDataSource,
-                                 GithubDataSource localDataSource) {
+                                 GithubLocalDataSource localDataSource) {
         mRemoteDataSource = remoteDataSource;
         mLocalDataSource = localDataSource;
     }
 
     public static GithubDataRepository getInstance(GithubDataSource remoteDataSource,
-                                                   GithubDataSource localDataSource) {
+                                                   GithubLocalDataSource localDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new GithubDataRepository(remoteDataSource, localDataSource);
         }
@@ -34,7 +34,32 @@ public class GithubDataRepository implements GithubDataSource {
 
 
     public Observable getRepositoryListByParams(SearchParams params) {
-        return mRemoteDataSource.getRepositoryListByParams(params);
+
+        //  https://api.github.com/search/repositories?q=language:java&page=1&per_page=10
+        final StringBuilder url = new StringBuilder("");
+        url.append("search/");
+        url.append(params.type + "?");
+        url.append("q=" + params.key + "?");
+        url.append("page=" + params.page + "&");
+        url.append("par_page=" + params.pageSize);
+
+        Observable localTask = mLocalDataSource.getRepositoryListByParams(params);
+        return localTask;
+
+        /*Observable remoteTask = mRemoteDataSource.getRepositoryListByParams(params).doOnNext(new Action1<List<RepositoryBean>>() {
+            @Override
+            public void call(List<RepositoryBean> repositoryList) {
+                DbBean dbBean = new DbBean();
+                dbBean.setUrl("1");
+                dbBean.setJson(JSON.toJSONString(repositoryList));
+                dbBean.setDate(String.valueOf(System.currentTimeMillis()));
+                mLocalDataSource.saveDbBean(dbBean);
+            }
+        });*/
+
+        //return remoteTask;
+
+        //return Observable.concat(localTask, remoteTask).first();
     }
 
     @Override
@@ -65,6 +90,6 @@ public class GithubDataRepository implements GithubDataSource {
 
     @Override
     public Observable getFollowers(String username, int page) {
-        return mRemoteDataSource.getFollowers(username,page);
+        return mRemoteDataSource.getFollowers(username, page);
     }
 }

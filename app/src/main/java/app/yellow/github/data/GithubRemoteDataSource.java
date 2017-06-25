@@ -2,8 +2,8 @@ package app.yellow.github.data;
 
 import java.util.List;
 
-import app.yellow.github.api.AuthService;
-import app.yellow.github.api.RepositoryService;
+import app.yellow.github.data.api.AuthService;
+import app.yellow.github.data.api.RepositoryService;
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;

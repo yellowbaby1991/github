@@ -20,6 +20,7 @@ import app.yellow.github.R;
 import app.yellow.github.base.BaseFragment;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.data.GithubDataRepository;
+import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
@@ -38,7 +39,7 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
     @BindView(R.id.backtotp_fa)
     FloatingActionButton mBackToTopButon;
 
-    private boolean mShowHome = false;
+    private boolean mShowHome;
 
     private RepositoryListFragment mRepositoryListFragment;
 
@@ -59,7 +60,7 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
         super.onActivityCreated(savedInstanceState);
         initView();
         setPresenter(new RepositoryPresenter(
-                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
+                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this));
         mPresenter.searchUserRepository(mUsername, mSeachType);
     }

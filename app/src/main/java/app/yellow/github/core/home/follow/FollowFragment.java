@@ -22,6 +22,7 @@ import app.yellow.github.base.BaseFragment;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.core.userlist.UserListFragment;
 import app.yellow.github.data.GithubDataRepository;
+import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import butterknife.BindView;
 import dmax.dialog.SpotsDialog;
@@ -56,11 +57,16 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
 
     private String mUsername;
 
+    private boolean mShowHome;
+
     @Override
     protected int getLayout() {
         return R.layout.frag_follow;
     }
 
+    public void setIsShowHome(boolean showHome){
+        mShowHome = showHome;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -69,7 +75,7 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         initView();
 
         mPresenter = new FollowPresenter(
-                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
+                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this);
 
         if (mSearchType.equals(FOLLOWER)) {
@@ -95,8 +101,12 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();//得到Toolbar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);//设置图片
             actionBar.setTitle("Follow");
+            if (!mShowHome){
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
+            }else {
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            }
         }
 
         mPageAdapter = new FollowerFragmentPagerAdapter(getChildFragmentManager());

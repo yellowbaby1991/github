@@ -15,6 +15,7 @@ import app.yellow.github.R;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.core.home.HomeActivity;
 import app.yellow.github.data.GithubDataRepository;
+import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.SPUtils;
@@ -52,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         ButterKnife.bind(this);
         mLodingDialog = new SpotsDialog(this);
 
-        setPresenter(new LoginPresenter(GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
+        setPresenter(new LoginPresenter(GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this));
         mPresenter.checkToken();
 

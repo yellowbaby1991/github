@@ -129,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
                         repositoryFragment.setUsername(mBean.name);
                         repositoryFragment.setSerchType(RepositoryFragment.SEACH_ALL_REP);
                         repositoryFragment.setIsShowHome(true);
-                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), new RepositoryFragment(), R.id.fragment_container);
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), repositoryFragment, R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                     case R.id.action_explore:
@@ -140,6 +140,7 @@ public class HomeActivity extends AppCompatActivity {
                         FollowFragment followFragment = new FollowFragment();
                         followFragment.setUsername(mBean.name);
                         followFragment.setSerchType(FollowFragment.FOLLOWER);
+                        followFragment.setIsShowHome(true);
                         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(),followFragment , R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
