@@ -3,7 +3,6 @@ package app.yellow.github.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import java.util.List;
 
 import app.yellow.github.R;
 import app.yellow.github.util.DisplayUtil;
+import app.yellow.github.util.FastScrollLinearLayoutManager;
 import app.yellow.github.util.SpacesItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +47,7 @@ public abstract class BaseListFragment<T> extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mlistRv.addItemDecoration(new SpacesItemDecoration(DisplayUtil.px2dip(30, 1)));
-        mlistRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mlistRv.setLayoutManager(new FastScrollLinearLayoutManager(getContext()));
     }
 
     protected abstract int getLayout();
@@ -112,6 +112,9 @@ public abstract class BaseListFragment<T> extends Fragment {
 
     protected abstract void loadMoreRequest();
 
+    public void backToTop() {
+        mlistRv.scrollToPosition(0);
+    }
 
     public class ListAdapter extends BaseRecyclerViewAdapter<T> {
 

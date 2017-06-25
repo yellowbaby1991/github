@@ -16,7 +16,6 @@ public class ExplorePresenter extends BasePresenterImpl<ExploreContract.View> im
 
     public ExplorePresenter(@NonNull GithubDataRepository repository, @NonNull ExploreContract.View view) {
         super(repository,view);
-
     }
 
     @Override

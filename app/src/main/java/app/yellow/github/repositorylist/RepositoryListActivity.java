@@ -1,7 +1,16 @@
 package app.yellow.github.repositorylist;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -10,16 +19,33 @@ import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.home.explore.RepositoryListFragment;
 import app.yellow.github.util.ActivityUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class RepositoryListActivity extends AppCompatActivity implements RepositoryListContract.View, RepositoryListFragment.RepositoryListListener {
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout mCollapsingToolbar;
+    @BindView(R.id.appBar)
+    AppBarLayout mAppBar;
+    @BindView(R.id.fragment_container)
+    FrameLayout mFragmentContainer;
+    @BindView(R.id.backtotp_fa)
+    FloatingActionButton mBackToTopButon;
     private RepositoryListContract.Presenter mPresenter;
     private RepositoryListFragment mRepositoryListFragment;
+
+    private SpotsDialog mLodingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository_list);
+        ButterKnife.bind(this);
+        initView();
 
         setPresenter(new RepositoryListPresenter(
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), null),
@@ -27,9 +53,37 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
 
         mPresenter.searchUserRepository("JakeWharton");
 
-        mRepositoryListFragment = new RepositoryListFragment(this);
 
+    }
+
+    private void initView() {
+
+        mLodingDialog = new SpotsDialog(this);
+
+        mRepositoryListFragment = new RepositoryListFragment(this);
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mRepositoryListFragment, R.id.fragment_container);
+
+        setSupportActionBar(mToolbar);
+
+        ActionBar actionBar = getSupportActionBar();//得到Toolbar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
+            actionBar.setTitle("JakeWharton");
+        }
+
+        mBackToTopButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRepositoryListFragment.backToTop();
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);//加载菜单
+        return true;
     }
 
     @Override
@@ -64,12 +118,12 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
 
     @Override
     public void showLoading() {
-
+        mLodingDialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        mLodingDialog.dismiss();
     }
 
     @Override

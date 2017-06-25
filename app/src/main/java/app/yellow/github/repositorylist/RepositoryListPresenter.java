@@ -56,6 +56,6 @@ public class RepositoryListPresenter extends BasePresenterImpl<RepositoryListCon
 
     @Override
     public void unsubscribe() {
-
+        mSubscriptions.clear();
     }
 }
