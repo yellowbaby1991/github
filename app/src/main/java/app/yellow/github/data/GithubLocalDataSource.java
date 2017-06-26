@@ -38,7 +38,12 @@ public class GithubLocalDataSource implements GithubDataSource {
 
     @Override
     public Observable getUsersRepositoryList(String username, int page, String seachType) {
-        return null;
+        return Observable.create(new BaseLocalOnSubscribe<RepositoryBean>(KeyFactory.getRepositoryKey(username, page, seachType)) {
+            @Override
+            protected List paresToList(String json) {
+                return JSON.parseArray(json, RepositoryBean.class);
+            }
+        });
     }
 
     @Override

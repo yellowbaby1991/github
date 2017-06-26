@@ -1,6 +1,7 @@
 package app.yellow.github.data.db;
 
 import app.yellow.github.bean.home.explore.SearchParams;
+import app.yellow.github.config.GithubConfig;
 
 public class KeyFactory {
 
@@ -18,6 +19,14 @@ public class KeyFactory {
     }
 
 
-
-
+    // https://api.github.com/users/JakeWharton/repos&page=1&per_page=10
+    public static String getRepositoryKey(String username, int page, String seachType) {
+        StringBuilder url = new StringBuilder("");
+        url.append("users/");
+        url.append(username + "?");
+        url.append("seachType=" + seachType + "&");
+        url.append("page=" + page + "&");
+        url.append("par_page=" + GithubConfig.PER_PAGE);
+        return url.toString();
+    }
 }

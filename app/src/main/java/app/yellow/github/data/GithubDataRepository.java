@@ -66,9 +66,16 @@ public class GithubDataRepository implements GithubDataSource {
 
     @Override
     public Observable getUsersRepositoryList(String username, int page, String seachType) {
-        return mRemoteDataSource.getUsersRepositoryList(username, page, seachType);
-    }
 
+        final String url = KeyFactory.getRepositoryKey(username, page, seachType);
+
+        Observable localTask = mLocalDataSource.getUsersRepositoryList(username, page, seachType);
+
+        Observable remoteTask = mRemoteDataSource.getUsersRepositoryList(username, page, seachType).doOnNext(new BaseSaveAction<List<RepositoryBean>>(url));
+
+        return Observable.concat(localTask, remoteTask).first();
+
+    }
 
 
     @Override

@@ -1,11 +1,11 @@
 package app.yellow.github.bean.home.explore;
 
-import app.yellow.github.util.Constants;
+import app.yellow.github.config.GithubConfig;
 
 public class SearchParams {
 
     public SearchParams() {
-        pageSize = Constants.PER_PAGE;
+        pageSize = GithubConfig.PER_PAGE;
         sort = "stars";
         order = "desc";
     }

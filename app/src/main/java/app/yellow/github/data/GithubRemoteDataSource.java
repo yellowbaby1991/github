@@ -51,11 +51,11 @@ public class GithubRemoteDataSource implements GithubDataSource {
                 .getRepositroyService();
         switch (seachType) {
             case RepositoryFragment.SEACH_PUBLIC_REP:
-                return service.getPublicRepositoryList(username, page, Constants.PER_PAGE);
+                return service.getPublicRepositoryList(username, page, GithubConfig.PER_PAGE);
             case RepositoryFragment.SEACH_STARRED:
-                return service.getStaredRepositoryList(username, page, Constants.PER_PAGE);
+                return service.getStaredRepositoryList(username, page, GithubConfig.PER_PAGE);
             case RepositoryFragment.SEACH_ALL_REP:
-                return service.getUserAllRepositoryList(page, Constants.PER_PAGE);
+                return service.getUserAllRepositoryList(page, GithubConfig.PER_PAGE);
         }
         return null;
     }
@@ -121,13 +121,13 @@ public class GithubRemoteDataSource implements GithubDataSource {
     @Override
     public Observable getFollowing(String username, int page) {
         return RetrofitUtil
-                .getUserService().getUserFollowing(username, page, Constants.PER_PAGE);
+                .getUserService().getUserFollowing(username, page, GithubConfig.PER_PAGE);
     }
 
     @Override
     public Observable getFollowers(String username, int page) {
         return RetrofitUtil
-                .getUserService().getUserFollowers(username, page, Constants.PER_PAGE);
+                .getUserService().getUserFollowers(username, page, GithubConfig.PER_PAGE);
     }
 
     private UserDetailBean createUserDetailBean(UserDetailResponse bean) {
