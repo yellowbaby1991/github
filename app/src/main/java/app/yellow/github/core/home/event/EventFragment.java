@@ -14,15 +14,37 @@ import app.yellow.github.data.GithubRemoteDataSource;
 
 public class EventFragment extends BaseListPageFragment<EventContract.Presenter> implements EventListFragment.EventListListener {
 
+    public static final String SEACH_BY_USER = "users";
+
+    public static final String SEACH_BY_REPS= "reps";
+
+    private String mUsername;
+
+    private String mSeachType;
+
+    private String mReponame;
+
     @Override
     protected void setActionBarTitle(ActionBar actionBar) {
         actionBar.setTitle("Events");
     }
 
+    public void setUsername(String username) {
+        mUsername = username;
+    }
+
+    public void setSeachType(String seachType) {
+        mSeachType = seachType;
+    }
+
+    public void setReponame(String reponame) {
+        mReponame = reponame;
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPresenter.searchUserEvent("JakeWharton", "repos", "butterknife");
+        mPresenter.searchUserEvent(mUsername, mSeachType, mReponame);
     }
 
     @Override
@@ -44,6 +66,6 @@ public class EventFragment extends BaseListPageFragment<EventContract.Presenter>
 
     @Override
     public void loadMoreEvent(int nextPage) {
-
+        mPresenter.loadMoreEvent(mUsername, nextPage, mSeachType, mReponame);
     }
 }

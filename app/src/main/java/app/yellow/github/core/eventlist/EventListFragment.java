@@ -36,8 +36,15 @@ public class EventListFragment extends BaseListFragment<EventBean> {
         helper.setText(R.id.actor_name_tv, bean.getActor().getLogin() + " ");
         helper.setText(R.id.type_tv, bean.getType() + " ");
         helper.setText(R.id.repo_tv, bean.getRepo().getName());
-        if (bean.getPayload() != null && bean.getPayload().getIssue() != null && bean.getPayload().getIssue().getBody() == null) {
+        if (bean.getPayload() != null && bean.getPayload().getCommits()!= null) {
+            helper.setText(R.id.body_tv, bean.getPayload().getCommits().get(0).getMessage());
+        }else {
+            helper.setText(R.id.body_tv, "");
+        }
+        if (bean.getPayload() != null && bean.getPayload().getIssue()!= null && bean.getPayload().getIssue().getBody() != null) {
             helper.setText(R.id.body_tv, bean.getPayload().getIssue().getBody());
+        }else {
+            helper.setText(R.id.body_tv, "");
         }
         helper.setText(R.id.update_data_tv, "最近更新：" + bean.getCreated_at());
     }

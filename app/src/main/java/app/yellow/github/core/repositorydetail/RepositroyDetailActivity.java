@@ -1,7 +1,9 @@
 package app.yellow.github.core.repositorydetail;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.view.View;
 import android.widget.TextView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -9,6 +11,8 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
+import app.yellow.github.core.eventlist.EventListActivity;
+import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
@@ -67,12 +71,20 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mForksTv.setText("Forks（" + mDetailBean.forksCount + "）");
         mDescriptionTv.setText(mDetailBean.description);
         mCreatetimeTv.setText("Create at " + mDetailBean.createdAt);
-        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl,mAvatarUrlImg,mProgressWheel);
+        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
     }
 
     @Override
     protected RepositoryDetailBean createDetailBean() {
         return (RepositoryDetailBean) getIntent().getSerializableExtra(RepositoryListFragment.REPOSITORY_DETAIL);
+    }
+
+    public void showEventList(View view) {
+        Intent intent = new Intent(this, EventListActivity.class);
+        intent.putExtra(EventListActivity.USER_NAME, mDetailBean.owener);
+        intent.putExtra(EventListActivity.SEACH_TYPE, EventFragment.SEACH_BY_REPS);
+        intent.putExtra(EventListActivity.REP_NAME, mDetailBean.name);
+        startActivity(intent);
     }
 
 

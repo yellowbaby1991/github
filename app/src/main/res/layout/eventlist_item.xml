@@ -48,7 +48,6 @@
                         android:id="@+id/actor_name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:text="RxJava "
                         android:textColor="#3BB8E6"
                         android:textSize="12dp"/>
@@ -57,7 +56,6 @@
                         android:id="@+id/type_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:text="commented on issue "
                         android:textColor="#383838"
                         android:textSize="12dp"/>
@@ -66,10 +64,8 @@
                         android:id="@+id/repo_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
-                        android:gravity="center"
                         android:text="square/kotlinpoet "
                         android:textColor="#3BB8E6"
                         android:textSize="12dp"/>

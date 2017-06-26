@@ -11,7 +11,9 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.core.eventlist.EventListActivity;
 import app.yellow.github.core.followlist.FollowListActivity;
+import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.core.home.follow.FollowFragment;
 import app.yellow.github.core.home.repository.RepositoryFragment;
 import app.yellow.github.core.repositorylist.RepositoryListActivity;
@@ -27,6 +29,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> implements UserDetailContract.View {
 
     public static final String USER_NAME = "user_name";
+
+    public static final String SEACH_TYPE = "seach_type";
 
     public static final String REP_TYPE = "rep_type";
 
@@ -96,6 +100,13 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
         Intent intent = new Intent(this, RepositoryListActivity.class);
         intent.putExtra(USER_NAME, mDetailBean.name);
         intent.putExtra(REP_TYPE, RepositoryFragment.SEACH_STARRED);
+        startActivity(intent);
+    }
+
+    public void showEventList(View view) {
+        Intent intent = new Intent(this, EventListActivity.class);
+        intent.putExtra(USER_NAME, mDetailBean.name);
+        intent.putExtra(SEACH_TYPE, EventFragment.SEACH_BY_USER);
         startActivity(intent);
     }
 

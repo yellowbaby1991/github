@@ -155,6 +155,10 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.action_events:
                         EventFragment eventFragment = new EventFragment();
+                        eventFragment.setUsername(mBean.name);
+                        eventFragment.setSeachType(EventFragment.SEACH_BY_USER);
+                        eventFragment.setReponame(null);
+                        eventFragment.setIsShowHome(true);
                         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), eventFragment, R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;

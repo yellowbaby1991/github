@@ -2,6 +2,7 @@ package app.yellow.github.data;
 
 import java.util.List;
 
+import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.data.api.AuthService;
 import app.yellow.github.data.api.RepositoryService;
 import app.yellow.github.base.BaseResponse;
@@ -132,9 +133,14 @@ public class GithubRemoteDataSource implements GithubDataSource {
 
     @Override
     public Observable getEvents(String username, int page, String seachType, String reposname) {
+        if (seachType.equals(EventFragment.SEACH_BY_USER)) {
+            return RetrofitUtil
+                    .getEventService()
+                    .getUserEvents(username, page, GithubConfig.PER_PAGE);
+        }
         return RetrofitUtil
                 .getEventService()
-                .getRepEvents(username, reposname,page, GithubConfig.PER_PAGE);
+                .getRepEvents(username, reposname, page, GithubConfig.PER_PAGE);
     }
 
     private UserDetailBean createUserDetailBean(UserDetailResponse bean) {
