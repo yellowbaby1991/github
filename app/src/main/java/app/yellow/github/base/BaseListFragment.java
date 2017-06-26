@@ -35,7 +35,6 @@ public abstract class BaseListFragment<T> extends Fragment {
 
     protected ListAdapter mAdapter;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,8 +65,6 @@ public abstract class BaseListFragment<T> extends Fragment {
     }
 
     protected abstract void goToDetaiActivity(T t);
-
-
 
     @Override
     public void onDestroyView() {
