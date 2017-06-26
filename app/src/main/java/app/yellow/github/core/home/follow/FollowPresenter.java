@@ -32,7 +32,6 @@ public class FollowPresenter extends BasePresenterImpl<FollowContract.View> impl
     @Override
     public void searchFollowers(String username) {
         mView.showLoading();
-
         Subscription subscription =
                 mRepository.getFollowers(username, 0)
                         .subscribeOn(Schedulers.io())
@@ -44,11 +43,33 @@ public class FollowPresenter extends BasePresenterImpl<FollowContract.View> impl
 
     @Override
     public void loadMoreFollowing(String username, int page) {
+        Subscription subscription =
+                mRepository.getFollowing(username,page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseListObserver<UserBean>(mView) {
+                            @Override
+                            protected boolean isLoadMore() {
+                                return true;
+                            }
+                        });
 
+        mSubscriptions.add(subscription);
     }
 
     @Override
     public void loadMoreFollowers(String username, int page) {
+        Subscription subscription =
+                mRepository.getFollowers(username,page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseListObserver<UserBean>(mView) {
+                            @Override
+                            protected boolean isLoadMore() {
+                                return true;
+                            }
+                        });
 
+        mSubscriptions.add(subscription);
     }
 }

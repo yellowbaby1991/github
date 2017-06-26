@@ -2,48 +2,17 @@ package app.yellow.github.core.home.repository;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.widget.FrameLayout;
-
-import com.getbase.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import app.yellow.github.R;
-import app.yellow.github.base.BaseFragment;
+import app.yellow.github.base.BaseListFragment;
+import app.yellow.github.base.BaseListPageFragment;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
-import app.yellow.github.util.ActivityUtils;
-import butterknife.BindView;
-import dmax.dialog.SpotsDialog;
 
-public class RepositoryFragment extends BaseFragment<RepositoryContract.Presenter> implements RepositoryContract.View, RepositoryListFragment.RepositoryListListener {
-
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.collapsing_toolbar)
-    CollapsingToolbarLayout mCollapsingToolbar;
-    @BindView(R.id.appBar)
-    AppBarLayout mAppBar;
-    @BindView(R.id.fragment_container)
-    FrameLayout mFragmentContainer;
-    @BindView(R.id.backtotp_fa)
-    FloatingActionButton mBackToTopButon;
-
-    private boolean mShowHome;
-
-    private RepositoryListFragment mRepositoryListFragment;
-
-    private SpotsDialog mLodingDialog;
+public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.Presenter> implements RepositoryListFragment.RepositoryListListener {
 
     private String mUsername;
 
@@ -58,11 +27,32 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        setPresenter(new RepositoryPresenter(
-                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
-                this));
         mPresenter.searchUserRepository(mUsername, mSeachType);
+    }
+
+    @Override
+    protected void setActionBarTitle(ActionBar actionBar) {
+        if (mSeachType.equals(SEACH_PUBLIC_REP)) {
+            actionBar.setTitle(mUsername);
+        }
+        if (mSeachType.equals(SEACH_STARRED)) {
+            actionBar.setTitle("STARRED");
+        }
+        if (mSeachType.equals(SEACH_ALL_REP)) {
+            actionBar.setTitle("Repository");
+        }
+    }
+
+    @Override
+    protected RepositoryContract.Presenter createPresenter() {
+        return new RepositoryPresenter(
+                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
+                this);
+    }
+
+    @Override
+    protected BaseListFragment getListFragment() {
+        return new RepositoryListFragment(this);
     }
 
     @Override
@@ -70,99 +60,12 @@ public class RepositoryFragment extends BaseFragment<RepositoryContract.Presente
         return R.layout.frag_repository_list;
     }
 
-    protected void initView() {
-
-        mLodingDialog = new SpotsDialog(getContext());
-
-        mRepositoryListFragment = new RepositoryListFragment(this);
-        ActivityUtils.addFragmentToActivity(getChildFragmentManager(), mRepositoryListFragment, R.id.fragment_container);
-
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();//得到Toolbar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
-            if (!mShowHome){
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
-            }else {
-                actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-            }
-            if (mSeachType.equals(SEACH_PUBLIC_REP)) {
-                actionBar.setTitle(mUsername);
-            }
-            if (mSeachType.equals(SEACH_STARRED)) {
-                actionBar.setTitle("STARRED");
-            }
-            if (mSeachType.equals(SEACH_ALL_REP)) {
-                actionBar.setTitle("Repository");
-            }
-        }
-
-        mBackToTopButon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRepositoryListFragment.backToTop();
-            }
-        });
-
-    }
-
-    public void setIsShowHome(boolean showHome){
-        mShowHome = showHome;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
-    }
-
-
     public void setUsername(String username) {
         mUsername = username;
     }
 
     public void setSerchType(String seachType) {
         mSeachType = seachType;
-    }
-
-    @Override
-    public void showList(List list) {
-        mRepositoryListFragment.createList(list);
-    }
-
-    @Override
-    public void showMoreAdd(List moreData) {
-        mRepositoryListFragment.updateList(moreData);
-    }
-
-    @Override
-    public void showLoadMoreError() {
-        mRepositoryListFragment.showLoadMoreError();
-    }
-
-    @Override
-    public void showLoadMoreEnd() {
-        mRepositoryListFragment.showLoadMoreError();
-    }
-
-    @Override
-    public void showEmpty() {
-
-    }
-
-    @Override
-    public void showLoading() {
-        mLodingDialog.show();
-    }
-
-    @Override
-    public void hideLoading() {
-        mLodingDialog.dismiss();
-    }
-
-    @Override
-    public void showError() {
-
     }
 
     @Override
