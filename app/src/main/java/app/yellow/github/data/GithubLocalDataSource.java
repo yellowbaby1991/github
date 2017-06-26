@@ -2,17 +2,14 @@ package app.yellow.github.data;
 
 import com.alibaba.fastjson.JSON;
 
-import org.litepal.crud.DataSupport;
-
 import java.util.List;
 
+import app.yellow.github.base.BaseLocalOnSubscribe;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
-import app.yellow.github.config.GithubConfig;
-import app.yellow.github.data.db.KeyJsonBean;
-import app.yellow.github.util.Constants;
+import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.data.db.KeyFactory;
 import rx.Observable;
-import rx.Subscriber;
 
 public class GithubLocalDataSource implements GithubDataSource {
 
@@ -29,26 +26,12 @@ public class GithubLocalDataSource implements GithubDataSource {
         return INSTANCE;
     }
 
-
     @Override
     public Observable getRepositoryListByParams(final SearchParams params) {
-        return Observable.create(new Observable.OnSubscribe<List<RepositoryBean>>() {
+        return Observable.create(new BaseLocalOnSubscribe<RepositoryBean>(KeyFactory.getKeyByParams(params)) {
             @Override
-            public void call(Subscriber<? super List<RepositoryBean>> subscriber) {
-                List<KeyJsonBean> beans = DataSupport.where("key =?", Constants.getKeyByParams(params)).find(KeyJsonBean.class);
-                if (beans == null || beans.isEmpty()) {
-                    subscriber.onCompleted();
-                } else {
-                    String data = beans.get(0).getDate();
-                    if (System.currentTimeMillis() - Long.valueOf(data) > GithubConfig.CAHE_TIME) {
-                        beans.get(0).delete();
-                        subscriber.onCompleted();
-                        return;
-                    }
-                    String json = beans.get(0).getJson();
-                    List<RepositoryBean> list = JSON.parseArray(json, RepositoryBean.class);
-                    subscriber.onNext(list);
-                }
+            protected List paresToList(String json) {
+                return JSON.parseArray(json, RepositoryBean.class);
             }
         });
     }
@@ -60,7 +43,12 @@ public class GithubLocalDataSource implements GithubDataSource {
 
     @Override
     public Observable getUserListByParams(SearchParams params) {
-        return null;
+        return Observable.create(new BaseLocalOnSubscribe<UserBean>(KeyFactory.getKeyByParams(params)) {
+            @Override
+            protected List paresToList(String json) {
+                return JSON.parseArray(json, UserBean.class);
+            }
+        });
     }
 
     @Override
