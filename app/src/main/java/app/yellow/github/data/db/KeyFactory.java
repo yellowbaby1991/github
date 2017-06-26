@@ -18,13 +18,39 @@ public class KeyFactory {
         return url.toString();
     }
 
-
     // https://api.github.com/users/JakeWharton/repos&page=1&per_page=10
     public static String getRepositoryKey(String username, int page, String seachType) {
         StringBuilder url = new StringBuilder("");
         url.append("users/");
         url.append(username + "?");
         url.append("seachType=" + seachType + "&");
+        url.append("page=" + page + "&");
+        url.append("par_page=" + GithubConfig.PER_PAGE);
+        return url.toString();
+    }
+
+    public static String getUserKey(String name) {
+        StringBuilder url = new StringBuilder("");
+        url.append("users/");
+        url.append(name);
+        return url.toString();
+    }
+
+    public static String getFollowingKey(String name, int page) {
+        StringBuilder url = new StringBuilder("");
+        url.append("users/");
+        url.append(name + "/");
+        url.append("following" + "&");
+        url.append("page=" + page + "&");
+        url.append("par_page=" + GithubConfig.PER_PAGE);
+        return url.toString();
+    }
+
+    public static String getFollowerKey(String name, int page) {
+        StringBuilder url = new StringBuilder("");
+        url.append("users/");
+        url.append(name + "/");
+        url.append("followers" + "&");
         url.append("page=" + page + "&");
         url.append("par_page=" + GithubConfig.PER_PAGE);
         return url.toString();

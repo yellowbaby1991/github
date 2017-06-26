@@ -9,6 +9,7 @@ import app.yellow.github.base.BaseSaveAction;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.db.KeyFactory;
 import rx.Observable;
 
@@ -63,7 +64,6 @@ public class GithubDataRepository implements GithubDataSource {
 
     }
 
-
     @Override
     public Observable getUsersRepositoryList(String username, int page, String seachType) {
 
@@ -80,22 +80,44 @@ public class GithubDataRepository implements GithubDataSource {
 
     @Override
     public Observable getUserByName(String name) {
-        return mRemoteDataSource
-                .getUserByName(name);
+
+        final String url = KeyFactory.getUserKey(name);
+
+        Observable localTask = mLocalDataSource.getUserByName(name);
+
+        Observable remoteTask = mRemoteDataSource.getUserByName(name).doOnNext(new BaseSaveAction<List<UserDetailBean>>(url));
+
+        return Observable.concat(localTask, remoteTask).first();
+
+    }
+
+    @Override
+    public Observable getFollowing(String username, int page) {
+
+        final String url = KeyFactory.getFollowingKey(username, page);
+
+        Observable localTask = mLocalDataSource.getFollowing(username, page);
+
+        Observable remoteTask = mRemoteDataSource.getFollowing(username, page).doOnNext(new BaseSaveAction<List<UserDetailBean>>(url));
+
+        return Observable.concat(localTask, remoteTask).first();
+
+    }
+
+    @Override
+    public Observable getFollowers(String username, int page) {
+
+        final String url = KeyFactory.getFollowerKey(username, page);
+
+        Observable localTask = mLocalDataSource.getFollowers(username, page);
+
+        Observable remoteTask = mRemoteDataSource.getFollowers(username, page).doOnNext(new BaseSaveAction<List<UserDetailBean>>(url));
+
+        return Observable.concat(localTask, remoteTask).first();
     }
 
     @Override
     public Observable loginWithAuth(String baseAuth) {
         return mRemoteDataSource.loginWithAuth(baseAuth);
-    }
-
-    @Override
-    public Observable getFollowing(String username, int page) {
-        return mRemoteDataSource.getFollowing(username, page);
-    }
-
-    @Override
-    public Observable getFollowers(String username, int page) {
-        return mRemoteDataSource.getFollowers(username, page);
     }
 }

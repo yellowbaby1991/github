@@ -9,16 +9,16 @@ import app.yellow.github.data.db.KeyJsonBean;
 import rx.Observable;
 import rx.Subscriber;
 
-public abstract class BaseLocalOnSubscribe<T> implements Observable.OnSubscribe<T> {
+public abstract class BaseLocalListOnSubscribe<T> implements Observable.OnSubscribe<List<T>> {
 
     private String mKey;
 
-    public BaseLocalOnSubscribe(String key) {
+    public BaseLocalListOnSubscribe(String key) {
         mKey = key;
     }
 
     @Override
-    public void call(Subscriber<? super T> subscriber) {
+    public void call(Subscriber<? super List<T>> subscriber) {
         List<KeyJsonBean> beans = DataSupport.where("key =?", mKey).find(KeyJsonBean.class);
         if (beans == null || beans.isEmpty()) {
             subscriber.onCompleted();
@@ -30,10 +30,10 @@ public abstract class BaseLocalOnSubscribe<T> implements Observable.OnSubscribe<
                 return;
             }
             String json = beans.get(0).getJson();
-            T bean = paresToBean(json);
-            subscriber.onNext(bean);
+            List<T> list = paresToList(json);
+            subscriber.onNext(list);
         }
     }
 
-    protected abstract T paresToBean(String json);
+    protected  abstract List<T> paresToList(String json);
 }

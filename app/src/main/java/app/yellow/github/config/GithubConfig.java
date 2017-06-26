@@ -14,6 +14,6 @@ public class GithubConfig {
 
     public static final int PER_PAGE = 30;
 
-    public static final long CAHE_TIME = 1000 * 5 * 60;//默认缓存1分钟
+    public static final long CAHE_TIME = 1000 * 30 * 60;//默认缓存事件
 
 }
