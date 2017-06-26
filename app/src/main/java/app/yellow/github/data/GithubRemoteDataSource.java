@@ -130,6 +130,13 @@ public class GithubRemoteDataSource implements GithubDataSource {
                 .getUserService().getUserFollowers(username, page, GithubConfig.PER_PAGE);
     }
 
+    @Override
+    public Observable getEvents(String username, int page, String seachType, String reposname) {
+        return RetrofitUtil
+                .getEventService()
+                .getRepEvents(username, reposname,page, GithubConfig.PER_PAGE);
+    }
+
     private UserDetailBean createUserDetailBean(UserDetailResponse bean) {
         UserDetailBean userDetailBean = new UserDetailBean();
         userDetailBean.avatarUrl = bean.getAvatar_url();

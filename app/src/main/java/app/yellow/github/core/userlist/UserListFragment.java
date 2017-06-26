@@ -24,7 +24,7 @@ public class UserListFragment extends BaseListFragment<UserBean> {
 
     @Override
     protected int getLayout() {
-        return R.layout.frag_explore_userlist;
+        return R.layout.fraglist_userlist;
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.core.home.explore.ExploreFragment;
 import app.yellow.github.core.home.follow.FollowFragment;
 import app.yellow.github.core.home.repository.RepositoryFragment;
@@ -150,6 +151,11 @@ public class HomeActivity extends AppCompatActivity {
                         starRepositoryFragment.setSerchType(RepositoryFragment.SEACH_STARRED);
                         starRepositoryFragment.setIsShowHome(true);
                         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), starRepositoryFragment, R.id.fragment_container);
+                        mDrawerLayout.closeDrawer(mNavView);
+                        break;
+                    case R.id.action_events:
+                        EventFragment eventFragment = new EventFragment();
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), eventFragment, R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                 }

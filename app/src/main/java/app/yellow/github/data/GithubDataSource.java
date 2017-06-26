@@ -16,9 +16,9 @@ public interface GithubDataSource {
 
     Observable loginWithAuth(String baseAuth);
 
-    Observable getFollowing(String username,int page);
+    Observable getFollowing(String username, int page);
 
-    Observable getFollowers(String username,int page);
+    Observable getFollowers(String username, int page);
 
-
+    Observable getEvents(String username, int i, String seachType, String reposname);
 }

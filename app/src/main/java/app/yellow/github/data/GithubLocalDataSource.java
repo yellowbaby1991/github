@@ -93,4 +93,10 @@ public class GithubLocalDataSource implements GithubDataSource {
         });
     }
 
+    @Override
+    public Observable getEvents(String username, int i, String seachType, String reposname) {
+        return null;
+    }
+
+
 }

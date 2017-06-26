@@ -26,7 +26,7 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
 
     @Override
     protected int getLayout() {
-        return R.layout.frag_explore_repositorylist;
+        return R.layout.fraglist_repositorylist;
     }
 
     @Override

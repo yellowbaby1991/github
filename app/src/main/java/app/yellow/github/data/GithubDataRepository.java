@@ -117,6 +117,11 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
+    public Observable getEvents(String username, int page, String seachType,String reposname) {
+        return mRemoteDataSource.getEvents(username, page, seachType,reposname);
+    }
+
+    @Override
     public Observable loginWithAuth(String baseAuth) {
         return mRemoteDataSource.loginWithAuth(baseAuth);
     }

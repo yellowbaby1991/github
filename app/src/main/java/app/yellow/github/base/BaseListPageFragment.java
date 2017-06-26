@@ -2,8 +2,6 @@ package app.yellow.github.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -31,12 +28,7 @@ public abstract class BaseListPageFragment<T extends BasePresenter> extends Frag
 
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
-    @BindView(R.id.collapsing_toolbar)
-    protected CollapsingToolbarLayout mCollapsingToolbar;
-    @BindView(R.id.appBar)
-    protected AppBarLayout mAppBar;
-    @BindView(R.id.fragment_container)
-    protected FrameLayout mFragmentContainer;
+
     @BindView(R.id.backtotp_fa)
     protected FloatingActionButton mBackToTopButon;
 
