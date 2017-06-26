@@ -1,9 +1,11 @@
 package app.yellow.github.base;
 
-import android.app.Application;
 import android.content.Context;
 
-public class BaseApplication extends Application{
+import org.litepal.LitePal;
+import org.litepal.LitePalApplication;
+
+public class BaseApplication extends LitePalApplication {
 
     private static Context mContext;
 
@@ -11,6 +13,7 @@ public class BaseApplication extends Application{
     public void onCreate() {
         mContext = getApplicationContext();
         super.onCreate();
+        LitePal.initialize(this);
     }
 
     public static Context getmContext() {

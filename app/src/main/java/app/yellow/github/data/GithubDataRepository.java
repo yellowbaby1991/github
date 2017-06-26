@@ -3,8 +3,16 @@ package app.yellow.github.data;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.List;
+
+import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
+import app.yellow.github.data.db.KeyJsonBean;
+import app.yellow.github.util.Constants;
 import rx.Observable;
+import rx.functions.Action1;
 
 public class GithubDataRepository implements GithubDataSource {
 
@@ -15,11 +23,11 @@ public class GithubDataRepository implements GithubDataSource {
     protected GithubDataSource mRemoteDataSource;
 
     @NonNull
-    protected GithubLocalDataSource mLocalDataSource;
+    protected GithubDataSource mLocalDataSource;
 
     // Prevent direct instantiation.
     private GithubDataRepository(GithubDataSource remoteDataSource,
-                                 GithubLocalDataSource localDataSource) {
+                                 GithubDataSource localDataSource) {
         mRemoteDataSource = remoteDataSource;
         mLocalDataSource = localDataSource;
     }
@@ -36,30 +44,22 @@ public class GithubDataRepository implements GithubDataSource {
     public Observable getRepositoryListByParams(SearchParams params) {
 
         //  https://api.github.com/search/repositories?q=language:java&page=1&per_page=10
-        final StringBuilder url = new StringBuilder("");
-        url.append("search/");
-        url.append(params.type + "?");
-        url.append("q=" + params.key + "?");
-        url.append("page=" + params.page + "&");
-        url.append("par_page=" + params.pageSize);
+        final String url = Constants.getKeyByParams(params);
 
         Observable localTask = mLocalDataSource.getRepositoryListByParams(params);
-        return localTask;
 
-        /*Observable remoteTask = mRemoteDataSource.getRepositoryListByParams(params).doOnNext(new Action1<List<RepositoryBean>>() {
+        Observable remoteTask = mRemoteDataSource.getRepositoryListByParams(params).doOnNext(new Action1<List<RepositoryBean>>() {
             @Override
             public void call(List<RepositoryBean> repositoryList) {
-                DbBean dbBean = new DbBean();
-                dbBean.setUrl("1");
-                dbBean.setJson(JSON.toJSONString(repositoryList));
-                dbBean.setDate(String.valueOf(System.currentTimeMillis()));
-                mLocalDataSource.saveDbBean(dbBean);
+                KeyJsonBean bean = new KeyJsonBean();
+                bean.setKey(url.toString());
+                bean.setJson(JSON.toJSONString(repositoryList));
+                bean.setDate(String.valueOf(System.currentTimeMillis()));
+                bean.save();
             }
-        });*/
+        });
 
-        //return remoteTask;
-
-        //return Observable.concat(localTask, remoteTask).first();
+        return Observable.concat(localTask, remoteTask).first();
     }
 
     @Override

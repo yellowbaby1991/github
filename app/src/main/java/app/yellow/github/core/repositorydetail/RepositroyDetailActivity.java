@@ -8,13 +8,13 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
-import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
+import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RepositroyDetailActivity extends BaseDetailActivity<RepositiryDetailBean> {
+public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetailBean> {
 
     @BindView(R.id.description_tv)
     TextView mDescriptionTv;
@@ -71,8 +71,8 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositiryDetai
     }
 
     @Override
-    protected RepositiryDetailBean createDetailBean() {
-        return (RepositiryDetailBean) getIntent().getSerializableExtra(RepositoryListFragment.REPOSITORY_DETAIL);
+    protected RepositoryDetailBean createDetailBean() {
+        return (RepositoryDetailBean) getIntent().getSerializableExtra(RepositoryListFragment.REPOSITORY_DETAIL);
     }
 
 

@@ -35,4 +35,5 @@ public class ActivityUtils {
         return dateString.substring(0, index);
     }
 
+
 }

@@ -37,8 +37,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     //rxjava1
-    compile 'io.reactivex:rxjava:1.0.9'
-    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'io.reactivex:rxjava:1.0.8'
+    compile 'io.reactivex:rxandroid:1.2.1'
 
     //retrofit2
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -71,14 +71,14 @@ dependencies {
     //旋转的菊花圈 https://github.com/pnikosis/materialish-progress
     compile 'com.pnikosis:materialish-progress:1.7'
 
-    //响应式数据库 https://github.com/square/sqlbrite
-    compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
-
     //数据库观察器
     debugCompile 'im.dino:dbinspector:3.4.1@aar'
 
     //最快的json解析工具
     compile 'com.alibaba:fastjson:1.1.56.android'
+
+    //小巧玲珑的ORM数据库 https://github.com/LitePalFramework/LitePal
+    compile 'org.litepal.android:core:1.5.1'
 
     testCompile 'junit:junit:4.12'
 }

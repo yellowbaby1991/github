@@ -11,4 +11,6 @@ public class GithubConfig {
 
     public static final String NOTE = "GithubApp";
 
+    public static final long CAHE_TIME = 1000 * 1 * 60;//默认缓存1分钟
+
 }

@@ -1,29 +1,21 @@
 package app.yellow.github.data.db;
 
-public class DbBean {
+import org.litepal.crud.DataSupport;
 
-    private String url;
+public class KeyJsonBean extends DataSupport {
+
+    private String key;
 
     private String json;
 
     private String date;
 
-    public DbBean(){
-
+    public String getKey() {
+        return key;
     }
 
-    public DbBean(String url, String json, String date) {
-        this.url = url;
-        this.json = json;
-        this.date = date;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getJson() {

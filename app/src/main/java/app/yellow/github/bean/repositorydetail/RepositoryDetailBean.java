@@ -2,7 +2,7 @@ package app.yellow.github.bean.repositorydetail;
 
 import app.yellow.github.base.BaseDetailBean;
 
-public class RepositiryDetailBean extends BaseDetailBean {
+public class RepositoryDetailBean extends BaseDetailBean {
 
     public String description;
 
@@ -23,5 +23,7 @@ public class RepositiryDetailBean extends BaseDetailBean {
     public String stargazersCount;
 
     public String forksCount;
+
+
 
 }

@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.explore.RepositoryBean;
-import app.yellow.github.bean.repositorydetail.RepositiryDetailBean;
+import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.core.repositorydetail.RepositroyDetailActivity;
 import app.yellow.github.util.ActivityUtils;
 
@@ -32,13 +32,13 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
     @Override
     protected void goToDetaiActivity(RepositoryBean bean) {
         Intent intent = new Intent(getContext(), RepositroyDetailActivity.class);
-        RepositiryDetailBean detailBean = createDetailBean(bean);
+        RepositoryDetailBean detailBean = createDetailBean(bean);
         intent.putExtra(REPOSITORY_DETAIL, detailBean);
         startActivity(intent);
     }
 
-    protected RepositiryDetailBean createDetailBean(RepositoryBean bean) {
-        RepositiryDetailBean detailBean = new RepositiryDetailBean();
+    protected RepositoryDetailBean createDetailBean(RepositoryBean bean) {
+        RepositoryDetailBean detailBean = new RepositoryDetailBean();
         detailBean.name = bean.getName();
         detailBean.authority = (bean.isPrivateX() ? "Private" : "Public");
         detailBean.avatarUrl = bean.getOwner().getAvatar_url();
