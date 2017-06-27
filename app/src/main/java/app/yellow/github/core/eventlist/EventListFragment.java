@@ -106,6 +106,8 @@ public class EventListFragment extends BaseListFragment<EventBean> {
                 return "commented on pull request in";
             case "PullRequestReviewCommentEvent":
                 return "commented on pull request in";
+            case "CreateEvent":
+                return "create";
         }
         return bean.getType();
     }

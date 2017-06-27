@@ -173,6 +173,7 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         mViewPager.setVisibility(View.GONE);
         mEmptyTv.setVisibility(View.VISIBLE);
         mErrorTv.setVisibility(View.GONE);
+        mLodingDialog.dismiss();
     }
 
     @Override

@@ -203,8 +203,12 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
                         setSortType(mUserParams,"updated");
                         break;
                 }
-                mPresenter.searchRepository(mRepositoryParams);
-                mPresenter.searchUser(mUserParams);
+                if (mViewPager.getCurrentItem() == 0){
+                    mPresenter.searchRepository(mRepositoryParams);
+                }else if(mViewPager.getCurrentItem() == 1){
+                    mPresenter.searchUser(mUserParams);
+                }
+
             }
         });
 
