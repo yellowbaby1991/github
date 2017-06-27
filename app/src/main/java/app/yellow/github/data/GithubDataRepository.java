@@ -92,6 +92,11 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
+    public Observable getRepositoryByFullName(String name) {
+        return mRemoteDataSource.getRepositoryByFullName(name);
+    }
+
+    @Override
     public Observable getFollowing(String username, int page) {
 
         final String url = KeyFactory.getFollowingKey(username, page);

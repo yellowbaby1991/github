@@ -134,7 +134,7 @@ public abstract class BaseListPageFragment<T extends BasePresenter> extends Frag
 
     @Override
     public void showEmpty() {
-
+        mLodingDialog.dismiss();
     }
 
     @Override

@@ -69,6 +69,11 @@ public class GithubLocalDataSource implements GithubDataSource {
     }
 
     @Override
+    public Observable getRepositoryByFullName(String name) {
+        return null;
+    }
+
+    @Override
     public Observable loginWithAuth(String baseAuth) {
         return null;
     }

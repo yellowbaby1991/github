@@ -26,8 +26,9 @@ public abstract class BaseDetailActivity<T extends BaseDetailBean> extends AppCo
 
         mDetailBean = createDetailBean();
 
-        initData();
         initView();
+        initData();
+
     }
 
     protected abstract int getLayout();
@@ -40,7 +41,6 @@ public abstract class BaseDetailActivity<T extends BaseDetailBean> extends AppCo
         ActionBar actionBar = getSupportActionBar();//得到Toolbar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
-            actionBar.setTitle(mDetailBean.name);
         }
     }
 

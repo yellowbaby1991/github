@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface RepositoryService {
@@ -28,10 +29,14 @@ public interface RepositoryService {
     @Headers("Cache-Control: public, max-age=180")
     @GET("/users/{username}/starred")
     Observable<List<RepositoryBean>> getStaredRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
-                                                       @Query("per_page") int pageSize);
+                                                             @Query("per_page") int pageSize);
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("")
+    Observable<RepositoryBean> getRepositoryByFullName(@Url String url);
 
     @Headers("Cache-Control: public, max-age=180")
     @GET("/user/repos")
     Observable<List<RepositoryBean>> getUserAllRepositoryList(@Query("page") int pageIndex,
-                                                             @Query("per_page") int pageSize);
+                                                              @Query("per_page") int pageSize);
 }

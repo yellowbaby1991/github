@@ -3,6 +3,7 @@ package app.yellow.github.core.repositorydetail;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,11 +15,16 @@ import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.core.eventlist.EventListActivity;
 import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
+import app.yellow.github.data.GithubDataRepository;
+import app.yellow.github.data.GithubLocalDataSource;
+import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetailBean> {
+public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetailBean> implements RepositoryDetailContract.View {
+
+    public static final String FULL_NAME = "full_name";
 
     @BindView(R.id.description_tv)
     TextView mDescriptionTv;
@@ -55,23 +61,24 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     @BindView(R.id.progress_wheel)
     ProgressWheel mProgressWheel;
 
+    private RepositoryDetailContract.Presenter mPresenter;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_repositroy_detail;
     }
 
     protected void initData() {
-        mOwnerTv.setText("Owner：" + mDetailBean.owener);
-        mUpdatedTv.setText("Last Updated：" + mDetailBean.lastUpdated);
-        mLanguageTv.setText("Language：" + mDetailBean.language);
-        mAuthrityText.setText("Authority：" + mDetailBean.authority);
-        mCapacityTv.setText("Capacity：" + mDetailBean.capacity);
-        mIssuesTv.setText("Issues（" + mDetailBean.issuesCount + "）");
-        mStargazersTv.setText("Stargazers（" + mDetailBean.stargazersCount + "）");
-        mForksTv.setText("Forks（" + mDetailBean.forksCount + "）");
-        mDescriptionTv.setText(mDetailBean.description);
-        mCreatetimeTv.setText("Create at " + mDetailBean.createdAt);
-        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
+        if (mDetailBean == null) {
+            setPresenter(new RepositoryDetailPresenter(
+                    GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
+                    this));
+            String fullname = getIntent().getStringExtra(FULL_NAME);
+            mPresenter.loadRepByFullName(fullname);
+        } else {
+            showRep(mDetailBean);
+        }
+
     }
 
     @Override
@@ -80,12 +87,57 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     }
 
     public void showEventList(View view) {
-        Intent intent = new Intent(this, EventListActivity.class);
-        intent.putExtra(EventListActivity.USER_NAME, mDetailBean.owener);
-        intent.putExtra(EventListActivity.SEACH_TYPE, EventFragment.SEACH_BY_REPS);
-        intent.putExtra(EventListActivity.REP_NAME, mDetailBean.name);
-        startActivity(intent);
+        if (mDetailBean != null){
+            Intent intent = new Intent(this, EventListActivity.class);
+            intent.putExtra(EventListActivity.USER_NAME, mDetailBean.owener);
+            intent.putExtra(EventListActivity.SEACH_TYPE, EventFragment.SEACH_BY_REPS);
+            intent.putExtra(EventListActivity.REP_NAME, mDetailBean.name);
+            startActivity(intent);
+        }
     }
 
+
+    @Override
+    public void showRep(RepositoryDetailBean detailBean) {
+        mDetailBean = detailBean;
+        mOwnerTv.setText("Owner：" + detailBean.owener);
+        mUpdatedTv.setText("Last Updated：" + detailBean.lastUpdated);
+        mLanguageTv.setText("Language：" + detailBean.language);
+        mAuthrityText.setText("Authority：" + detailBean.authority);
+        mCapacityTv.setText("Capacity：" + detailBean.capacity);
+        mIssuesTv.setText("Issues（" + detailBean.issuesCount + "）");
+        mStargazersTv.setText("Stargazers（" + detailBean.stargazersCount + "）");
+        mForksTv.setText("Forks（" + detailBean.forksCount + "）");
+        mDescriptionTv.setText(detailBean.description);
+        mCreatetimeTv.setText("Create at " + detailBean.createdAt);
+        GlideUtil.loadImageWithProgressWheel(detailBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(detailBean.name);
+    }
+
+    @Override
+    public void showEmpty() {
+
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void setPresenter(RepositoryDetailContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
 
 }

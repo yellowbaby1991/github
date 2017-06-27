@@ -8,7 +8,6 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -17,9 +16,9 @@ import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.home.event.EventBean;
 import app.yellow.github.bean.userdetail.UserDetailBean;
+import app.yellow.github.core.repositorydetail.RepositroyDetailActivity;
 import app.yellow.github.core.userdetail.UserDetailActivity;
 import app.yellow.github.core.userlist.UserListFragment;
-import app.yellow.github.util.UIUtils;
 
 public class EventListFragment extends BaseListFragment<EventBean> {
 
@@ -70,7 +69,9 @@ public class EventListFragment extends BaseListFragment<EventBean> {
         View.OnClickListener showRepDetail = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UIUtils.getContext(), bean.getRepo().getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), RepositroyDetailActivity.class);
+                intent.putExtra(RepositroyDetailActivity.FULL_NAME, bean.getRepo().getUrl());
+                startActivity(intent);
             }
         };
 

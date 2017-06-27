@@ -58,7 +58,7 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingTop="25dp"
-                            android:text="RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM."/>
+                            android:text=""/>
 
                         <TextView
                             android:id="@+id/createtime_tv"
@@ -67,7 +67,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="15dp"
                             android:paddingTop="20dp"
-                            android:text="Create at 2017-09-13"/>
+                            android:text=""/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -204,20 +204,23 @@
                             android:layout_height="50dp"
                             android:background="@color/white">
 
-                            <TextView
-                                android:id="@+id/owner_tv"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center|left"
-                                android:text="Owner：ReactiveX"
-                                android:textColor="@color/black"/>
-
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerVertical="true"
                                 android:background="@color/gray"/>
+
+                            <TextView
+                                android:id="@+id/owner_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center|left"
+                                android:text="Owner："
+                                android:textColor="@color/black"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -230,7 +233,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
-                                android:text="Last Updated：2017/06/23"
+                                android:text="Last Updated："
                                 android:textColor="@color/black"/>
 
                             <View
@@ -275,7 +278,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
-                                android:text="Authority：Public"
+                                android:text="Authority："
                                 android:textColor="@color/black"/>
 
                             <View

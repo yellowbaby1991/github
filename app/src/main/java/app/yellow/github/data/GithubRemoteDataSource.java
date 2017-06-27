@@ -1,7 +1,11 @@
 package app.yellow.github.data;
 
+import android.text.format.Formatter;
+
 import java.util.List;
 
+import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
+import app.yellow.github.bean.userdetail.UserDetailResponse;
 import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.data.api.AuthService;
 import app.yellow.github.data.api.RepositoryService;
@@ -12,9 +16,9 @@ import app.yellow.github.bean.home.explore.UserBean;
 import app.yellow.github.bean.login.AuthorizationResponse;
 import app.yellow.github.bean.login.CreateAuthorization;
 import app.yellow.github.bean.userdetail.UserDetailBean;
-import app.yellow.github.bean.userdetail.UserDetailResponse;
 import app.yellow.github.config.GithubConfig;
 import app.yellow.github.core.home.repository.RepositoryFragment;
+import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.RetrofitUtil;
 import app.yellow.github.util.SPUtils;
@@ -84,7 +88,19 @@ public class GithubRemoteDataSource implements GithubDataSource {
                     public Observable<UserDetailBean> call(UserDetailResponse response) {
                         return Observable.just(createUserDetailBean(response));
                     }
+                });
+    }
 
+    @Override
+    public Observable getRepositoryByFullName(String name) {
+        return RetrofitUtil
+                .getRepositroyService()
+                .getRepositoryByFullName(name)
+                .flatMap(new Func1<RepositoryBean, Observable<RepositoryDetailBean>>() {
+                    @Override
+                    public Observable<RepositoryDetailBean> call(RepositoryBean bean) {
+                        return Observable.just(createRepositoryDetailBean(bean));
+                    }
                 });
     }
 
@@ -141,6 +157,24 @@ public class GithubRemoteDataSource implements GithubDataSource {
         return RetrofitUtil
                 .getEventService()
                 .getRepEvents(username, reposname, page, GithubConfig.PER_PAGE);
+    }
+
+
+    protected RepositoryDetailBean createRepositoryDetailBean(RepositoryBean bean) {
+        RepositoryDetailBean detailBean = new RepositoryDetailBean();
+        detailBean.name = bean.getName();
+        detailBean.authority = (bean.isPrivateX() ? "Private" : "Public");
+        detailBean.avatarUrl = bean.getOwner().getAvatar_url();
+        detailBean.capacity = Formatter.formatFileSize(UIUtils.getContext(), Long.valueOf(bean.getSize()));
+        detailBean.createdAt = ActivityUtils.dealDataString(bean.getCreated_at());
+        detailBean.lastUpdated = ActivityUtils.dealDataString(bean.getUpdated_at());
+        detailBean.description = bean.getDescription();
+        detailBean.forksCount = bean.getForks_count() + "";
+        detailBean.stargazersCount = bean.getStargazers_count() + "";
+        detailBean.issuesCount = bean.getOpen_issues_count() + "";
+        detailBean.owener = bean.getOwner().getLogin();
+        detailBean.language = bean.getLanguage();
+        return detailBean;
     }
 
     private UserDetailBean createUserDetailBean(UserDetailResponse bean) {
