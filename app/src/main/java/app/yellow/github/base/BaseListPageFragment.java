@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -41,6 +43,14 @@ public abstract class BaseListPageFragment<T extends BasePresenter> extends Frag
     protected BaseListFragment mListFragment;
 
     protected boolean mShowHome;
+
+    @BindView(R.id.empty_tv)
+    TextView mEmptyTv;
+    @BindView(R.id.error_tv)
+    TextView mErrorTv;
+
+    @BindView(R.id.fragment_container)
+    FrameLayout mFragmentContainer;
 
     @Nullable
     @Override
@@ -135,6 +145,8 @@ public abstract class BaseListPageFragment<T extends BasePresenter> extends Frag
     @Override
     public void showEmpty() {
         mLodingDialog.dismiss();
+        mEmptyTv.setVisibility(View.VISIBLE);
+        mFragmentContainer.setVisibility(View.GONE);
     }
 
     @Override
@@ -154,6 +166,8 @@ public abstract class BaseListPageFragment<T extends BasePresenter> extends Frag
 
     @Override
     public void showList(List list) {
+        mEmptyTv.setVisibility(View.GONE);
+        mFragmentContainer.setVisibility(View.VISIBLE);
         mListFragment.createList(list);
     }
 

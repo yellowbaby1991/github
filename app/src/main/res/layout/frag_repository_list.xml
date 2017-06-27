@@ -55,6 +55,24 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/empty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="No Data"
+            android:textSize="30dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/error_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="加载数据失败，请检查网络！"
+            android:textSize="18dp"
+            android:visibility="gone"/>
+
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/backtotp_fa"
             android:layout_width="wrap_content"

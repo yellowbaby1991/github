@@ -245,9 +245,8 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 LitePal.deleteDatabase("github_db");
-
+                isOnce = false;
                 searchFollow();
-
                 return false;
             }
         });

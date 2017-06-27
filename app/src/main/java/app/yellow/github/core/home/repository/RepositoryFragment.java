@@ -16,9 +16,11 @@ import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import butterknife.Unbinder;
 
 public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.Presenter> implements RepositoryListFragment.RepositoryListListener {
 
+    Unbinder unbinder;
     private String mUsername;
 
     private String mSeachType = "all_rep";
@@ -98,4 +100,6 @@ public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.
             }
         });
     }
+
+
 }

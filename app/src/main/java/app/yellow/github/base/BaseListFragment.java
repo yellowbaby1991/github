@@ -43,6 +43,10 @@ public abstract class BaseListFragment<T> extends Fragment {
         return view;
     }
 
+    public void showEmpty(){
+        mAdapter.setEmptyView(R.layout.empty);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -77,7 +81,7 @@ public abstract class BaseListFragment<T> extends Fragment {
         mAdapter.loadMoreComplete();
     }
 
-    public void hideLoadMore(){
+    public void hideLoadMore() {
         mlistRv.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -99,7 +103,9 @@ public abstract class BaseListFragment<T> extends Fragment {
         mlistRv.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mAdapter.loadMoreEnd();
+                if (mAdapter != null) {
+                    mAdapter.loadMoreEnd();
+                }
             }
         }, 0);
     }
@@ -125,9 +131,9 @@ public abstract class BaseListFragment<T> extends Fragment {
             mlistRv.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (getItemCount() < GithubConfig.PER_PAGE){
+                    if (getItemCount() < GithubConfig.PER_PAGE) {
                         loadMoreEnd();
-                    }else {
+                    } else {
                         BaseListFragment.this.loadMoreRequest();
                     }
                 }

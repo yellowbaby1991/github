@@ -576,6 +576,7 @@
             app:fab_addButtonColorNormal="@color/yellow"
             app:fab_addButtonColorPressed="@color/white_pressed"
             app:fab_addButtonPlusIconColor="@color/white"
+            android:visibility="gone"
             app:fab_labelStyle="@style/menu_labels_style">
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
