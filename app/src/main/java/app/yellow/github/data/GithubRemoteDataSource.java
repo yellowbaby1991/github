@@ -125,6 +125,21 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
+    public Observable checkUserBeingFollowed(String user) {
+        return RetrofitUtil.getUserService().checkUserBeingFollowed(user);
+    }
+
+    @Override
+    public Observable followUser(String user) {
+        return RetrofitUtil.getUserService().followUser(user);
+    }
+
+    @Override
+    public Observable unFollowUser(String user) {
+        return RetrofitUtil.getUserService().unFollowUser(user);
+    }
+
+    @Override
     public Observable loginWithAuth(String basicAuth) {
 
         SPUtils.putString(UIUtils.getContext(), Constants.SP_BASEAUTH, basicAuth);

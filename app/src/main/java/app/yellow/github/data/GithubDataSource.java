@@ -36,4 +36,10 @@ public interface GithubDataSource {
 
     Observable forkRepo(String owner, String repo);
 
+    Observable checkUserBeingFollowed(String user);
+
+    Observable followUser(String user);
+
+    Observable unFollowUser(String user);
+
 }

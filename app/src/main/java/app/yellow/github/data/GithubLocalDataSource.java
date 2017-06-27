@@ -156,4 +156,19 @@ public class GithubLocalDataSource implements GithubDataSource {
         return null;
     }
 
+    @Override
+    public Observable checkUserBeingFollowed(String user) {
+        return null;
+    }
+
+    @Override
+    public Observable followUser(String user) {
+        return null;
+    }
+
+    @Override
+    public Observable unFollowUser(String user) {
+        return null;
+    }
+
 }

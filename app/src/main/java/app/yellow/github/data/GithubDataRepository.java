@@ -186,6 +186,20 @@ public class GithubDataRepository implements GithubDataSource {
         return mRemoteDataSource.forkRepo(owner, repo);
     }
 
+    @Override
+    public Observable checkUserBeingFollowed(String user) {
+        return mRemoteDataSource.checkUserBeingFollowed(user);
+    }
+
+    @Override
+    public Observable followUser(String user) {
+        return mRemoteDataSource.followUser(user);
+    }
+
+    @Override
+    public Observable unFollowUser(String user) {
+        return mRemoteDataSource.unFollowUser(user);
+    }
 
     @Override
     public Observable loginWithAuth(String baseAuth) {

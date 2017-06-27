@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
@@ -68,9 +67,6 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     TextView mCodeTv;
     @BindView(R.id.progress_wheel)
     ProgressWheel mProgressWheel;
-
-    @BindView(R.id.multiple_actions)
-    protected FloatingActionsMenu mMultipleActions;
 
     private RepositoryDetailContract.Presenter mPresenter;
 

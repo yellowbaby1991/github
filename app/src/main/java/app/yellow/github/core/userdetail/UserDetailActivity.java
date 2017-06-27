@@ -5,7 +5,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
@@ -71,9 +73,39 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
     private UserDetailContract.Presenter mPresenter;
 
+    private FloatingActionButton mFollowedAction;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_user_detail;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+
+        mFollowedAction = new FloatingActionButton(this);
+        mFollowedAction.setTitle("");
+        mFollowedAction.setIconDrawable(getResources().getDrawable(R.drawable.ic_fork));
+        mFollowedAction.setColorNormalResId(R.color.yellow);
+        mFollowedAction.setColorPressedResId(R.color.white_pressed);
+        mFollowedAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFollowedAction.getTitle().equals("Followed")) {
+                    mPresenter.followUser( mDetailBean.name);
+                }
+                if (mFollowedAction.getTitle().equals("UnFollowed")) {
+                    mPresenter.unFollowUser(mDetailBean.name);
+                }
+                mFollowedAction.setClickable(false);
+                mFollowedAction.setColorNormalResId(R.color.half_black);
+            }
+        });
+
+        mMultipleActions.addButton(mFollowedAction);
+
+        mMultipleActions.setVisibility(View.GONE);
     }
 
     @Override
@@ -85,6 +117,8 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
         mPresenter.loadUserByName(mDetailBean.name);
 
         mNameTv.setText(mDetailBean.name);
+
+        mPresenter.checkUserBeingFollowed(mDetailBean.name);
 
     }
 
@@ -141,6 +175,40 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
         mRepositorysTv.setText("Repositorys（" + bean.repositorysCount + "）");
         mGistsTv.setText("Gists（" + bean.gistsCount + "）");
         GlideUtil.loadImageWithProgressWheel(bean.avatarUrl, mAvatarUrlImg, mProgressWheel);
+    }
+
+    @Override
+    public void showFollowed() {
+        mMultipleActions.setVisibility(View.VISIBLE);
+        mFollowedAction.setTitle("UnFollowed");
+        mFollowedAction.setIconDrawable(getResources().getDrawable(R.drawable.ic_unfollow_white_48dp));
+    }
+
+    @Override
+    public void showNoFollowed() {
+        mMultipleActions.setVisibility(View.VISIBLE);
+        mFollowedAction.setTitle("Followed");
+        mFollowedAction.setIconDrawable(getResources().getDrawable(R.drawable.ic_follow_white_48dp));
+    }
+
+    @Override
+    public void loadingFollowedOrUnFollowed(String text) {
+        mFollowedAction.setClickable(false);
+        mFollowedAction.setColorNormalResId(R.color.half_black);
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finishFollowedOrUnFollowed(String text) {
+        mFollowedAction.setClickable(true);
+        mFollowedAction.setColorNormalResId(R.color.yellow);
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        if (text.equals("following successful")){
+            showFollowed();
+        }
+        if (text.equals("unfollow successful")){
+            showNoFollowed();
+        }
     }
 
     @Override
