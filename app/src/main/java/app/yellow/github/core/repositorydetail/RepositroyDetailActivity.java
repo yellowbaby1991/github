@@ -6,7 +6,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
@@ -68,16 +70,68 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
 
     private RepositoryDetailContract.Presenter mPresenter;
 
+    private FloatingActionButton mForkAction;
+    private FloatingActionButton mStarAction;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_repositroy_detail;
     }
 
+    @Override
+    protected void initView() {
+        super.initView();
+
+        mForkAction = new FloatingActionButton(this);
+        mForkAction.setTitle("Fork");
+        mForkAction.setIconDrawable(getResources().getDrawable(R.drawable.ic_fork));
+        mForkAction.setColorNormalResId(R.color.yellow);
+        mForkAction.setColorPressedResId(R.color.white_pressed);
+        mForkAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.forkRep(mDetailBean.owener, mDetailBean.name);
+                mForkAction.setClickable(false);
+                mForkAction.setColorNormalResId(R.color.half_black);
+            }
+        });
+
+        mStarAction = new FloatingActionButton(this);
+        mStarAction.setTitle("");
+        mStarAction.setColorNormalResId(R.color.yellow);
+        mStarAction.setColorPressedResId(R.color.white_pressed);
+        mStarAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMultipleActions.collapse();
+            }
+        });
+
+        mMultipleActions.addButton(mForkAction);
+        mMultipleActions.addButton(mStarAction);
+
+        mMultipleActions.setVisibility(View.GONE);
+
+        mStarAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDetailBean != null) {
+                    if (mStarAction.getTitle().equals("Star")) {
+                        mPresenter.starRep(mDetailBean.owener, mDetailBean.name);
+                    }
+                    if (mStarAction.getTitle().equals("UnStar")) {
+                       mPresenter.unStarRep(mDetailBean.owener, mDetailBean.name);
+                    }
+                }
+            }
+        });
+    }
+
     protected void initData() {
+        setPresenter(new RepositoryDetailPresenter(
+                GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
+                this));
         if (mDetailBean == null) {
-            setPresenter(new RepositoryDetailPresenter(
-                    GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
-                    this));
             String fullname = getIntent().getStringExtra(FULL_NAME);
             mPresenter.loadRepByFullName(fullname);
         } else {
@@ -101,7 +155,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         }
     }
 
-    public void showStargazerList(View view){
+    public void showStargazerList(View view) {
         if (mDetailBean != null) {
             Intent intent = new Intent(this, UserListActivity.class);
             intent.putExtra(UserListActivity.URL, mDetailBean.stargazers_url);
@@ -111,7 +165,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     }
 
 
-    public void showContributorsList(View view){
+    public void showContributorsList(View view) {
         if (mDetailBean != null) {
             Intent intent = new Intent(this, UserListActivity.class);
             intent.putExtra(UserListActivity.URL, mDetailBean.contributors_url);
@@ -131,6 +185,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
 
     @Override
     public void showRep(RepositoryDetailBean detailBean) {
+        mPresenter.checkRepBeingStarred(detailBean.owener, detailBean.name);
         mDetailBean = detailBean;
         mOwnerTv.setText("Owner：" + detailBean.owener);
         mUpdatedTv.setText("Last Updated：" + detailBean.lastUpdated);
@@ -145,6 +200,54 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         GlideUtil.loadImageWithProgressWheel(detailBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(detailBean.name);
+    }
+
+    @Override
+    public void showStar() {
+        mMultipleActions.setVisibility(View.VISIBLE);
+        mStarAction.setTitle("UnStar");
+        mStarAction.setIconDrawable(getResources().getDrawable(R.drawable.ic_star));
+    }
+
+    @Override
+    public void showNoStar() {
+        mMultipleActions.setVisibility(View.VISIBLE);
+        mStarAction.setTitle("Star");
+        mStarAction.setIconDrawable(getResources().getDrawable(R.drawable.ic_star_white));
+    }
+
+    @Override
+    public void lodingStarOrUnStar(String text) {
+        mStarAction.setClickable(false);
+        mStarAction.setColorNormalResId(R.color.half_black);
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finishStarOrUnStar(String text) {
+        mStarAction.setClickable(true);
+        mMultipleActions.collapse();
+        mStarAction.setColorNormalResId(R.color.yellow);
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        if (text.equals("staring finish")){
+            showStar();
+        }
+        if (text.equals("unstar finish")){
+            showNoStar();
+        }
+    }
+
+    @Override
+    public void lodingFork(String text) {
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finishFork(String text) {
+        mForkAction.setColorNormalResId(R.color.yellow);
+        mForkAction.setClickable(true);
+        mMultipleActions.collapse();
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
     @Override

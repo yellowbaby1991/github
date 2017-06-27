@@ -116,7 +116,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="#EEEEEE"
                 android:orientation="vertical">
 
@@ -215,12 +215,12 @@
                                 android:id="@+id/owner_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
                                 android:gravity="center|left"
                                 android:text="Owner："
-                                android:textColor="@color/black"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"/>
+                                android:textColor="@color/black"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -309,7 +309,6 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -378,8 +377,8 @@
                         <RelativeLayout
                             android:layout_width="40dp"
                             android:layout_height="50dp"
-                            android:visibility="gone"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="30dp"
@@ -401,11 +400,11 @@
                             android:background="@color/white">
 
                             <TextView
-                                android:onClick="showEventList"
                                 android:id="@+id/events_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showEventList"
                                 android:text="Events"
                                 android:textColor="@color/black"/>
 
@@ -420,8 +419,8 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:visibility="gone"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/issues_tv"
@@ -445,11 +444,11 @@
                             android:background="@color/white">
 
                             <TextView
-                                android:onClick="showStargazerList"
                                 android:id="@+id/stargazers_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showStargazerList"
                                 android:text="Stargazers（25178）"
                                 android:textColor="@color/black"/>
 
@@ -467,11 +466,11 @@
                             android:background="@color/white">
 
                             <TextView
-                                android:onClick="showContributorsList"
                                 android:id="@+id/contributors_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showContributorsList"
                                 android:text="Contributors"
                                 android:textColor="@color/black"/>
 
@@ -489,11 +488,11 @@
                             android:background="@color/white">
 
                             <TextView
-                                android:onClick="showForkList"
                                 android:id="@+id/forks_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showForkList"
                                 android:text="Forks（4437）"
                                 android:textColor="@color/black"/>
 
@@ -563,6 +562,23 @@
 
 
         </android.support.v4.widget.NestedScrollView>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="20dp"
+            app:fab_addButtonColorNormal="@color/yellow"
+            app:fab_addButtonColorPressed="@color/white_pressed"
+            app:fab_addButtonPlusIconColor="@color/white"
+            app:fab_labelStyle="@style/menu_labels_style">
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
     </android.support.design.widget.CoordinatorLayout>

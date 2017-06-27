@@ -166,6 +166,26 @@ public class GithubDataRepository implements GithubDataSource {
         return Observable.concat(localTask, remoteTask).first();
     }
 
+    @Override
+    public Observable checkRepBeingStarred(String owner, String repo) {
+        return mRemoteDataSource.checkRepBeingStarred(owner, repo);
+    }
+
+    @Override
+    public Observable starRepo(String owner, String repo) {
+        return mRemoteDataSource.starRepo(owner, repo);
+    }
+
+    @Override
+    public Observable unStarRepo(String owner, String repo) {
+        return mRemoteDataSource.unStarRepo(owner, repo);
+    }
+
+    @Override
+    public Observable forkRepo(String owner, String repo) {
+        return mRemoteDataSource.forkRepo(owner, repo);
+    }
+
 
     @Override
     public Observable loginWithAuth(String baseAuth) {

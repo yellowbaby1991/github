@@ -105,6 +105,26 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
+    public Observable checkRepBeingStarred(String owner, String repo) {
+        return RetrofitUtil.getRepositroyService().checkRepBeingStarred(owner, repo);
+    }
+
+    @Override
+    public Observable starRepo(String owner, String repo) {
+        return RetrofitUtil.getRepositroyService().starRepo(owner, repo);
+    }
+
+    @Override
+    public Observable unStarRepo(String owner, String repo) {
+        return RetrofitUtil.getRepositroyService().unStarRepo(owner, repo);
+    }
+
+    @Override
+    public Observable forkRepo(String owner, String repo) {
+        return RetrofitUtil.getRepositroyService().forkRepo(owner, repo);
+    }
+
+    @Override
     public Observable loginWithAuth(String basicAuth) {
 
         SPUtils.putString(UIUtils.getContext(), Constants.SP_BASEAUTH, basicAuth);

@@ -22,10 +22,18 @@ public interface GithubDataSource {
 
     Observable getFollowers(String username, int page);
 
-    Observable getUsersByUrl(String url,int page);
+    Observable getUsersByUrl(String url, int page);
 
     Observable getEvents(String username, int i, String seachType, String reposname);
 
     Observable getRepositoryByFullName(String name);
+
+    Observable checkRepBeingStarred(String owner, String repo);
+
+    Observable starRepo(String owner, String repo);
+
+    Observable unStarRepo(String owner, String repo);
+
+    Observable forkRepo(String owner, String repo);
 
 }

@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @OnClick(R.id.login_bt)
     public void login() {
-        mPresenter.login("yellowbaby1991", "woainima0");
+        mPresenter.login("yellowbaby", "woainima0");
     }
 
     @Override

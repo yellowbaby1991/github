@@ -136,4 +136,24 @@ public class GithubLocalDataSource implements GithubDataSource {
         });
     }
 
+    @Override
+    public Observable checkRepBeingStarred(String owner, String repo) {
+        return null;
+    }
+
+    @Override
+    public Observable starRepo(String owner, String repo) {
+        return null;
+    }
+
+    @Override
+    public Observable unStarRepo(String owner, String repo) {
+        return null;
+    }
+
+    @Override
+    public Observable forkRepo(String owner, String repo) {
+        return null;
+    }
+
 }

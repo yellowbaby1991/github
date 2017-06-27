@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import app.yellow.github.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,8 +17,11 @@ public abstract class BaseDetailActivity<T extends BaseDetailBean> extends AppCo
 
     protected T mDetailBean;
 
+    @BindView(R.id.multiple_actions)
+    protected FloatingActionsMenu mMultipleActions;
+
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    protected Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public abstract class BaseDetailActivity<T extends BaseDetailBean> extends AppCo
 
     protected abstract int getLayout();
 
-    private void initView() {
+    protected void initView() {
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
