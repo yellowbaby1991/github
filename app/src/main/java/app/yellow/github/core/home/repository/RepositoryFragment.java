@@ -3,6 +3,11 @@ package app.yellow.github.core.home.repository;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+import org.litepal.LitePal;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
@@ -79,5 +84,18 @@ public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.
         mPresenter.loadMoreRepository(mUsername, nextPage, mSeachType);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
 
+        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
+        refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                LitePal.deleteDatabase("github_db");
+                mPresenter.searchUserRepository(mUsername, mSeachType);
+                return false;
+            }
+        });
+    }
 }

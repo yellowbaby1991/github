@@ -22,6 +22,8 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import org.litepal.LitePal;
+
 import java.util.List;
 
 import app.yellow.github.R;
@@ -276,8 +278,13 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
         refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mPresenter.searchRepository(mRepositoryParams);
-                mPresenter.searchUser(mUserParams);
+                LitePal.deleteDatabase("github_db");
+                if (mViewPager.getCurrentItem() == 0){
+                    mPresenter.searchRepository(mRepositoryParams);
+                }
+                if (mViewPager.getCurrentItem() == 1){
+                    mPresenter.searchUser(mUserParams);
+                }
                 return false;
             }
         });

@@ -11,9 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -64,7 +69,7 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         return R.layout.frag_follow;
     }
 
-    public void setIsShowHome(boolean showHome){
+    public void setIsShowHome(boolean showHome) {
         mShowHome = showHome;
     }
 
@@ -78,15 +83,7 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this);
 
-        if (mSearchType.equals(FOLLOWER)) {
-            mViewPager.setCurrentItem(0);
-            mPresenter.searchFollowers(mUsername);
-        }
-        if (mSearchType.equals(FOLLOWING)) {
-            mViewPager.setCurrentItem(1);
-            mPresenter.searchFollowing(mUsername);
-        }
-
+        searchFollow();
 
     }
 
@@ -102,9 +99,9 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
             actionBar.setTitle("Follow");
-            if (!mShowHome){
+            if (!mShowHome) {
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_action_navigation_arrow_back_inverted);
-            }else {
+            } else {
                 actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
             }
         }
@@ -237,6 +234,33 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
         @Override
         public CharSequence getPageTitle(int position) {
             return mTitles[position];
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.frag_menu, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
+        refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                LitePal.deleteDatabase("github_db");
+
+                searchFollow();
+
+                return false;
+            }
+        });
+    }
+
+    private void searchFollow() {
+        if (mSearchType.equals(FOLLOWER)) {
+            mViewPager.setCurrentItem(0);
+            mPresenter.searchFollowers(mUsername);
+        }
+        if (mSearchType.equals(FOLLOWING)) {
+            mViewPager.setCurrentItem(1);
+            mPresenter.searchFollowing(mUsername);
         }
     }
 }

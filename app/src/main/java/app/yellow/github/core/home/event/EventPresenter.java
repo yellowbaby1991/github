@@ -37,7 +37,7 @@ public class EventPresenter extends BasePresenterImpl<BaseListView> implements E
                 .getEvents(username, nextPage, seachType, reposname)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseListObserver<EventBean>(mView){
+                .subscribe(new BaseListObserver<EventBean>(mView) {
                     @Override
                     protected boolean isLoadMore() {
                         return true;

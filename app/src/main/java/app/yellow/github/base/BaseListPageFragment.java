@@ -97,7 +97,7 @@ public abstract class BaseListPageFragment<T extends BasePresenter> extends Frag
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.frag_menu, menu);
     }
 
     public void setPresenter(T presenter) {

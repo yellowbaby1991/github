@@ -3,6 +3,11 @@ package app.yellow.github.core.userlist;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+import org.litepal.LitePal;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
@@ -67,5 +72,19 @@ public class UserFragment extends BaseListPageFragment<UserContract.Presenter> i
     @Override
     public void loadMoreUser(int nextPage) {
         mPresenter.loadMoreUserByUrl(mUrl, nextPage);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.frag_menu, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
+        refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                LitePal.deleteDatabase("github_db");
+                mPresenter.searchUserByUrl(mUrl);
+                return false;
+            }
+        });
     }
 }
