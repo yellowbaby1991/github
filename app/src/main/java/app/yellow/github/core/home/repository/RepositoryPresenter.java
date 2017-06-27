@@ -58,13 +58,4 @@ public class RepositoryPresenter extends BasePresenterImpl<BaseListView> impleme
         mSubscriptions.add(subscription);
     }
 
-    @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-        mSubscriptions.clear();
-    }
 }

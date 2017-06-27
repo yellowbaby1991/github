@@ -445,6 +445,7 @@
                             android:background="@color/white">
 
                             <TextView
+                                android:onClick="showStargazerList"
                                 android:id="@+id/stargazers_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -466,6 +467,7 @@
                             android:background="@color/white">
 
                             <TextView
+                                android:onClick="showContributorsList"
                                 android:id="@+id/contributors_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"

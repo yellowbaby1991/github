@@ -56,7 +56,7 @@ public class GithubDataRepository implements GithubDataSource {
     @Override
     public Observable getRepostitoryByUrl(String url, int page) {
 
-        final String key = KeyFactory.getRepositoryUrlKey(url, page);
+        final String key = KeyFactory.getUrlKey(url, page);
 
         Observable localTask = mLocalDataSource.getRepostitoryByUrl(url, page);
 
@@ -127,6 +127,18 @@ public class GithubDataRepository implements GithubDataSource {
         Observable localTask = mLocalDataSource.getFollowers(username, page);
 
         Observable remoteTask = mRemoteDataSource.getFollowers(username, page).doOnNext(new BaseSaveAction<List<UserDetailBean>>(url));
+
+        return Observable.concat(localTask, remoteTask).first();
+    }
+
+    @Override
+    public Observable getUsersByUrl(String url, int page) {
+
+        final String key = KeyFactory.getUrlKey(url, page);
+
+        Observable localTask = mLocalDataSource.getUsersByUrl(url, page);
+
+        Observable remoteTask = mRemoteDataSource.getUsersByUrl(url, page).doOnNext(new BaseSaveAction<List<UserBean>>(key));
 
         return Observable.concat(localTask, remoteTask).first();
     }

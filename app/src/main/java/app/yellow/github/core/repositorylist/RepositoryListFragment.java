@@ -52,6 +52,8 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
         detailBean.owener = bean.getOwner().getLogin();
         detailBean.language = bean.getLanguage();
         detailBean.forks_url = bean.getForks_url();
+        detailBean.contributors_url = bean.getContributors_url();
+        detailBean.stargazers_url = bean.getStargazers_url();
         return detailBean;
     }
 

@@ -18,6 +18,8 @@ import app.yellow.github.core.home.repository.RepositoryFragment;
 import app.yellow.github.core.repositorylist.RepositoryListActivity;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.core.userdetail.UserDetailActivity;
+import app.yellow.github.core.userlist.UserFragment;
+import app.yellow.github.core.userlist.UserListActivity;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
@@ -95,6 +97,25 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
             intent.putExtra(EventListActivity.USER_NAME, mDetailBean.owener);
             intent.putExtra(EventListActivity.SEACH_TYPE, EventFragment.SEACH_BY_REPS);
             intent.putExtra(EventListActivity.REP_NAME, mDetailBean.name);
+            startActivity(intent);
+        }
+    }
+
+    public void showStargazerList(View view){
+        if (mDetailBean != null) {
+            Intent intent = new Intent(this, UserListActivity.class);
+            intent.putExtra(UserListActivity.URL, mDetailBean.stargazers_url);
+            intent.putExtra(UserListActivity.SEARCHTYPE, UserFragment.SEACH_STARGAZERS);
+            startActivity(intent);
+        }
+    }
+
+
+    public void showContributorsList(View view){
+        if (mDetailBean != null) {
+            Intent intent = new Intent(this, UserListActivity.class);
+            intent.putExtra(UserListActivity.URL, mDetailBean.contributors_url);
+            intent.putExtra(UserListActivity.SEARCHTYPE, UserFragment.SEACH_CONTRIBUTORS);
             startActivity(intent);
         }
     }

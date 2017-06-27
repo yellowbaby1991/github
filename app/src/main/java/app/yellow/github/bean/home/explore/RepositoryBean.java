@@ -88,6 +88,24 @@ public class RepositoryBean {
     private int forks_count;
     private int open_issues_count;
     private String forks_url;
+    private String stargazers_url;
+    private String contributors_url;
+
+    public String getStargazers_url() {
+        return stargazers_url;
+    }
+
+    public void setStargazers_url(String stargazers_url) {
+        this.stargazers_url = stargazers_url;
+    }
+
+    public String getContributors_url() {
+        return contributors_url;
+    }
+
+    public void setContributors_url(String contributors_url) {
+        this.contributors_url = contributors_url;
+    }
 
     public String getForks_url() {
         return forks_url;

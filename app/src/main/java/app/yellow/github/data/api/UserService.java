@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface UserService {
@@ -29,12 +30,18 @@ public interface UserService {
     @Headers("Cache-Control: public, max-age=180")
     @GET("/users/{name}/following")
     Observable<List<UserBean>> getUserFollowing(@Path("name") String name, @Query("page") int pageIndex,
-                                               @Query("per_page") int pageSize);
+                                                @Query("per_page") int pageSize);
 
 
     @Headers("Cache-Control: public, max-age=180")
     @GET("/users/{name}/followers")
     Observable<List<UserBean>> getUserFollowers(@Path("name") String name, @Query("page") int pageIndex,
-                                      @Query("per_page") int pageSize);
+                                                @Query("per_page") int pageSize);
+
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("")
+    Observable<List<UserBean>> getUsersByUrl(@Url String url, @Query("page") int pageIndex,
+                                             @Query("per_page") int pageSize);
 
 }

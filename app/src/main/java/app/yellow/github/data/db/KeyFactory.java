@@ -67,7 +67,7 @@ public class KeyFactory {
         return url.toString();
     }
 
-    public static String getRepositoryUrlKey(String name, int page) {
+    public static String getUrlKey(String name, int page) {
         StringBuilder url = new StringBuilder("");
         url.append(name);
         url.append("page=" + page + "&");

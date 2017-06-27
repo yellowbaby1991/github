@@ -26,6 +26,11 @@ public class RepositoryDetailBean extends BaseDetailBean {
 
     public String forksCount;
 
+    public String contributors_url;
+
+    public String stargazers_url;
+
+
 
 
 }

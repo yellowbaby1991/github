@@ -22,6 +22,8 @@ public interface GithubDataSource {
 
     Observable getFollowers(String username, int page);
 
+    Observable getUsersByUrl(String url,int page);
+
     Observable getEvents(String username, int i, String seachType, String reposname);
 
     Observable getRepositoryByFullName(String name);

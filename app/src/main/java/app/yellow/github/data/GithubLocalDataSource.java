@@ -72,7 +72,7 @@ public class GithubLocalDataSource implements GithubDataSource {
 
     @Override
     public Observable getRepostitoryByUrl(String url, int page) {
-        return Observable.create(new BaseLocalListOnSubscribe(KeyFactory.getRepositoryUrlKey(url, page)) {
+        return Observable.create(new BaseLocalListOnSubscribe(KeyFactory.getUrlKey(url, page)) {
             @Override
             protected List<RepositoryBean> paresToList(String json) {
                 return JSON.parseArray(json, RepositoryBean.class);
@@ -99,6 +99,16 @@ public class GithubLocalDataSource implements GithubDataSource {
     @Override
     public Observable getFollowers(String username, int page) {
         return Observable.create(new BaseLocalListOnSubscribe<UserBean>(KeyFactory.getFollowerKey(username, page)) {
+            @Override
+            protected List paresToList(String json) {
+                return JSON.parseArray(json, UserBean.class);
+            }
+        });
+    }
+
+    @Override
+    public Observable getUsersByUrl(String url, int page) {
+        return Observable.create(new BaseLocalListOnSubscribe<UserBean>(KeyFactory.getUrlKey(url, page)) {
             @Override
             protected List paresToList(String json) {
                 return JSON.parseArray(json, UserBean.class);

@@ -148,6 +148,12 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
+    public Observable getUsersByUrl(String url, int page) {
+        return RetrofitUtil
+                .getUserService().getUsersByUrl(url, page, GithubConfig.PER_PAGE);
+    }
+
+    @Override
     public Observable getEvents(String username, int page, String seachType, String reposname) {
         if (seachType.equals(EventFragment.SEACH_BY_USER)) {
             return RetrofitUtil
@@ -179,6 +185,9 @@ public class GithubRemoteDataSource implements GithubDataSource {
         detailBean.issuesCount = bean.getOpen_issues_count() + "";
         detailBean.owener = bean.getOwner().getLogin();
         detailBean.language = bean.getLanguage();
+        detailBean.forks_url = bean.getForks_url();
+        detailBean.stargazers_url = bean.getStargazers_url();
+        detailBean.contributors_url = bean.getContributors_url();
         return detailBean;
     }
 
