@@ -84,7 +84,6 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
         mPresenter.loadUserByName(mDetailBean.name);
 
-        GlideUtil.loadImageWithProgressWheel(mDetailBean.avatarUrl, mAvatarUrlImg, mProgressWheel);
         mNameTv.setText(mDetailBean.name);
 
     }
@@ -141,6 +140,7 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
         mFollowingTv.setText("Following（" + bean.followingCount + "）");
         mRepositorysTv.setText("Repositorys（" + bean.repositorysCount + "）");
         mGistsTv.setText("Gists（" + bean.gistsCount + "）");
+        GlideUtil.loadImageWithProgressWheel(bean.avatarUrl, mAvatarUrlImg, mProgressWheel);
     }
 
     @Override
