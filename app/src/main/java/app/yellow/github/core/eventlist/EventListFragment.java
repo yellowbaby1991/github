@@ -1,5 +1,7 @@
 package app.yellow.github.core.eventlist;
 
+import android.text.Html;
+import android.text.Spanned;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -33,20 +35,49 @@ public class EventListFragment extends BaseListFragment<EventBean> {
     @Override
     protected void convert(BaseViewHolder helper, EventBean bean) {
         Glide.with(getContext()).load(bean.getActor().getAvatar_url()).crossFade().into((ImageView) helper.getView(R.id.avatar_url_img));
-        helper.setText(R.id.actor_name_tv, bean.getActor().getLogin() + " ");
-        helper.setText(R.id.type_tv, bean.getType() + " ");
-        helper.setText(R.id.repo_tv, bean.getRepo().getName());
-        if (bean.getPayload() != null && bean.getPayload().getCommits()!= null) {
-            helper.setText(R.id.body_tv, bean.getPayload().getCommits().get(0).getMessage());
-        }else {
-            helper.setText(R.id.body_tv, "");
+        helper.setText(R.id.eventdetail_tv, getEventDetail(bean));
+        helper.setText(R.id.body_tv, getBody(bean));
+        helper.setText(R.id.update_data_tv, "time：" + bean.getCreated_at());
+    }
+
+    private Spanned getEventDetail(EventBean bean) {
+        String detail = "<font color='#3BB8E6'>" + bean.getActor().getLogin() + "</font>" + " "
+                        + getType(bean) + " "
+                        + "<font color='#3BB8E6'>" + bean.getRepo().getName() + "</font>";
+        return Html.fromHtml(detail);
+    }
+
+    private String getType(EventBean bean) {
+        switch (bean.getType()) {
+            case "PushEvent":
+                return "pushed to";
+            case "WatchEvent":
+                return "starred";
+            case "ForkEvent":
+                return "forked";
+            case "IssuesEvent":
+                return "open issue";
+            case "PullRequestEvent":
+                return "chosed pull request";
+            case "IssueCommentEvent":
+                return "commited on issue";
+            case "PullRequestReviewEvent":
+                return "commented on pull request in";
+            case "PullRequestReviewCommentEvent":
+                return "commented on pull request in";
         }
-        if (bean.getPayload() != null && bean.getPayload().getIssue()!= null && bean.getPayload().getIssue().getBody() != null) {
-            helper.setText(R.id.body_tv, bean.getPayload().getIssue().getBody());
-        }else {
-            helper.setText(R.id.body_tv, "");
+        return bean.getType();
+    }
+
+    private String getBody(EventBean bean) {
+        String body = "";
+        if (bean.getPayload() != null && bean.getPayload().getCommits() != null) {
+            body += bean.getPayload().getCommits().get(0).getMessage();
         }
-        helper.setText(R.id.update_data_tv, "最近更新：" + bean.getCreated_at());
+        if (bean.getPayload() != null && bean.getPayload().getIssue() != null && bean.getPayload().getIssue().getBody() != null) {
+            body += bean.getPayload().getIssue().getBody();
+        }
+        return body;
     }
 
     @Override
