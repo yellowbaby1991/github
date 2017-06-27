@@ -28,7 +28,7 @@
             android:id="@+id/action_star"
             android:icon="@drawable/ic_star_2x"
             android:title="Starred"/>
-        <item
+<!--        <item
             android:id="@+id/action_issue"
             android:icon="@drawable/ic_issue_2x"
             android:title="Issues"/>
@@ -36,7 +36,7 @@
         <item
             android:id="@+id/action_gists"
             android:icon="@drawable/ic_gists_2x"
-            android:title="Gists"/>
+            android:title="Gists"/>-->
 
     </group>
 

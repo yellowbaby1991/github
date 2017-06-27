@@ -55,4 +55,15 @@ public class KeyFactory {
         url.append("par_page=" + GithubConfig.PER_PAGE);
         return url.toString();
     }
+
+    public static String getEventKey(String username, int page, String seachType, String reposname) {
+        StringBuilder url = new StringBuilder("");
+        url.append("events/");
+        url.append(username + "/");
+        url.append(reposname + "/");
+        url.append("seachType=" + seachType + "&");
+        url.append("page=" + page + "&");
+        url.append("par_page=" + GithubConfig.PER_PAGE);
+        return url.toString();
+    }
 }

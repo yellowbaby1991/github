@@ -6,9 +6,11 @@ import java.util.List;
 
 import app.yellow.github.base.BaseLocalListOnSubscribe;
 import app.yellow.github.base.BaseLocalOnSubscribe;
+import app.yellow.github.bean.home.event.EventBean;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.db.KeyFactory;
 import rx.Observable;
@@ -70,7 +72,12 @@ public class GithubLocalDataSource implements GithubDataSource {
 
     @Override
     public Observable getRepositoryByFullName(String name) {
-        return null;
+        return Observable.create(new BaseLocalOnSubscribe<RepositoryDetailBean>(name) {
+            @Override
+            protected RepositoryDetailBean paresToBean(String json) {
+                return JSON.parseObject(json, RepositoryDetailBean.class);
+            }
+        });
     }
 
     @Override
@@ -99,8 +106,13 @@ public class GithubLocalDataSource implements GithubDataSource {
     }
 
     @Override
-    public Observable getEvents(String username, int i, String seachType, String reposname) {
-        return null;
+    public Observable getEvents(String username, int page, String seachType, String reposname) {
+        return Observable.create(new BaseLocalListOnSubscribe<EventBean>(KeyFactory.getEventKey(username, page, seachType, reposname)) {
+            @Override
+            protected List paresToList(String json) {
+                return JSON.parseArray(json, EventBean.class);
+            }
+        });
     }
 
 

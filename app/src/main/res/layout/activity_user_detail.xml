@@ -199,20 +199,24 @@
                             android:layout_height="50dp"
                             android:background="@color/white">
 
-                            <TextView
-                                android:id="@+id/blog_tv"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center|left"
-                                android:text="Blog："
-                                android:textColor="@color/black"/>
-
                             <View
+                                android:id="@+id/view"
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerVertical="true"
                                 android:background="@color/gray"/>
+
+                            <TextView
+                                android:id="@+id/blog_tv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_above="@+id/view"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:gravity="center|left"
+                                android:text="Blog："
+                                android:textColor="@color/black"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -257,7 +261,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -327,7 +330,8 @@
                         <RelativeLayout
                             android:layout_width="40dp"
                             android:layout_height="50dp"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="30dp"
@@ -349,11 +353,11 @@
                             android:background="@color/white">
 
                             <TextView
-                                android:onClick="showEventList"
                                 android:id="@+id/events_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showEventList"
                                 android:text="Events"
                                 android:textColor="@color/black"/>
 
@@ -368,7 +372,8 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -436,10 +441,10 @@
 
                             <TextView
                                 android:id="@+id/following_tv"
-                                android:onClick="showFollowingList"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center|left"
+                                android:onClick="showFollowingList"
                                 android:text="Following（12）"
                                 android:textColor="@color/black"/>
 
@@ -453,7 +458,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
@@ -480,7 +484,8 @@
                         <RelativeLayout
                             android:layout_width="40dp"
                             android:layout_height="50dp"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="30dp"
@@ -524,7 +529,8 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/gists_tv"
@@ -536,7 +542,6 @@
 
                         </RelativeLayout>
 
-
                     </LinearLayout>
 
                 </LinearLayout>
@@ -545,7 +550,7 @@
             </LinearLayout>
 
 
-        </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>R
 
 
     </android.support.design.widget.CoordinatorLayout>

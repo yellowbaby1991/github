@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 import app.yellow.github.base.BaseSaveAction;
+import app.yellow.github.bean.home.event.EventBean;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.bean.home.explore.SearchParams;
 import app.yellow.github.bean.home.explore.UserBean;
+import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.db.KeyFactory;
 import rx.Observable;
@@ -93,7 +95,12 @@ public class GithubDataRepository implements GithubDataSource {
 
     @Override
     public Observable getRepositoryByFullName(String name) {
-        return mRemoteDataSource.getRepositoryByFullName(name);
+
+        Observable localTask = mLocalDataSource.getRepositoryByFullName(name);
+
+        Observable remoteTask = mRemoteDataSource.getRepositoryByFullName(name).doOnNext(new BaseSaveAction<List<RepositoryDetailBean>>(name));
+
+        return Observable.concat(localTask, remoteTask).first();
     }
 
     @Override
@@ -122,8 +129,16 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
-    public Observable getEvents(String username, int page, String seachType,String reposname) {
-        return mRemoteDataSource.getEvents(username, page, seachType,reposname);
+    public Observable getEvents(String username, int page, String seachType, String reposname) {
+
+        final String url = KeyFactory.getEventKey(username, page, seachType, reposname);
+
+        Observable localTask = mLocalDataSource.getEvents(username, page, seachType, reposname);
+
+        Observable remoteTask = mRemoteDataSource.getEvents(username, page, seachType, reposname).doOnNext(new BaseSaveAction<List<EventBean>>(url));
+
+        return Observable.concat(localTask, remoteTask).first();
+
     }
 
     @Override
