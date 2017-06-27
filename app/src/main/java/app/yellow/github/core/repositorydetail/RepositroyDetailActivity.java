@@ -14,7 +14,10 @@ import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.core.eventlist.EventListActivity;
 import app.yellow.github.core.home.event.EventFragment;
+import app.yellow.github.core.home.repository.RepositoryFragment;
+import app.yellow.github.core.repositorylist.RepositoryListActivity;
 import app.yellow.github.core.repositorylist.RepositoryListFragment;
+import app.yellow.github.core.userdetail.UserDetailActivity;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
@@ -87,7 +90,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     }
 
     public void showEventList(View view) {
-        if (mDetailBean != null){
+        if (mDetailBean != null) {
             Intent intent = new Intent(this, EventListActivity.class);
             intent.putExtra(EventListActivity.USER_NAME, mDetailBean.owener);
             intent.putExtra(EventListActivity.SEACH_TYPE, EventFragment.SEACH_BY_REPS);
@@ -96,6 +99,14 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         }
     }
 
+    public void showForkList(View view) {
+        if (mDetailBean != null && mDetailBean.forks_url != null) {
+            Intent intent = new Intent(this, RepositoryListActivity.class);
+            intent.putExtra(UserDetailActivity.REP_TYPE, RepositoryFragment.SEACH_FORK);
+            intent.putExtra(UserDetailActivity.USER_NAME, mDetailBean.forks_url);
+            startActivity(intent);
+        }
+    }
 
     @Override
     public void showRep(RepositoryDetailBean detailBean) {
@@ -127,12 +138,12 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
 
     @Override
     public void showLoading() {
-
+        mProgressWheel.setProgress(1);
     }
 
     @Override
     public void hideLoading() {
-
+        mProgressWheel.setProgress(0);
     }
 
     @Override

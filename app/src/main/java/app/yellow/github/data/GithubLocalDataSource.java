@@ -71,14 +71,15 @@ public class GithubLocalDataSource implements GithubDataSource {
     }
 
     @Override
-    public Observable getRepositoryByFullName(String name) {
-        return Observable.create(new BaseLocalOnSubscribe<RepositoryDetailBean>(name) {
+    public Observable getRepostitoryByUrl(String url, int page) {
+        return Observable.create(new BaseLocalListOnSubscribe(KeyFactory.getRepositoryUrlKey(url, page)) {
             @Override
-            protected RepositoryDetailBean paresToBean(String json) {
-                return JSON.parseObject(json, RepositoryDetailBean.class);
+            protected List<RepositoryBean> paresToList(String json) {
+                return JSON.parseArray(json, RepositoryBean.class);
             }
         });
     }
+
 
     @Override
     public Observable loginWithAuth(String baseAuth) {
@@ -115,5 +116,14 @@ public class GithubLocalDataSource implements GithubDataSource {
         });
     }
 
+    @Override
+    public Observable getRepositoryByFullName(String name) {
+        return Observable.create(new BaseLocalOnSubscribe<RepositoryDetailBean>(name) {
+            @Override
+            protected RepositoryDetailBean paresToBean(String json) {
+                return JSON.parseObject(json, RepositoryDetailBean.class);
+            }
+        });
+    }
 
 }

@@ -87,6 +87,15 @@ public class RepositoryBean {
     private String language;
     private int forks_count;
     private int open_issues_count;
+    private String forks_url;
+
+    public String getForks_url() {
+        return forks_url;
+    }
+
+    public void setForks_url(String forks_url) {
+        this.forks_url = forks_url;
+    }
 
     public String getName() {
         return name;

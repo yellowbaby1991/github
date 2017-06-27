@@ -14,7 +14,7 @@ public interface GithubDataSource {
 
     Observable getUserByName(String name);
 
-    Observable getRepositoryByFullName(String name);
+    Observable getRepostitoryByUrl(String url, int page);
 
     Observable loginWithAuth(String baseAuth);
 
@@ -23,5 +23,7 @@ public interface GithubDataSource {
     Observable getFollowers(String username, int page);
 
     Observable getEvents(String username, int i, String seachType, String reposname);
+
+    Observable getRepositoryByFullName(String name);
 
 }

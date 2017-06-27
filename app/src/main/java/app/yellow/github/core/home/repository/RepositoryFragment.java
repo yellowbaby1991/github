@@ -24,9 +24,12 @@ public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.
 
     public static final String SEACH_ALL_REP = "all_rep";
 
+    public static final String SEACH_FORK = "fork";
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         mPresenter.searchUserRepository(mUsername, mSeachType);
     }
 
@@ -40,6 +43,9 @@ public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.
         }
         if (mSeachType.equals(SEACH_ALL_REP)) {
             actionBar.setTitle("Repository");
+        }
+        if (mSeachType.equals(SEACH_FORK)) {
+            actionBar.setTitle("Forks");
         }
     }
 
@@ -70,7 +76,7 @@ public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.
 
     @Override
     public void loadMoreRepository(int nextPage) {
-        mPresenter.loadMoreRepository("JakeWharton", nextPage, mSeachType);
+        mPresenter.loadMoreRepository(mUsername, nextPage, mSeachType);
     }
 
 

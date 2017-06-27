@@ -54,6 +54,18 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
+    public Observable getRepostitoryByUrl(String url, int page) {
+
+        final String key = KeyFactory.getRepositoryUrlKey(url, page);
+
+        Observable localTask = mLocalDataSource.getRepostitoryByUrl(url, page);
+
+        Observable remoteTask = mRemoteDataSource.getRepostitoryByUrl(url, page).doOnNext(new BaseSaveAction<List<RepositoryBean>>(key));
+
+        return Observable.concat(localTask, remoteTask).first();
+    }
+
+    @Override
     public Observable getUserListByParams(SearchParams params) {
 
         final String url = KeyFactory.getKeyByParams(params);
@@ -93,15 +105,6 @@ public class GithubDataRepository implements GithubDataSource {
 
     }
 
-    @Override
-    public Observable getRepositoryByFullName(String name) {
-
-        Observable localTask = mLocalDataSource.getRepositoryByFullName(name);
-
-        Observable remoteTask = mRemoteDataSource.getRepositoryByFullName(name).doOnNext(new BaseSaveAction<List<RepositoryDetailBean>>(name));
-
-        return Observable.concat(localTask, remoteTask).first();
-    }
 
     @Override
     public Observable getFollowing(String username, int page) {
@@ -140,6 +143,17 @@ public class GithubDataRepository implements GithubDataSource {
         return Observable.concat(localTask, remoteTask).first();
 
     }
+
+    @Override
+    public Observable getRepositoryByFullName(String name) {
+
+        Observable localTask = mLocalDataSource.getRepositoryByFullName(name);
+
+        Observable remoteTask = mRemoteDataSource.getRepositoryByFullName(name).doOnNext(new BaseSaveAction<List<RepositoryDetailBean>>(name));
+
+        return Observable.concat(localTask, remoteTask).first();
+    }
+
 
     @Override
     public Observable loginWithAuth(String baseAuth) {

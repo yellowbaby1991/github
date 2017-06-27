@@ -33,6 +33,11 @@ public interface RepositoryService {
 
     @Headers("Cache-Control: public, max-age=180")
     @GET("")
+    Observable<List<RepositoryBean>> getRepositoryByUrl(@Url String url, @Query("page") int pageIndex,
+                                                       @Query("per_page") int pageSize);
+
+    @Headers("Cache-Control: public, max-age=180")
+    @GET("")
     Observable<RepositoryBean> getRepositoryByFullName(@Url String url);
 
     @Headers("Cache-Control: public, max-age=180")

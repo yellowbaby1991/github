@@ -7,6 +7,7 @@ import app.yellow.github.base.BaseListView;
 import app.yellow.github.base.BasePresenterImpl;
 import app.yellow.github.bean.home.explore.RepositoryBean;
 import app.yellow.github.data.GithubDataRepository;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -22,8 +23,7 @@ public class RepositoryPresenter extends BasePresenterImpl<BaseListView> impleme
 
         mView.showLoading();
 
-        Subscription subscription = mRepository
-                .getUsersRepositoryList(username, 1, seachType)
+        Subscription subscription = getSubscriptionbySeachType(username, seachType, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseListObserver<RepositoryBean>(mView));
@@ -32,11 +32,19 @@ public class RepositoryPresenter extends BasePresenterImpl<BaseListView> impleme
 
     }
 
+    private Observable getSubscriptionbySeachType(String username, String seachType, int page) {
+        if (seachType.equals(RepositoryFragment.SEACH_FORK)) {
+            return mRepository
+                    .getRepostitoryByUrl(username, page);
+        }
+        return mRepository
+                .getUsersRepositoryList(username, page, seachType);
+    }
+
     @Override
     public void loadMoreRepository(String username, int nextPage, String seachType) {
 
-        Subscription subscription = mRepository
-                .getUsersRepositoryList(username, 1, seachType)
+        Subscription subscription = getSubscriptionbySeachType(username, seachType, nextPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseListObserver<RepositoryBean>(mView) {

@@ -51,6 +51,7 @@ public class RepositoryListFragment extends BaseListFragment<RepositoryBean> {
         detailBean.issuesCount = bean.getOpen_issues_count() + "";
         detailBean.owener = bean.getOwner().getLogin();
         detailBean.language = bean.getLanguage();
+        detailBean.forks_url = bean.getForks_url();
         return detailBean;
     }
 

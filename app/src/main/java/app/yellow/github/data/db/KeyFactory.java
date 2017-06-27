@@ -66,4 +66,12 @@ public class KeyFactory {
         url.append("par_page=" + GithubConfig.PER_PAGE);
         return url.toString();
     }
+
+    public static String getRepositoryUrlKey(String name, int page) {
+        StringBuilder url = new StringBuilder("");
+        url.append(name);
+        url.append("page=" + page + "&");
+        url.append("par_page=" + GithubConfig.PER_PAGE);
+        return url.toString();
+    }
 }

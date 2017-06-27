@@ -159,6 +159,11 @@ public class GithubRemoteDataSource implements GithubDataSource {
                 .getRepEvents(username, reposname, page, GithubConfig.PER_PAGE);
     }
 
+    @Override
+    public Observable getRepostitoryByUrl(String url, int page) {
+        return RetrofitUtil.getRepositroyService().getRepositoryByUrl(url, page, GithubConfig.PER_PAGE);
+    }
+
 
     protected RepositoryDetailBean createRepositoryDetailBean(RepositoryBean bean) {
         RepositoryDetailBean detailBean = new RepositoryDetailBean();

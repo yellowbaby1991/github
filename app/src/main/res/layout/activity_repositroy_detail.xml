@@ -487,6 +487,7 @@
                             android:background="@color/white">
 
                             <TextView
+                                android:onClick="showForkList"
                                 android:id="@+id/forks_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"

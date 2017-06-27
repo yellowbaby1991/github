@@ -18,6 +18,8 @@ public class RepositoryDetailBean extends BaseDetailBean {
 
     public String issuesCount;
 
+    public String forks_url;
+
     public String language;
 
     public String stargazersCount;
