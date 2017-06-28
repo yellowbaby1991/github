@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import app.yellow.github.base.BaseDetailObserver;
 import app.yellow.github.base.BasePresenterImpl;
 import app.yellow.github.bean.repositorydetail.ContentBean;
 import app.yellow.github.data.GithubDataRepository;
@@ -46,5 +47,24 @@ public class CodePresenter extends BasePresenterImpl<CodeContract.View> implemen
                 });
 
         mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void loadContentByUrl(String url) {
+
+        mView.showLoading();
+
+        Subscription subscription = mRepository.loadContentByUrl(url)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseDetailObserver<ContentBean>(mView) {
+                    @Override
+                    protected void showDetail(ContentBean bean) {
+                        mView.showContent(bean);
+                    }
+                });
+
+        mSubscriptions.add(subscription);
+
     }
 }

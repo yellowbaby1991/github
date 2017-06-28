@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.util.Base64;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,9 @@ import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import butterknife.BindView;
+import butterknife.Unbinder;
+import thereisnospon.codeview.CodeView;
+import thereisnospon.codeview.CodeViewTheme;
 
 public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> implements CodeContract.View, CodeListFragment.CodeListListener {
 
@@ -25,6 +30,12 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
     LinearLayout mNagLL;
     @BindView(R.id.root_tv)
     TextView mRootTv;
+    @BindView(R.id.codeview)
+    CodeView mCodeview;
+    Unbinder unbinder;
+    @BindView(R.id.fragment_container)
+    FrameLayout mFragmentContainer;
+    Unbinder unbinder1;
     private String mUrl;
 
     private int mCurrent = 0;
@@ -84,7 +95,24 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
 
     @Override
     public void showContentList(List list) {
+        mFragmentContainer.setVisibility(View.VISIBLE);
+        mCodeview.setVisibility(View.GONE);
         mListFragment.createList(list);
+    }
+
+    @Override
+    public void showContent(ContentBean contentBean) {
+
+        mFragmentContainer.setVisibility(View.GONE);
+        mCodeview.setVisibility(View.VISIBLE);
+
+        String text = contentBean.getContent().replaceAll("\\\\n", "");
+
+        byte[] b = Base64.decode(text, Base64.DEFAULT);// 解码后
+
+        mCodeview.setTheme(CodeViewTheme.GITHUB).fillColor();
+        //这里的CODE 为需要显示的代码，类型为String，使用的时候自己替换下。
+        mCodeview.showCode(new String(b));
     }
 
 
@@ -94,14 +122,30 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
         textView.setClickable(true);
         textView.setTextColor(Color.WHITE);
         textView.setText(">  " + contentBean.getName() + "   ");
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearTop((TextView) v);
-                mPresenter.loadContentListByUrl(contentBean.getUrl());
-            }
-        });
+
+        if (contentBean.getType().equals("dir")) {
+            mPresenter.loadContentListByUrl(contentBean.getUrl());
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clearTop((TextView) v);
+                    mPresenter.loadContentListByUrl(contentBean.getUrl());
+                }
+            });
+        }
+
+        if (contentBean.getType().equals("file")) {
+            mPresenter.loadContentByUrl(contentBean.getUrl());
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clearTop((TextView) v);
+                    mPresenter.loadContentByUrl(contentBean.getUrl());
+                }
+            });
+        }
         mNagLL.addView(textView);
-        mPresenter.loadContentListByUrl(contentBean.getUrl());
+
     }
+
 }
