@@ -84,13 +84,14 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:contextClickable="@color/colorPrimary"
-                android:textColorHint="@color/half_black">
+                android:textColorHint="@color/half_black"
+                app:errorTextAppearance="@style/error_text">
 
                 <EditText
                     android:id="@+id/editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="Username"
                     android:inputType="textPersonName"
                     android:textColor="@color/white"/>
 
@@ -103,7 +104,8 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:contextClickable="@color/colorPrimary"
-                android:textColorHint="@color/half_black">
+                android:textColorHint="@color/half_black"
+                app:errorTextAppearance="@style/error_text">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -127,15 +129,15 @@
 
         </LinearLayout>
 
-      <!--  <com.pnikosis.materialishprogress.ProgressWheel
-            android:id="@+id/login_progress_wheel"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            app:matProg_barColor="@color/yellow"
-            app:matProg_barWidth="5dp"
-            app:matProg_circleRadius="38dp"
-            app:matProg_progressIndeterminate="true"/>-->
+        <!--  <com.pnikosis.materialishprogress.ProgressWheel
+              android:id="@+id/login_progress_wheel"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_centerInParent="true"
+              app:matProg_barColor="@color/yellow"
+              app:matProg_barWidth="5dp"
+              app:matProg_circleRadius="38dp"
+              app:matProg_progressIndeterminate="true"/>-->
 
     </RelativeLayout>
 

@@ -19,6 +19,7 @@ public abstract class BaseDetailObserver<T> implements Observer<T> {
     @Override
     public void onError(Throwable e) {
         mView.hideLoading();
+        mView.showError();
         e.printStackTrace();
     }
 

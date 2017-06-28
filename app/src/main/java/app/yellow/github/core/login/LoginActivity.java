@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -76,7 +78,24 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @OnClick(R.id.login_bt)
     public void login() {
-        mPresenter.login("yellowbaby", "woainima0");
+        String username = mEtUsername.getEditText().getText().toString();
+        String password = mEtPassword.getEditText().getText().toString();
+        if (TextUtils.isEmpty(username)) {
+            mEtUsername.setError("用户名不能为空");
+        } else {
+            mEtUsername.setErrorEnabled(false);
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            mEtPassword.setError("密码不能为空");
+        } else {
+            mEtPassword.setErrorEnabled(false);
+        }
+
+        if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)){
+            mPresenter.login(username, password);
+        }
+
     }
 
     @Override
@@ -100,7 +119,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void showError() {
-
+        showLoginUi();
+        Toast.makeText(this,"账号或者密码错误",Toast.LENGTH_SHORT).show();
     }
 
     @Override

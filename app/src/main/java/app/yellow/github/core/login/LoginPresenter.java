@@ -38,15 +38,16 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
     }
 
     @Override
-    public void loginWithAuth(String baseAuth) {
+    public void loginWithAuth(final String basicAuth) {
 
         Subscription subscription = mRepository
-                .loginWithAuth(baseAuth)
+                .loginWithAuth(basicAuth)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseDetailObserver<UserDetailBean>(mView) {
                     @Override
                     protected void showDetail(UserDetailBean userDetailBean) {
+
                         SPUtils.putString(UIUtils.getContext(), Constants.LOGIN_AVATAR_URL, userDetailBean.avatarUrl);
                         mView.goToHome(userDetailBean);
                         mView.hideLoading();
