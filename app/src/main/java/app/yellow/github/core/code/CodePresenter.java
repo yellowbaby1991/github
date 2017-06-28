@@ -20,6 +20,9 @@ public class CodePresenter extends BasePresenterImpl<CodeContract.View> implemen
 
     @Override
     public void loadContentListByUrl(String url) {
+
+        mView.showLoading();
+
         Subscription subscription = mRepository.loadContentListByUrl(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -38,6 +41,7 @@ public class CodePresenter extends BasePresenterImpl<CodeContract.View> implemen
                     @Override
                     public void onNext(List<ContentBean> list) {
                         mView.showContentList(list);
+                        mView.hideLoading();
                     }
                 });
 

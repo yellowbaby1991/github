@@ -6,13 +6,17 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import org.greenrobot.eventbus.EventBus;
-
 import app.yellow.github.R;
 import app.yellow.github.base.BaseListFragment;
 import app.yellow.github.bean.repositorydetail.ContentBean;
 
 public class CodeListFragment extends BaseListFragment<ContentBean> {
+
+    private CodeListListener mListener;
+
+    public CodeListFragment(CodeListListener listener){
+        mListener = listener;
+    }
 
     @Override
     protected int getLayout() {
@@ -21,7 +25,9 @@ public class CodeListFragment extends BaseListFragment<ContentBean> {
 
     @Override
     protected void goToDetaiActivity(ContentBean contentBean) {
-        EventBus.getDefault().post(contentBean);
+        if (mListener != null){
+            mListener.goToNextPage(contentBean);
+        }
     }
 
     @Override
@@ -47,4 +53,7 @@ public class CodeListFragment extends BaseListFragment<ContentBean> {
 
     }
 
+    public interface CodeListListener {
+        void goToNextPage(ContentBean contentBean);
+    }
 }
