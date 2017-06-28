@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import app.yellow.github.R;
-import app.yellow.github.config.GithubConfig;
 import app.yellow.github.util.DisplayUtil;
 import app.yellow.github.util.FastScrollLinearLayoutManager;
 import app.yellow.github.util.SpacesItemDecoration;
@@ -131,7 +130,8 @@ public abstract class BaseListFragment<T> extends Fragment {
             mlistRv.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (getItemCount() < GithubConfig.PER_PAGE) {
+                    //getItemCount() < GithubConfig.PER_PAGE  ||
+                    if (getItemCount() == mDataSet.size() + 1) {
                         loadMoreEnd();
                     } else {
                         BaseListFragment.this.loadMoreRequest();

@@ -1,11 +1,11 @@
 package app.yellow.github.core.repositorydetail;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.util.Base64;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +30,9 @@ import app.yellow.github.core.userlist.UserListActivity;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import app.yellow.github.util.Constants;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.tajchert.waitingdots.DotsTextView;
 
@@ -224,7 +224,8 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
 
         mDetailBean.contents_url = mDetailBean.contents_url.replace("{+path}", "");
 
-        mPresenter.loadReadMe(mDetailBean.contents_url + "README.md");
+        ///repos/:owner/:repo/readme
+        mPresenter.loadReadMe(Constants.BASE_URL + "/repos/" + mDetailBean.owener + "/" + mDetailBean.name + "/readme");
 
     }
 
@@ -325,10 +326,11 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mPresenter = presenter;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mMarkdownView.canGoBack()) {
+            mMarkdownView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
