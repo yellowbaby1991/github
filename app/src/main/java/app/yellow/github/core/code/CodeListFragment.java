@@ -56,4 +56,9 @@ public class CodeListFragment extends BaseListFragment<ContentBean> {
     public interface CodeListListener {
         void goToNextPage(ContentBean contentBean);
     }
+
+    @Override
+    protected boolean isNeedLoadMore() {
+        return false;
+    }
 }
