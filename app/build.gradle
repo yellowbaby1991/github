@@ -86,5 +86,8 @@ dependencies {
     //闪烁的loding动画 https://github.com/tajchert/WaitingDots
     compile 'com.github.tajchert:WaitingDots:0.4.0'
 
+    //总线框架
+    compile 'org.greenrobot:eventbus:3.0.0'
+
     testCompile 'junit:junit:4.12'
 }

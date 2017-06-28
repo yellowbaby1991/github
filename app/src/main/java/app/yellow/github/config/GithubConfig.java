@@ -12,7 +12,7 @@ public class GithubConfig {
 
     public static final String NOTE = "GithubApp";
 
-    public static final int PER_PAGE = 10;
+    public static final int PER_PAGE = 30;
 
     public static final long CAHE_TIME = 1000 * 30 * 60;//默认缓存事件
 

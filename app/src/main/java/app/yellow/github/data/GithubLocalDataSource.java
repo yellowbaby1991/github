@@ -176,4 +176,9 @@ public class GithubLocalDataSource implements GithubDataSource {
         return null;
     }
 
+    @Override
+    public Observable loadContentListByUrl(String url) {
+        return null;
+    }
+
 }

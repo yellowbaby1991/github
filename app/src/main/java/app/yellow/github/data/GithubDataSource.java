@@ -44,4 +44,6 @@ public interface GithubDataSource {
 
     Observable loadContentByUrl(String url);
 
+    Observable loadContentListByUrl(String url);
+
 }

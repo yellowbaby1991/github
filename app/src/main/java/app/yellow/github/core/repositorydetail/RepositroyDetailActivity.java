@@ -18,6 +18,7 @@ import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
 import app.yellow.github.bean.repositorydetail.ContentBean;
 import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
+import app.yellow.github.core.code.CodeListActivity;
 import app.yellow.github.core.eventlist.EventListActivity;
 import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.core.home.repository.RepositoryFragment;
@@ -163,6 +164,14 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
             intent.putExtra(EventListActivity.USER_NAME, mDetailBean.owener);
             intent.putExtra(EventListActivity.SEACH_TYPE, EventFragment.SEACH_BY_REPS);
             intent.putExtra(EventListActivity.REP_NAME, mDetailBean.name);
+            startActivity(intent);
+        }
+    }
+
+    public void showCodeList(View view) {
+        if (mDetailBean != null && mDetailBean.contents_url != null) {
+            Intent intent = new Intent(this, CodeListActivity.class);
+            intent.putExtra(CodeListActivity.URL, mDetailBean.contents_url);
             startActivity(intent);
         }
     }
