@@ -42,4 +42,6 @@ public interface GithubDataSource {
 
     Observable unFollowUser(String user);
 
+    Observable loadContentByUrl(String url);
+
 }

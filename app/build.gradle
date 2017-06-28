@@ -83,5 +83,8 @@ dependencies {
     //MarkdownView https://github.com/mukeshsolanki/MarkdownView-Android
     compile 'com.github.mukeshsolanki:MarkdownView-Android:1.0.4'
 
+    //闪烁的loding动画 https://github.com/tajchert/WaitingDots
+    compile 'com.github.tajchert:WaitingDots:0.4.0'
+
     testCompile 'junit:junit:4.12'
 }

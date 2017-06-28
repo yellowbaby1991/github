@@ -1,6 +1,7 @@
 package app.yellow.github.core.repositorydetail;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import com.pnikosis.materialishprogress.ProgressWheel;
 
 import app.yellow.github.R;
 import app.yellow.github.base.BaseDetailActivity;
+import app.yellow.github.bean.repositorydetail.ContentBean;
 import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.core.eventlist.EventListActivity;
 import app.yellow.github.core.home.event.EventFragment;
@@ -29,7 +31,9 @@ import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import pl.tajchert.waitingdots.DotsTextView;
 
 public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetailBean> implements RepositoryDetailContract.View {
 
@@ -69,6 +73,12 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     TextView mCodeTv;
     @BindView(R.id.progress_wheel)
     ProgressWheel mProgressWheel;
+    @BindView(R.id.markdown_view)
+    MarkdownView mMarkdownView;
+    @BindView(R.id.dots)
+    DotsTextView mDots;
+    @BindView(R.id.dots_tv)
+    TextView mDotsTv;
 
     private RepositoryDetailContract.Presenter mPresenter;
 
@@ -122,7 +132,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
                         mPresenter.starRep(mDetailBean.owener, mDetailBean.name);
                     }
                     if (mStarAction.getTitle().equals("UnStar")) {
-                       mPresenter.unStarRep(mDetailBean.owener, mDetailBean.name);
+                        mPresenter.unStarRep(mDetailBean.owener, mDetailBean.name);
                     }
                 }
             }
@@ -203,14 +213,10 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(detailBean.name);
 
-        String c = "UmV0cm9maXQKPT09PT09PT0KClR5cGUtc2FmZSBIVFRQIGNsaWVudCBmb3Ig\\nQW5kcm9pZCBhbmQgSmF2YSBieSBTcXVhcmUsIEluYy4KCkZvciBtb3JlIGlu\\nZm9ybWF0aW9uIHBsZWFzZSBzZWUgW3RoZSB3ZWJzaXRlXVsxXS4KCgpEb3du\\nbG9hZAotLS0tLS0tLQoKRG93bmxvYWQgW3RoZSBsYXRlc3QgSkFSXVsyXSBv\\nciBncmFiIHZpYSBNYXZlbjoKYGBgeG1sCjxkZXBlbmRlbmN5PgogIDxncm91\\ncElkPmNvbS5zcXVhcmV1cC5yZXRyb2ZpdDI8L2dyb3VwSWQ+CiAgPGFydGlm\\nYWN0SWQ+cmV0cm9maXQ8L2FydGlmYWN0SWQ+CiAgPHZlcnNpb24+Mi4zLjA8\\nL3ZlcnNpb24+CjwvZGVwZW5kZW5jeT4KYGBgCm9yIEdyYWRsZToKYGBgZ3Jv\\nb3Z5CmNvbXBpbGUgJ2NvbS5zcXVhcmV1cC5yZXRyb2ZpdDI6cmV0cm9maXQ6\\nMi4zLjAnCmBgYAoKU25hcHNob3RzIG9mIHRoZSBkZXZlbG9wbWVudCB2ZXJz\\naW9uIGFyZSBhdmFpbGFibGUgaW4gW1NvbmF0eXBlJ3MgYHNuYXBzaG90c2Ag\\ncmVwb3NpdG9yeV1bc25hcF0uCgpSZXRyb2ZpdCByZXF1aXJlcyBhdCBtaW5p\\nbXVtIEphdmEgNyBvciBBbmRyb2lkIDIuMy4KCgpQcm9HdWFyZAotLS0tLS0t\\nLQoKSWYgeW91IGFyZSB1c2luZyBQcm9HdWFyZCB5b3UgbWlnaHQgbmVlZCB0\\nbyBhZGQgdGhlIGZvbGxvd2luZyBvcHRpb25zOgpgYGAKLWRvbnR3YXJuIG9r\\naW8uKioKLWRvbnR3YXJuIGphdmF4LmFubm90YXRpb24uKioKYGBgCgoKTGlj\\nZW5zZQo9PT09PT09CgogICAgQ29weXJpZ2h0IDIwMTMgU3F1YXJlLCBJbmMu\\nCgogICAgTGljZW5zZWQgdW5kZXIgdGhlIEFwYWNoZSBMaWNlbnNlLCBWZXJz\\naW9uIDIuMCAodGhlICJMaWNlbnNlIik7CiAgICB5b3UgbWF5IG5vdCB1c2Ug\\ndGhpcyBmaWxlIGV4Y2VwdCBpbiBjb21wbGlhbmNlIHdpdGggdGhlIExpY2Vu\\nc2UuCiAgICBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2Ug\\nYXQKCiAgICAgICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElD\\nRU5TRS0yLjAKCiAgICBVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGljYWJsZSBs\\nYXcgb3IgYWdyZWVkIHRvIGluIHdyaXRpbmcsIHNvZnR3YXJlCiAgICBkaXN0\\ncmlidXRlZCB1bmRlciB0aGUgTGljZW5zZSBpcyBkaXN0cmlidXRlZCBvbiBh\\nbiAiQVMgSVMiIEJBU0lTLAogICAgV0lUSE9VVCBXQVJSQU5USUVTIE9SIENP\\nTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxp\\nZWQuCiAgICBTZWUgdGhlIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5n\\ndWFnZSBnb3Zlcm5pbmcgcGVybWlzc2lvbnMgYW5kCiAgICBsaW1pdGF0aW9u\\ncyB1bmRlciB0aGUgTGljZW5zZS4KCgogWzFdOiBodHRwOi8vc3F1YXJlLmdp\\ndGh1Yi5pby9yZXRyb2ZpdC8KIFsyXTogaHR0cHM6Ly9zZWFyY2gubWF2ZW4u\\nb3JnL3JlbW90ZV9jb250ZW50P2c9Y29tLnNxdWFyZXVwLnJldHJvZml0MiZh\\nPXJldHJvZml0JnY9TEFURVNUCiBbc25hcF06IGh0dHBzOi8vb3NzLnNvbmF0\\neXBlLm9yZy9jb250ZW50L3JlcG9zaXRvcmllcy9zbmFwc2hvdHMvCg==\\n";
+        mDetailBean.contents_url = mDetailBean.contents_url.replace("{+path}", "");
 
-        c = c.replaceAll("\\\\n","");
+        mPresenter.loadReadMe(mDetailBean.contents_url + "README.md");
 
-        byte[] m = Base64.decode(c,Base64.DEFAULT);// 解码后
-
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdown_view);
-        markdownView.setMarkDownText(new String((m))); //Displays markdown text
     }
 
     @Override
@@ -231,7 +237,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
     public void lodingStarOrUnStar(String text) {
         mStarAction.setClickable(false);
         mStarAction.setColorNormalResId(R.color.half_black);
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -239,18 +245,18 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mStarAction.setClickable(true);
         mMultipleActions.collapse();
         mStarAction.setColorNormalResId(R.color.yellow);
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
-        if (text.equals("staring finish")){
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        if (text.equals("staring finish")) {
             showStar();
         }
-        if (text.equals("unstar finish")){
+        if (text.equals("unstar finish")) {
             showNoStar();
         }
     }
 
     @Override
     public void lodingFork(String text) {
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -258,7 +264,31 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mForkAction.setColorNormalResId(R.color.yellow);
         mForkAction.setClickable(true);
         mMultipleActions.collapse();
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showReadMe(ContentBean contentBean) {
+
+        String text = contentBean.getContent().replaceAll("\\\\n", "");
+
+        byte[] b = Base64.decode(text, Base64.DEFAULT);// 解码后
+
+        mMarkdownView.setMarkDownText(new String((b))); //Displays markdown text
+    }
+
+    @Override
+    public void loadingReadMe() {
+        mDots.showAndPlay();
+        mDots.setVisibility(View.VISIBLE);
+        mDotsTv.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void finishLoadingReadMe() {
+        mDots.hideAndStop();
+        mDots.setVisibility(View.GONE);
+        mDotsTv.setVisibility(View.GONE);
     }
 
     @Override
@@ -286,4 +316,10 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mPresenter = presenter;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

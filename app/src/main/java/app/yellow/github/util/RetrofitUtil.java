@@ -1,6 +1,7 @@
 package app.yellow.github.util;
 
 import app.yellow.github.data.api.AuthService;
+import app.yellow.github.data.api.ContentService;
 import app.yellow.github.data.api.EventService;
 import app.yellow.github.data.api.RepositoryService;
 import app.yellow.github.data.api.UserService;
@@ -19,6 +20,10 @@ public class RetrofitUtil {
 
     public static UserService getUserService() {
         return GithubRetrofit.getInstance().get().create(UserService.class);
+    }
+
+    public static ContentService getContentService() {
+        return GithubRetrofit.getInstance().get().create(ContentService.class);
     }
 
     public static AuthService getAutoService(String basicAuth) {

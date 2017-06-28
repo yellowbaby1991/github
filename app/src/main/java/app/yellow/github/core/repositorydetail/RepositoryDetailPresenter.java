@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import app.yellow.github.base.BaseDetailObserver;
 import app.yellow.github.base.BasePresenterImpl;
+import app.yellow.github.bean.repositorydetail.ContentBean;
 import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 import app.yellow.github.data.GithubDataRepository;
 import okhttp3.ResponseBody;
@@ -52,7 +53,7 @@ public class RepositoryDetailPresenter extends BasePresenterImpl<RepositoryDetai
                     @Override
                     public void onError(Throwable e) {
                         int code = ((HttpException) e).code();
-                        if (code == 404){
+                        if (code == 404) {
                             mView.showNoStar();
                         }
                         e.printStackTrace();
@@ -157,6 +158,40 @@ public class RepositoryDetailPresenter extends BasePresenterImpl<RepositoryDetai
                     @Override
                     public void onNext(ResponseBody object) {
                         mView.finishFork("fork finish");
+                    }
+                });
+
+        mSubscriptions.add(subscription);
+
+    }
+
+    @Override
+    public void loadReadMe(String url) {
+
+        mView.loadingReadMe();
+
+        Subscription subscription
+                = mRepository
+                .loadContentByUrl(url)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ContentBean>() {
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        mView.finishLoadingReadMe();
+                    }
+
+                    @Override
+                    public void onNext(ContentBean contentBean) {
+                        mView.showReadMe(contentBean);
+                        mView.finishLoadingReadMe();
                     }
                 });
 

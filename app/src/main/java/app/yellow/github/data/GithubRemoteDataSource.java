@@ -140,6 +140,11 @@ public class GithubRemoteDataSource implements GithubDataSource {
     }
 
     @Override
+    public Observable loadContentByUrl(String url) {
+        return RetrofitUtil.getContentService().getContentByUrl(url);
+    }
+
+    @Override
     public Observable loginWithAuth(String basicAuth) {
 
         SPUtils.putString(UIUtils.getContext(), Constants.SP_BASEAUTH, basicAuth);

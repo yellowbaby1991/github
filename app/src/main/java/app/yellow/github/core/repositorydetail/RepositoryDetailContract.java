@@ -2,6 +2,7 @@ package app.yellow.github.core.repositorydetail;
 
 import app.yellow.github.base.BasePresenter;
 import app.yellow.github.base.BaseView;
+import app.yellow.github.bean.repositorydetail.ContentBean;
 import app.yellow.github.bean.repositorydetail.RepositoryDetailBean;
 
 public class RepositoryDetailContract {
@@ -22,6 +23,12 @@ public class RepositoryDetailContract {
 
         void finishFork(String text);
 
+        void showReadMe(ContentBean contentBean);
+
+        void loadingReadMe();
+
+        void finishLoadingReadMe();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -36,6 +43,7 @@ public class RepositoryDetailContract {
 
         void forkRep(String owner, String repo);
 
+        void loadReadMe(String url);
     }
 
 }

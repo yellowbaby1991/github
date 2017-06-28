@@ -202,6 +202,11 @@ public class GithubDataRepository implements GithubDataSource {
     }
 
     @Override
+    public Observable loadContentByUrl(String url) {
+        return mRemoteDataSource.loadContentByUrl(url);
+    }
+
+    @Override
     public Observable loginWithAuth(String baseAuth) {
         return mRemoteDataSource.loginWithAuth(baseAuth);
     }
