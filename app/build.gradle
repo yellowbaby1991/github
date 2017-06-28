@@ -80,5 +80,8 @@ dependencies {
     //小巧玲珑的ORM数据库 https://github.com/LitePalFramework/LitePal
     compile 'org.litepal.android:core:1.5.1'
 
+    //MarkdownView https://github.com/mukeshsolanki/MarkdownView-Android
+    compile 'com.github.mukeshsolanki:MarkdownView-Android:1.0.4'
+
     testCompile 'junit:junit:4.12'
 }

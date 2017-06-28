@@ -90,6 +90,15 @@ public class RepositoryBean {
     private String forks_url;
     private String stargazers_url;
     private String contributors_url;
+    private String contents_url;
+
+    public String getContents_url() {
+        return contents_url;
+    }
+
+    public void setContents_url(String contents_url) {
+        this.contents_url = contents_url;
+    }
 
     public String getStargazers_url() {
         return stargazers_url;

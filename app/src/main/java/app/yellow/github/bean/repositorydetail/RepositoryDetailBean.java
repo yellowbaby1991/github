@@ -28,6 +28,8 @@ public class RepositoryDetailBean extends BaseDetailBean {
 
     public String contributors_url;
 
+    public String contents_url;
+
     public String stargazers_url;
 
 

@@ -223,6 +223,7 @@ public class GithubRemoteDataSource implements GithubDataSource {
         detailBean.forks_url = bean.getForks_url();
         detailBean.stargazers_url = bean.getStargazers_url();
         detailBean.contributors_url = bean.getContributors_url();
+        detailBean.contents_url = bean.getContents_url();
         return detailBean;
     }
 
