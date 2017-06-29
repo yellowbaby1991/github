@@ -11,8 +11,13 @@ Github上一个看起来很漂亮的Github客户端
 
 我不开心所以也想做一个
 
+# 本文的目的
+
+ 1. 如果你是青铜玩家：希望本文提供的一些资料（如API，架构，三方，功能实现思路等）可以给你一些参考价值
+ 2. 如果你是王者玩家：欢迎指出问题和建议，尤其是优化和架构方面
+
   
-  # 功能介绍
+# 功能介绍
   ## Explore
 
  1. 浏览Repository和User，使用选项卡切换，并且将浏览过的数据缓存在本地（本应用所有数据都做了缓存，并且缓存时间可由用户定制）
@@ -44,7 +49,7 @@ Github上一个看起来很漂亮的Github客户端
 
 <img src="images/userdetail_1.png" width = "50%" /><img src="images/userdetail_2.png" width = "50%" />
 
-## Repository
+## RepositoryList
 
  1. 查询自己的Repository
  
@@ -58,12 +63,29 @@ Github上一个看起来很漂亮的Github客户端
 
 <img src="images/repository_5.png" width = "50%" /><img src="images/repository_6.png" width = "50%" />
 
- 4. 查询UserDetail被拥有过的Repository
+ 4. 查询UserDetail被拥有的Repository
 
 <img src="images/repository_7.png" width = "50%" /><img src="images/repository_8.png" width = "50%" />
+
+## UserList
+
+ 1. 查询自己，以及其他User的following和follower
+
+ <img src="images/user_1.png" width = "50%" /><img src="images/user_2.png" width = "50%" />
+ 
+ 2. 查询RepositoryDetail的Contributors和Stargazers
+ 
+ <img src="images/user_3.png" width = "50%" /><img src="images/user_4.png" width = "50%" />
+
 
 ## Event
 
  1. 可以查询，自己，User，Repository的Event
 
 <img src="images/event_1.png" width = "50%" /><img src="images/event_2.png" width = "50%" />
+
+## Setting
+
+ 1. 设置Explore页面首先查询的语言，右下方应该有几个语言选项，默认的排序方式
+
+<img src="images/setting_1.png" width = "50%" /><img src="images/setting_2.png" width = "50%" />
