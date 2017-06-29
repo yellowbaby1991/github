@@ -1,5 +1,5 @@
 * [Github](#github)
-	* [项目的起因](#项目的起因)
+* [项目的起因](#项目的起因)
 * [本文的目的](#本文的目的)
 * [架构和三方](#架构和三方)
 	* [Rx](#rx)
@@ -17,7 +17,7 @@
 	* [Setting](#setting)
 
 # Github
-## 项目的起因
+# 项目的起因
 
 Github上一个看起来很漂亮的Github客户端
 
@@ -48,31 +48,29 @@ Github上一个看起来很漂亮的Github客户端
 
 - [butterknife][4] 大名鼎鼎的黄油刀，让你不再findById
 - [android_dbinspector][5] 不需要root就可以查看真机上数据库内容
-- [fastjson][15] 最快的json解析工具，阿里巴巴出品
+- [fastjson][6] 最快的json解析工具，阿里巴巴出品
 
 ## 网络相关
 
- - [Retrofit][6] 新一代网络请求神器
- - [OkHttp logging interceptor][7]
+ - [Retrofit][7] 新一代网络请求神器
+ - [OkHttp logging interceptor][8] 请求日志拦截器
 
 ## 图片加载
 
-- [Glide][11] 图片加载框架
+- [Glide][9] 图片加载框架
 
 ## UI
 
-- [MaterialSearchView][8] Material Design风格的搜索
-- [CircleImageview][9] 圆形头像
-- [BaseRecyclerViewAdapterHelper][10] 强大的RecyclerView万能适配器
-- [FloatingActionButton][12] Material Design风格的浮动按钮
-- [spots-dialog][13] 闪烁的loding进度条
-- [materialish-progress][14] 旋转的菊花圈
-- [MarkdownView][17] 将markdown格式的字符串显示成漂亮的html页面
-- [WaitingDots][18] 闪烁的loding动画
-- [CodeView][19] 将代码显示成漂亮的样式
-- [material-dialogs][20] Material风格的Dialog
-
- 
+- [MaterialSearchView][10] Material Design风格的搜索
+- [CircleImageview][11] 圆形头像
+- [BaseRecyclerViewAdapterHelper][12] 强大的RecyclerView万能适配器
+- [FloatingActionButton][13] Material Design风格的浮动按钮
+- [spots-dialog][14] 闪烁的loding进度条
+- [materialish-progress][15] 旋转的菊花圈
+- [MarkdownView][16] 将markdown格式的字符串显示成漂亮的html页面
+- [WaitingDots][17] 闪烁的loding动画
+- [CodeView][18] 将代码显示成漂亮的样式
+- [material-dialogs][19] Material风格的Dialog
 
   
 # 功能介绍
@@ -149,23 +147,34 @@ Github上一个看起来很漂亮的Github客户端
 <img src="images/setting_1.png" width = "50%" /><img src="images/setting_2.png" width = "50%" />
 
 
+## 架构分析
+
+谷歌去年在github上发布一整套的它推荐的Android架构Dmo，[todo-mvp-rxjava][20] 是之中用来示范rxjava的sample
+
+关于它的这套架构，我画了一个栩栩如生的草图，嗯，栩栩如生
+
+<img src="images/rxjava_mvp"  width = "100%"/>
+
+
+
+
   [1]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
   [2]: https://github.com/ReactiveX/RxJava
   [3]: https://github.com/ReactiveX/RxAndroid
   [4]: https://github.com/JakeWharton/butterknife
   [5]: https://github.com/infinum/android_dbinspector
-  [6]: https://github.com/square/retrofit
-  [7]: https://github.com/square/okhttp/wiki/Interceptors
-  [8]: https://github.com/MiguelCatalan/MaterialSearchView
-  [9]: https://github.com/hdodenhof/CircleImageView
-  [10]: https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-  [11]: https://github.com/bumptech/glide
-  [12]: https://github.com/makovkastar/FloatingActionButton
-  [13]: https://github.com/d-max/spots-dialog
-  [14]: https://github.com/pnikosis/materialish-progress
-  [15]: https://github.com/alibaba/fastjson
-  [16]: https://github.com/LitePalFramework/LitePal
-  [17]: https://github.com/mukeshsolanki/MarkdownView-Android
-  [18]: https://github.com/tajchert/WaitingDots
-  [19]: https://github.com/Thereisnospon/CodeView
-  [20]: https://github.com/afollestad/material-dialogs
+  [6]: https://github.com/alibaba/fastjson
+  [7]: https://github.com/square/retrofit
+  [8]: https://github.com/square/okhttp/wiki/Interceptors
+  [9]: https://github.com/bumptech/glide
+  [10]: https://github.com/MiguelCatalan/MaterialSearchView
+  [11]: https://github.com/hdodenhof/CircleImageView
+  [12]: https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+  [13]: https://github.com/makovkastar/FloatingActionButton
+  [14]: https://github.com/d-max/spots-dialog
+  [15]: https://github.com/pnikosis/materialish-progress
+  [16]: https://github.com/mukeshsolanki/MarkdownView-Android
+  [17]: https://github.com/tajchert/WaitingDots
+  [18]: https://github.com/Thereisnospon/CodeView
+  [19]: https://github.com/afollestad/material-dialogs
+  [20]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
