@@ -16,6 +16,8 @@ public class Constants {
 
     public static final String SP_SORT_TYPE = "sort_type";
 
+    public static final String SP_CACHE_TIME = "cache_time";
+
     public static final String LOGIN_AVATAR_URL = "login_avatar_url";
 
 

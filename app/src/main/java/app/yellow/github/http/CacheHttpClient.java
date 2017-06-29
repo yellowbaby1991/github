@@ -3,6 +3,7 @@ package app.yellow.github.http;
 import java.io.File;
 import java.io.IOException;
 
+import app.yellow.github.config.GithubConfig;
 import app.yellow.github.util.NetworkUtil;
 import app.yellow.github.util.UIUtils;
 import okhttp3.Cache;
@@ -31,7 +32,15 @@ public class CacheHttpClient extends BaseOkHttpClient {
     private final Interceptor mCacheControlInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
+
             Request request = chain.request();
+
+            if (NetworkUtil.isConnected(UIUtils.getContext())) {
+                request = request.newBuilder()
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, max-age=" + GithubConfig.getCacheTime())
+                        .build();
+            }
 
             Response originalResponse = chain.proceed(request);
 
@@ -39,7 +48,7 @@ public class CacheHttpClient extends BaseOkHttpClient {
 
                 String cacheControl = request.cacheControl().toString();
 
-                if (cacheControl.equals("")){
+                if (cacheControl.equals("")) {
                     cacheControl = CacheControl.FORCE_NETWORK.toString();
                 }
 

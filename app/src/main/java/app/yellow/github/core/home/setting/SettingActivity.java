@@ -1,5 +1,6 @@
 package app.yellow.github.core.home.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.yellow.github.R;
+import app.yellow.github.core.home.HomeActivity;
+import app.yellow.github.core.login.LoginActivity;
+import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.SPUtils;
 import app.yellow.github.util.UIUtils;
@@ -32,6 +36,8 @@ public class SettingActivity extends AppCompatActivity {
     TextView mLanguagetitlesTv;
     @BindView(R.id.sorttype_tv)
     TextView mSorttypeTv;
+    @BindView(R.id.cachetime_tv)
+    TextView mCachetimeTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,9 @@ public class SettingActivity extends AppCompatActivity {
 
         String type = SPUtils.getString(UIUtils.getContext(), Constants.SP_SORT_TYPE, "Most Stars");
         mSorttypeTv.setText("Sort Type（" + type + "）");
+
+        String cahceTime = SPUtils.getString(UIUtils.getContext(), Constants.SP_CACHE_TIME, "3 分钟");
+        mCachetimeTv.setText("Cache Time（" + cahceTime + "）");
     }
 
     public void selectLanguge(View view) {
@@ -119,6 +128,38 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    public void selectCacheTime(View view) {
+        MaterialDialog materialDialog = new MaterialDialog.Builder(this)
+                .title("Cache Time")
+                .items(R.array.cachetime_items)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                        SPUtils.putString(UIUtils.getContext(), Constants.SP_CACHE_TIME, text + "");
+                        mCachetimeTv.setText("Cache Time（" + text + "）");
+                        Toast.makeText(UIUtils.getContext(), "设置成功，重启后生效", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+
+                })
+                .positiveText("OK")
+                .negativeText("CANCEL")
+                .show();
+
+        String cahceTime = SPUtils.getString(UIUtils.getContext(), Constants.SP_CACHE_TIME, "3 分钟");
+        ArrayList<CharSequence> items = materialDialog.getItems();
+        for (int i = 0; i < items.size(); i++) {
+            if (String.valueOf(items.get(i)).equals(cahceTime)) {
+                materialDialog.setSelectedIndex(i);
+            }
+        }
+    }
+
+    public void clearCache(View view) {
+        ActivityUtils.clearCache();
+        Toast.makeText(UIUtils.getContext(), "缓存清除成功（刷新也会清空缓存）", Toast.LENGTH_SHORT).show();
+    }
+
     public void selectSortType(View view) {
         MaterialDialog materialDialog = new MaterialDialog.Builder(this)
                 .title("Sort Type")
@@ -156,4 +197,14 @@ public class SettingActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void signOut(View view) {
+        ActivityUtils.clearCache();
+        SPUtils.putString(UIUtils.getContext(), Constants.SP_BASEAUTH, "");
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+        HomeActivity.finishHome();
+    }
+
 }

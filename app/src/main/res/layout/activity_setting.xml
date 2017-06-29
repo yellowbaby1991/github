@@ -228,6 +228,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|left"
+                            android:onClick="selectCacheTime"
                             android:text="Cache Time（30 min）"
                             android:textColor="@color/black"/>
 
@@ -247,7 +248,7 @@
                         android:background="@color/white">
 
                         <TextView
-                            android:id="@+id/gists_tv"
+                            android:onClick="clearCache"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|left"
@@ -301,6 +302,7 @@
 
                         <TextView
                             android:id="@+id/sign_out"
+                            android:onClick="signOut"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|left"

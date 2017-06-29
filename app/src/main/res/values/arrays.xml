@@ -23,5 +23,15 @@
         <item>Most forks</item>
         <item>Recently updated</item>
     </string-array>
+
+    <string-array name="cachetime_items">
+        <item>0 分钟</item>
+        <item>3 分钟</item>
+        <item>10 分钟</item>
+        <item>30 分钟</item>
+        <item>60 分钟</item>
+        <item>1 天</item>
+        <item>1 周</item>
+    </string-array>
     　　
 </resources>
