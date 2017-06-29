@@ -160,6 +160,151 @@ Github上一个看起来很漂亮的Github客户端
 
 ![enter description here][21]
 
+只看图可能容易蒙蔽，用代码来解释一下
+
+先看接口类
+
+``` java
+public interface Contract {
+
+    interface View {
+        
+        void showLoading();
+
+        void hideLoading();
+
+        void showError();
+
+        void showEmpty();
+
+        void showList(List list);
+
+        void setPresenter(Contract.Presenter presenter);
+    }
+
+    interface Presenter {
+
+        void loadList();
+
+    }
+}
+```
+
+然后是Presenter的实现类，持有了view的对象和repository的对象，分别用来加载数据和展现数据
+
+``` java
+public class PrensenterImpl implements Contract.Presenter {
+
+    private Contract.View mView;
+    private Repository mRepository;
+
+    public PrensenterImpl(Contract.View view, Repository repository) {
+        mView = view;
+        mRepository = repository;
+        mView.setPresenter(this);
+    }
+
+    @Override
+    public void loadList() {
+
+        //UI 线程
+        mView.showError();
+
+        try{
+            //IO 线程
+            List list = mRepository.loadList();
+
+            //切回UI 线程
+            if (list.isEmpty()){
+                mView.showEmpty();
+            }else {
+                mView.showList(list);
+            }
+
+        }catch (Exception e){
+            mView.showError();
+        }
+
+    }
+}
+```
+
+再看View的实现类，也就是Activity，持有一个Presenter的对象，并且在创建该对象的时候将自身和数据仓库类传了过去
+
+``` java
+public class MainActivity extends AppCompatActivity implements Contract.View {
+
+    private Contract.Presenter mPresenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Repository repository = new Repository(new RemoteDataSource(), new LocalDataSource());//得到数据仓库
+        mPresenter = new PrensenterImpl(this, repository); //将自身和数据仓库类传了过去
+
+        mPresenter.loadList();
+
+    }
+
+    public void setPresenter(Contract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void showLoading() {
+        // 展示进度条
+    }
+
+    @Override
+    public void hideLoading() {
+        // 加载成功隐藏进度条
+    }
+
+    @Override
+    public void showError() {
+        // 加载失败
+    }
+
+    @Override
+    public void showEmpty() {
+        // 数据是空的
+    }
+
+    @Override
+    public void showList(List list) {
+        // 加载成功并且有数据耶，展示起来
+    }
+
+}
+```
+
+最后数据仓库先这么简单的写，后面再补充
+
+``` java
+public interface DataSource {
+    List loadList();
+}
+
+public class LocalDataSource implements DataSource{
+    @Override
+    public List loadList() {
+        return new ArrayList();//从本地读取缓存
+    }
+}
+
+public class RemoteDataSource implements DataSource{
+    @Override
+    public List loadList() {
+        return new ArrayList();//从网络加载数据
+    }
+}
+```
+
+
+
+
 
   [1]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
   [2]: https://github.com/ReactiveX/RxJava
