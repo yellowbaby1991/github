@@ -28,6 +28,46 @@ Github上一个看起来很漂亮的Github客户端
  1. 如果你是青铜玩家：希望本文提供的一些资料（如API，架构，三方，功能实现思路等）可以给你一些参考价值
  2. 如果你是王者玩家：欢迎指出问题和建议，尤其是优化和架构方面
 
+# 架构和三方
+
+基于 [google-android-architecture-mvp-rxjava][1] 的RxJava + Retrofit + Mvp架构，该架构会在后面详细讲解，三方库如下
+
+> Rx
+
+- [RxJava][2] 
+- [RxAndroid][3]
+
+
+> 快速开发工具
+
+- [butterknife][4] 大名鼎鼎的黄油刀，让你不再findById
+- [android_dbinspector][5] 不需要root就可以查看真机上数据库内容
+- [fastjson][15] 最快的json解析工具，阿里巴巴出品
+
+> 网络相关
+
+ - [Retrofit][6] 新一代网络请求神器
+ - [OkHttp logging interceptor][7]
+
+> 图片加载
+
+- [Glide][11] 图片加载框架
+
+> UI
+
+- [MaterialSearchView][8] Material Design风格的搜索
+- [CircleImageview][9] 圆形头像
+- [BaseRecyclerViewAdapterHelper][10] 强大的RecyclerView万能适配器
+- [FloatingActionButton][12] Material Design风格的浮动按钮
+- [spots-dialog][13] 闪烁的loding进度条
+- [materialish-progress][14] 旋转的菊花圈
+- [MarkdownView][17] 将markdown格式的字符串显示成漂亮的html页面
+- [WaitingDots][18] 闪烁的loding动画
+- [CodeView][19] 将代码显示成漂亮的样式
+- [material-dialogs][20] Material风格的Dialog
+
+ 
+
   
 # 功能介绍
   ## Explore
@@ -101,3 +141,25 @@ Github上一个看起来很漂亮的Github客户端
  1. 设置Explore页面首先查询的语言，右下方应该有几个语言选项，默认的排序方式
 
 <img src="images/setting_1.png" width = "50%" /><img src="images/setting_2.png" width = "50%" />
+
+
+  [1]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
+  [2]: https://github.com/ReactiveX/RxJava
+  [3]: https://github.com/ReactiveX/RxAndroid
+  [4]: https://github.com/JakeWharton/butterknife
+  [5]: https://github.com/infinum/android_dbinspector
+  [6]: https://github.com/square/retrofit
+  [7]: https://github.com/square/okhttp/wiki/Interceptors
+  [8]: https://github.com/MiguelCatalan/MaterialSearchView
+  [9]: https://github.com/hdodenhof/CircleImageView
+  [10]: https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+  [11]: https://github.com/bumptech/glide
+  [12]: https://github.com/makovkastar/FloatingActionButton
+  [13]: https://github.com/d-max/spots-dialog
+  [14]: https://github.com/pnikosis/materialish-progress
+  [15]: https://github.com/alibaba/fastjson
+  [16]: https://github.com/LitePalFramework/LitePal
+  [17]: https://github.com/mukeshsolanki/MarkdownView-Android
+  [18]: https://github.com/tajchert/WaitingDots
+  [19]: https://github.com/Thereisnospon/CodeView
+  [20]: https://github.com/afollestad/material-dialogs
