@@ -158,7 +158,7 @@ Github上一个看起来很漂亮的Github客户端
 
 是不是已经被我的美术功底震惊的说不出话来，就冲这图你不给Star一个？
 
-[enter description here][21]
+![enter description here][21]
 
 
   [1]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
