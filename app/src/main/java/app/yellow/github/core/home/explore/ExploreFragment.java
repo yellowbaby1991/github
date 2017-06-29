@@ -109,10 +109,18 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
     private void initData() {
         mlanguge = SPUtils.getString(UIUtils.getContext(), Constants.SP_FIRST_LANGUAGE, "Java");
         mType = SPUtils.getString(UIUtils.getContext(), Constants.SP_SORT_TYPE, "Most Stars");
+
         String langugeTitle = SPUtils.getString(UIUtils.getContext(), Constants.SP_LANGUAGE_TITLES, "");
-        List<String> langugeTitles = JSON.parseArray(langugeTitle, String.class);
-        mLanguageTitle = new String[langugeTitles.size()];
-        langugeTitles.toArray(mLanguageTitle);
+        if (langugeTitle.equals("")) {
+            String[] defaultTitle = new String[]{"Java", "C++", "C", "C#"};
+            SPUtils.putString(UIUtils.getContext(), Constants.SP_LANGUAGE_TITLES, JSON.toJSONString(defaultTitle));
+            mLanguageTitle = defaultTitle;
+        }else {
+            List<String> langugeTitles = JSON.parseArray(langugeTitle, String.class);
+            mLanguageTitle = new String[langugeTitles.size()];
+            langugeTitles.toArray(mLanguageTitle);
+        }
+
     }
 
 

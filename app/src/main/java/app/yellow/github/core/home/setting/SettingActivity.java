@@ -177,7 +177,7 @@ public class SettingActivity extends AppCompatActivity {
                 .negativeText("CANCEL")
                 .show();
 
-        String type = SPUtils.getString(UIUtils.getContext(), Constants.SP_SORT_TYPE, "Most Stars");
+        String type = SPUtils.getString(UIUtils.getContext(), Constants.SP_SORT_TYPE, "Most stars");
         ArrayList<CharSequence> items = materialDialog.getItems();
         for (int i = 0; i < items.size(); i++) {
             if (String.valueOf(items.get(i)).equals(type)) {

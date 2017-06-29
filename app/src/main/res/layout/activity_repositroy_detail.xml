@@ -7,11 +7,6 @@
               android:orientation="vertical">
 
     <!--用来实现沉浸式状态栏，将CoordinatorLayout顶下来-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/colorPrimary"></View>
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -626,5 +621,10 @@
 
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/colorPrimary"></View>
 
 </LinearLayout>
