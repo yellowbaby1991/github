@@ -223,10 +223,12 @@ public class PrensenterImpl implements Contract.Presenter {
 
         }catch (Exception e){
             mView.showError();
+        }finally {
+            mView.hideLoading();
         }
 
     }
-}
+
 ```
 
 再看View的实现类，也就是Activity，持有一个Presenter的对象，并且在创建该对象的时候将自身和数据仓库类传了过去

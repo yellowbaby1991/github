@@ -34,6 +34,8 @@ public class PrensenterImpl implements Contract.Presenter {
 
         }catch (Exception e){
             mView.showError();
+        }finally {
+            mView.hideLoading();
         }
 
     }
