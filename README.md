@@ -1,6 +1,12 @@
 * [Github-可能是最好用的github客户端](#github-可能是最好用的github客户端)
 	* [项目的起因](#项目的起因)
 * [本文的目的](#本文的目的)
+* [架构和三方](#架构和三方)
+	* [Rx](#rx)
+	* [快速开发工具](#快速开发工具)
+	* [网络相关](#网络相关)
+	* [图片加载](#图片加载)
+	* [UI](#ui)
 * [功能介绍](#功能介绍)
 	* [Explore](#explore)
 	* [RepositoryDetail](#repositorydetail)
@@ -32,28 +38,28 @@ Github上一个看起来很漂亮的Github客户端
 
 基于 [google-android-architecture-mvp-rxjava][1] 的RxJava + Retrofit + Mvp架构，该架构会在后面详细讲解，三方库如下
 
-> Rx
+## Rx
 
 - [RxJava][2] 
 - [RxAndroid][3]
 
 
-> 快速开发工具
+## 快速开发工具
 
 - [butterknife][4] 大名鼎鼎的黄油刀，让你不再findById
 - [android_dbinspector][5] 不需要root就可以查看真机上数据库内容
 - [fastjson][15] 最快的json解析工具，阿里巴巴出品
 
-> 网络相关
+## 网络相关
 
  - [Retrofit][6] 新一代网络请求神器
  - [OkHttp logging interceptor][7]
 
-> 图片加载
+## 图片加载
 
 - [Glide][11] 图片加载框架
 
-> UI
+## UI
 
 - [MaterialSearchView][8] Material Design风格的搜索
 - [CircleImageview][9] 圆形头像
