@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -38,6 +39,9 @@ import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.ActivityUtils;
+import app.yellow.github.util.Constants;
+import app.yellow.github.util.SPUtils;
+import app.yellow.github.util.UIUtils;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
@@ -70,29 +74,45 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
     private SearchParams mRepositoryParams;
     private SearchParams mUserParams;
 
-    private String mLanguageTitle[] = new String[]{"Java", "JavaScript", "C++", "C"};
+    private String mLanguageTitle[];
     private String mSortTypeTitle[] = new String[]{"Most stars", "Best match", "Most forks", "Recently updated"};
     private int mSortType = 0;
 
     private SpotsDialog mLodingDialog;
 
+    private String mType;
+    private String mlanguge;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initEvents();
+        initData();
         initView();
         mPresenter = new ExplorePresenter(
                 GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this);
 
         mRepositoryParams = new SearchParams();
+
+
         mRepositoryParams.page = 1;
-        mRepositoryParams.language = "language:java";
+        mRepositoryParams.language = "language:" + mlanguge;
         mRepositoryParams.key = mRepositoryParams.language;
         mRepositoryParams.type = "repositories";
+        setSort(mType);
 
         mPresenter.searchRepository(mRepositoryParams);
 
+    }
+
+    private void initData() {
+        mlanguge = SPUtils.getString(UIUtils.getContext(), Constants.SP_FIRST_LANGUAGE, "Java");
+        mType = SPUtils.getString(UIUtils.getContext(), Constants.SP_SORT_TYPE, "Most Stars");
+        String langugeTitle = SPUtils.getString(UIUtils.getContext(), Constants.SP_LANGUAGE_TITLES, "");
+        List<String> langugeTitles = JSON.parseArray(langugeTitle, String.class);
+        mLanguageTitle = new String[langugeTitles.size()];
+        langugeTitles.toArray(mLanguageTitle);
     }
 
 
@@ -176,6 +196,13 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
             }
         });
 
+        for (int i = 0; i < mSortTypeTitle.length; i++) {
+            if (mType.equals(mSortTypeTitle[i])) {
+                mSortType = i;
+            }
+        }
+
+        mType = SPUtils.getString(UIUtils.getContext(), Constants.SP_SORT_TYPE, "Most Stars");
         final FloatingActionButton sortTypeAction = new FloatingActionButton(getContext());
         sortTypeAction.setTitle(mSortTypeTitle[mSortType]);
         sortTypeAction.setColorNormalResId(R.color.pink);
@@ -188,27 +215,10 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
                     mSortType = 0;
                 }
                 sortTypeAction.setTitle(mSortTypeTitle[mSortType]);
-                switch (mSortTypeTitle[mSortType]) {
-                    case "Most stars":
-                        setSortType(mRepositoryParams,"stars");
-                        setSortType(mUserParams,"stars");
-                        break;
-                    case "Best match":
-                        setSortType(mRepositoryParams,null);
-                        setSortType(mUserParams,null);
-                        break;
-                    case "Most forks":
-                        setSortType(mRepositoryParams,"forks");
-                        setSortType(mUserParams,"forks");
-                        break;
-                    case "Recently updated":
-                        setSortType(mRepositoryParams,"updated");
-                        setSortType(mUserParams,"updated");
-                        break;
-                }
-                if (mViewPager.getCurrentItem() == 0){
+                setSort(mSortTypeTitle[mSortType]);
+                if (mViewPager.getCurrentItem() == 0) {
                     mPresenter.searchRepository(mRepositoryParams);
-                }else if(mViewPager.getCurrentItem() == 1){
+                } else if (mViewPager.getCurrentItem() == 1) {
                     mPresenter.searchUser(mUserParams);
                 }
 
@@ -232,6 +242,27 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
             mMultipleActions.addButton(action);
         }
 
+    }
+
+    private void setSort(String type) {
+        switch (type) {
+            case "Most stars":
+                setSortType(mRepositoryParams, "stars");
+                setSortType(mUserParams, "stars");
+                break;
+            case "Best match":
+                setSortType(mRepositoryParams, null);
+                setSortType(mUserParams, null);
+                break;
+            case "Most forks":
+                setSortType(mRepositoryParams, "forks");
+                setSortType(mUserParams, "forks");
+                break;
+            case "Recently updated":
+                setSortType(mRepositoryParams, "updated");
+                setSortType(mUserParams, "updated");
+                break;
+        }
     }
 
     private void setSortType(SearchParams params, String type) {
@@ -281,10 +312,10 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
             public boolean onMenuItemClick(MenuItem item) {
                 LitePal.deleteDatabase("github_db");
                 ActivityUtils.clearCache();
-                if (mViewPager.getCurrentItem() == 0){
+                if (mViewPager.getCurrentItem() == 0) {
                     mPresenter.searchRepository(mRepositoryParams);
                 }
-                if (mViewPager.getCurrentItem() == 1){
+                if (mViewPager.getCurrentItem() == 1) {
                     mPresenter.searchUser(mUserParams);
                 }
                 return false;
