@@ -181,4 +181,4 @@ Github上一个看起来很漂亮的Github客户端
   [18]: https://github.com/Thereisnospon/CodeView
   [19]: https://github.com/afollestad/material-dialogs
   [20]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
-  [21]: http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E9%9D%9E%E5%B8%B8%E7%8C%A5%E7%90%90%E8%A1%A8%E6%83%85&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=1649390983,416593110&os=3751569942,1434772995&simid=4110820563,662230937&pn=88&rn=1&di=176938161070&ln=1974&fr=&fmq=1498759746828_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=1e&hs=2&objurl=http://pic1.cr173.com/cr173/mb/up/2016-3/14573438213818784_360_360.jpg&rpstart=0&rpnum=0&adpicid=0
+  [21]: http://img1.imgtn.bdimg.com/it/u=131193281,2876975030&fm=26&gp=0.jpg
