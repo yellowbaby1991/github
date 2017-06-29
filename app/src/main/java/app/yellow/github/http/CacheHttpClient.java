@@ -11,6 +11,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class CacheHttpClient extends BaseOkHttpClient {
 
@@ -22,7 +23,7 @@ public class CacheHttpClient extends BaseOkHttpClient {
         File cacheFile = new File(UIUtils.getContext().getCacheDir(), "github_repo");
         Cache cache = new Cache(cacheFile, CACHE_SIZE);
         builder.cache(cache);
-
+        builder.addInterceptor(new HttpLoggingInterceptor());
         builder.addNetworkInterceptor(mCacheControlInterceptor);
         return builder;
     }
@@ -37,6 +38,10 @@ public class CacheHttpClient extends BaseOkHttpClient {
             if (NetworkUtil.isConnected(UIUtils.getContext())) {
 
                 String cacheControl = request.cacheControl().toString();
+
+                if (cacheControl.equals("")){
+                    cacheControl = CacheControl.FORCE_NETWORK.toString();
+                }
 
                 // Add cache control header for response same as request's while network is available.
                 return originalResponse.newBuilder()

@@ -54,16 +54,12 @@ public interface RepositoryService {
     @GET("/user/starred/{owner}/{repo}")
     Observable<ResponseBody> checkRepBeingStarred(@Path("owner") String owner, @Path("repo") String repo);
 
-    @Headers(GithubConfig.CACHE_HEADER)
     @PUT("/user/starred/{owner}/{repo}")
     Observable<ResponseBody> starRepo(@Path("owner") String owner, @Path("repo") String repo);
 
-
-    @Headers(GithubConfig.CACHE_HEADER)
     @DELETE("/user/starred/{owner}/{repo}")
     Observable<ResponseBody> unStarRepo(@Path("owner") String owner, @Path("repo") String repo);
 
-    @Headers(GithubConfig.CACHE_HEADER)
     @POST("/repos/{owner}/{repo}/forks")
     Observable<ResponseBody> forkRepo(@Path("owner") String owner, @Path("repo") String repo);
 }

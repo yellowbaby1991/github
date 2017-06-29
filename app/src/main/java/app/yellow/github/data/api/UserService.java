@@ -53,11 +53,9 @@ public interface UserService {
     @GET("/user/following/{username}")
     Observable<ResponseBody> checkUserBeingFollowed(@Path("username") String username);
 
-    @Headers(GithubConfig.CACHE_HEADER)
     @PUT("/user/following/{username}")
     Observable<ResponseBody> followUser(@Path("username") String username);
 
-    @Headers(GithubConfig.CACHE_HEADER)
     @DELETE("/user/following/{username}")
     Observable<ResponseBody> unFollowUser(@Path("username") String username);
 
