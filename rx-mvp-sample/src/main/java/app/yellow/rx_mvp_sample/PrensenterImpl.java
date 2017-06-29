@@ -19,7 +19,7 @@ public class PrensenterImpl implements Contract.Presenter {
     public void loadList() {
 
         //UI 线程
-        mView.showError();
+        mView.showLoading();
 
         try{
             //IO 线程

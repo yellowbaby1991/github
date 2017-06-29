@@ -208,7 +208,7 @@ public class PrensenterImpl implements Contract.Presenter {
     public void loadList() {
 
         //UI 线程
-        mView.showError();
+        mView.showLoading();
 
         try{
             //IO 线程
@@ -300,7 +300,38 @@ public class RemoteDataSource implements DataSource{
         return new ArrayList();//从网络加载数据
     }
 }
+
+public class Repository implements DataSource{
+
+    private DataSource mRemoteDataSource;
+    private DataSource mLocalDataSource;
+
+    public Repository(DataSource remoteDataSource,DataSource lemoteDataSource){
+        mRemoteDataSource = remoteDataSource;
+        mLocalDataSource = lemoteDataSource;
+    }
+
+
+    @Override
+    public List loadList() {
+        List remote = mRemoteDataSource.loadList();
+        List local = mLocalDataSource.loadList();
+        // ....让两个数据源同时去加载数据，谁先加载完成就返回谁的
+        return null;
+    }
+}
 ```
+
+所以整个MVP的请求逻辑如下
+
+ 1. 用户到达View后开始请求数据
+ 2. MainActivity将请求委托给Presenter去处理
+ 3. Presenter通过Repository去请求数据，根据结果的不同分发回View
+
+从来实现了数据的展示，请求，分发三层分离，时序图如下图：
+
+<img src="images/mvp_seq.png"  width = "100%"/>
+
 
 
 
