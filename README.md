@@ -1,4 +1,4 @@
-* [Github-可能是最好用的github客户端](#github-可能是最好用的github客户端)
+* [Github](#github)
 	* [项目的起因](#项目的起因)
 * [本文的目的](#本文的目的)
 * [架构和三方](#架构和三方)
@@ -16,7 +16,7 @@
 	* [Event](#event)
 	* [Setting](#setting)
 
-# Github-可能是最好用的github客户端
+# Github
 ## 项目的起因
 
 Github上一个看起来很漂亮的Github客户端
