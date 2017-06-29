@@ -170,6 +170,11 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
     }
 
     @Override
+    protected String getDetailUrl() {
+        return "https://github.com/" + mDetailBean.name;
+    }
+
+    @Override
     public void showUser(UserDetailBean bean) {
         mJointimeTv.setText("Join：" + ActivityUtils.dealDataString(bean.jointime));
         mEmailTv.setText("Email：" + bean.email);

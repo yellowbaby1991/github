@@ -105,7 +105,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mForkAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NetworkUtil.isConnected(UIUtils.getContext())){
+                if (NetworkUtil.isConnected(UIUtils.getContext())) {
                     mPresenter.forkRep(mDetailBean.owener, mDetailBean.name);
                     mForkAction.setClickable(false);
                     mForkAction.setColorNormalResId(R.color.half_black);
@@ -162,6 +162,11 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         return (RepositoryDetailBean) getIntent().getSerializableExtra(RepositoryListFragment.REPOSITORY_DETAIL);
     }
 
+    @Override
+    protected String getDetailUrl() {
+        return "https://github.com/" + mDetailBean.owener + "/" + mDetailBean.name;
+    }
+
     public void showEventList(View view) {
         if (mDetailBean != null) {
             Intent intent = new Intent(this, EventListActivity.class);
@@ -210,7 +215,7 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
 
     @Override
     public void showRep(RepositoryDetailBean detailBean) {
-        if (NetworkUtil.isConnected(UIUtils.getContext())){
+        if (NetworkUtil.isConnected(UIUtils.getContext())) {
             mPresenter.checkRepBeingStarred(detailBean.owener, detailBean.name);
         }
 
