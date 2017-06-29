@@ -15,6 +15,7 @@
 	* [UserList](#userlist)
 	* [Event](#event)
 	* [Setting](#setting)
+* [架构分析](#架构分析)
 
 # Github
 # 项目的起因
@@ -147,13 +148,13 @@ Github上一个看起来很漂亮的Github客户端
 <img src="images/setting_1.png" width = "50%" /><img src="images/setting_2.png" width = "50%" />
 
 
-## 架构分析
+# 架构分析
 
 谷歌去年在github上发布一整套的它推荐的Android架构Dmo，[todo-mvp-rxjava][20] 是之中用来示范rxjava的sample
 
 关于它的这套架构，我画了一个栩栩如生的草图，嗯，栩栩如生
 
-<img src="images/rxjava_mvp"  width = "100%"/>
+<img src="images/rxjava_mvp.png"  width = "100%"/>
 
 
 
