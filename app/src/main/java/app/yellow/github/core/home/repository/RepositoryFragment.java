@@ -16,6 +16,7 @@ import app.yellow.github.core.repositorylist.RepositoryListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import app.yellow.github.util.ActivityUtils;
 import butterknife.Unbinder;
 
 public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.Presenter> implements RepositoryListFragment.RepositoryListListener {
@@ -95,6 +96,7 @@ public class RepositoryFragment extends BaseListPageFragment<RepositoryContract.
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 LitePal.deleteDatabase("github_db");
+                ActivityUtils.clearCache();
                 mPresenter.searchUserRepository(mUsername, mSeachType);
                 return false;
             }

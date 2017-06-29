@@ -29,6 +29,7 @@ import app.yellow.github.core.userlist.UserListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
 import dmax.dialog.SpotsDialog;
 
@@ -245,6 +246,7 @@ public class FollowFragment extends BaseFragment<FollowContract.Presenter> imple
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 LitePal.deleteDatabase("github_db");
+                ActivityUtils.clearCache();
                 isOnce = false;
                 searchFollow();
                 return false;

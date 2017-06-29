@@ -45,7 +45,8 @@ public abstract class BaseDetailActivity<T extends BaseDetailBean> extends AppCo
 
         ActionBar actionBar = getSupportActionBar();//得到Toolbar
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);//打开开关
+            actionBar.setDisplayHomeAsUpEnabled(true);//打开开关actionBar
+            actionBar.setTitle("");
         }
     }
 

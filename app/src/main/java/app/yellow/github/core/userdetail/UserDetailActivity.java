@@ -3,6 +3,7 @@ package app.yellow.github.core.userdetail;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +80,7 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
     protected int getLayout() {
         return R.layout.activity_user_detail;
     }
+
 
     @Override
     protected void initView() {
@@ -175,6 +177,9 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
         mRepositorysTv.setText("Repositorys（" + bean.repositorysCount + "）");
         mGistsTv.setText("Gists（" + bean.gistsCount + "）");
         GlideUtil.loadImageWithProgressWheel(bean.avatarUrl, mAvatarUrlImg, mProgressWheel);
+
+        ActionBar actionBar = getSupportActionBar();//得到Toolbar
+        actionBar.setTitle(bean.name);
     }
 
     @Override

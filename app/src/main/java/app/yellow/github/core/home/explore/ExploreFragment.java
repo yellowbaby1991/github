@@ -37,6 +37,7 @@ import app.yellow.github.core.userlist.UserListFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import dmax.dialog.SpotsDialog;
@@ -279,6 +280,7 @@ public class ExploreFragment extends BaseFragment<ExploreContract.Presenter> imp
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 LitePal.deleteDatabase("github_db");
+                ActivityUtils.clearCache();
                 if (mViewPager.getCurrentItem() == 0){
                     mPresenter.searchRepository(mRepositoryParams);
                 }

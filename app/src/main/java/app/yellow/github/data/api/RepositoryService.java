@@ -4,6 +4,7 @@ import java.util.List;
 
 import app.yellow.github.base.BaseResponse;
 import app.yellow.github.bean.home.explore.RepositoryBean;
+import app.yellow.github.config.GithubConfig;
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -16,7 +17,7 @@ import retrofit2.http.Url;
 import rx.Observable;
 
 public interface RepositoryService {
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("/search/{type}")
     Observable<BaseResponse<RepositoryBean>> getRepositoryListsByParams(@Path("type") String type,
                                                                         @Query("q") String q,
@@ -25,44 +26,44 @@ public interface RepositoryService {
                                                                         @Query("sort") String sort,
                                                                         @Query("order") String order);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("/users/{username}/repos")
     Observable<List<RepositoryBean>> getPublicRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
                                                              @Query("per_page") int pageSize);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("/users/{username}/starred")
     Observable<List<RepositoryBean>> getStaredRepositoryList(@Path("username") String username, @Query("page") int pageIndex,
                                                              @Query("per_page") int pageSize);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("")
     Observable<List<RepositoryBean>> getRepositoryByUrl(@Url String url, @Query("page") int pageIndex,
                                                        @Query("per_page") int pageSize);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("")
     Observable<RepositoryBean> getRepositoryByFullName(@Url String url);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("/user/repos")
     Observable<List<RepositoryBean>> getUserAllRepositoryList(@Query("page") int pageIndex,
                                                               @Query("per_page") int pageSize);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @GET("/user/starred/{owner}/{repo}")
     Observable<ResponseBody> checkRepBeingStarred(@Path("owner") String owner, @Path("repo") String repo);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @PUT("/user/starred/{owner}/{repo}")
     Observable<ResponseBody> starRepo(@Path("owner") String owner, @Path("repo") String repo);
 
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @DELETE("/user/starred/{owner}/{repo}")
     Observable<ResponseBody> unStarRepo(@Path("owner") String owner, @Path("repo") String repo);
 
-    @Headers("Cache-Control: public, max-age=180")
+    @Headers(GithubConfig.CACHE_HEADER)
     @POST("/repos/{owner}/{repo}/forks")
     Observable<ResponseBody> forkRepo(@Path("owner") String owner, @Path("repo") String repo);
 }

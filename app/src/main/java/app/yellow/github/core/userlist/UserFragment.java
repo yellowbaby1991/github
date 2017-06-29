@@ -15,6 +15,7 @@ import app.yellow.github.base.BaseListPageFragment;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import app.yellow.github.util.ActivityUtils;
 
 public class UserFragment extends BaseListPageFragment<UserContract.Presenter> implements UserListFragment.UserListListener {
 
@@ -82,6 +83,7 @@ public class UserFragment extends BaseListPageFragment<UserContract.Presenter> i
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 LitePal.deleteDatabase("github_db");
+                ActivityUtils.clearCache();
                 mPresenter.searchUserByUrl(mUrl);
                 return false;
             }

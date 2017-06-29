@@ -14,6 +14,9 @@ public class GithubConfig {
 
     public static final int PER_PAGE = 30;
 
-    public static final long CAHE_TIME = 1000 * 30 * 60;//默认缓存事件
+    //1000 * 30 * 60
+    public static final long CAHE_TIME = 0;//默认缓存事件  数据库缓存设置的过期时间，后来发现使用retrofit的缓存要更加方便，于是废弃了数据库缓存
+
+    public static final String CACHE_HEADER = "Cache-Control: public, max-age=1800";
 
 }

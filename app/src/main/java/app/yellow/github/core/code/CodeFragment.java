@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -19,6 +22,7 @@ import app.yellow.github.bean.repositorydetail.ContentBean;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
+import app.yellow.github.util.ActivityUtils;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import thereisnospon.codeview.CodeView;
@@ -38,7 +42,7 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
     Unbinder unbinder1;
     private String mUrl;
 
-    private int mCurrent = 0;
+    private TextView mCurrentView;
 
     public void setUrl(String url) {
         mUrl = url;
@@ -47,6 +51,8 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mCurrentView = mRootTv;
 
         mRootTv.setClickable(true);
         mRootTv.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +135,7 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
                 @Override
                 public void onClick(View v) {
                     clearTop((TextView) v);
+                    mCurrentView = (TextView) v;
                     mPresenter.loadContentListByUrl(contentBean.getUrl());
                 }
             });
@@ -140,12 +147,28 @@ public class CodeFragment extends BaseListPageFragment<CodeContract.Presenter> i
                 @Override
                 public void onClick(View v) {
                     clearTop((TextView) v);
+                    mCurrentView = (TextView) v;
                     mPresenter.loadContentByUrl(contentBean.getUrl());
                 }
             });
         }
+        mCurrentView = textView;
         mNagLL.addView(textView);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.frag_menu, menu);
+        MenuItem refreshItem = menu.findItem(R.id.action_refresh);
+        refreshItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ActivityUtils.clearCache();
+                mCurrentView.performClick();
+                return false;
+            }
+        });
     }
 
 }
