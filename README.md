@@ -150,7 +150,7 @@ Github上一个看起来很漂亮的Github客户端
 
 # 架构分析
 
-谷歌去年在github上发布一整套的它推荐的Android架构Dmo，[todo-mvp-rxjava][20] 是之中用来示范rxjava的sample
+谷歌去年在github上发布一整套的它推荐的Android架构Demo，[todo-mvp-rxjava][20] 是之中用来示范rxjava的sample
 
 关于它的这套架构，我画了一个栩栩如生的草图，嗯，栩栩如生
 
@@ -158,7 +158,7 @@ Github上一个看起来很漂亮的Github客户端
 
 是不是已经被我的美术功底震惊的说不出话来，就冲这图你不给Star一个？
 
-![enter description here][21]
+<img src="images/huaji.jpg" width = "20%" />
 
 只看图可能容易蒙蔽，用代码来解释一下
 
@@ -326,4 +326,3 @@ public class RemoteDataSource implements DataSource{
   [18]: https://github.com/Thereisnospon/CodeView
   [19]: https://github.com/afollestad/material-dialogs
   [20]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
-  [21]: http://img1.imgtn.bdimg.com/it/u=1649390983,416593110&fm=26&gp=0.jpg
