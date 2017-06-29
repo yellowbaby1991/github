@@ -1,6 +1,7 @@
 package app.yellow.github.core.home;
 
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import app.yellow.github.core.home.event.EventFragment;
 import app.yellow.github.core.home.explore.ExploreFragment;
 import app.yellow.github.core.home.follow.FollowFragment;
 import app.yellow.github.core.home.repository.RepositoryFragment;
+import app.yellow.github.core.home.setting.SettingActivity;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
 import butterknife.BindView;
@@ -142,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                         followFragment.setUsername(mBean.name);
                         followFragment.setSerchType(FollowFragment.FOLLOWER);
                         followFragment.setIsShowHome(true);
-                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(),followFragment , R.id.fragment_container);
+                        ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), followFragment, R.id.fragment_container);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                     case R.id.action_star:
@@ -160,6 +162,11 @@ public class HomeActivity extends AppCompatActivity {
                         eventFragment.setReponame(null);
                         eventFragment.setIsShowHome(true);
                         ActivityUtils.replaceFragmentToActivity(getSupportFragmentManager(), eventFragment, R.id.fragment_container);
+                        mDrawerLayout.closeDrawer(mNavView);
+                        break;
+                    case R.id.action_setting:
+                        Intent intent = new Intent(HomeActivity.this, SettingActivity.class);
+                        startActivity(intent);
                         mDrawerLayout.closeDrawer(mNavView);
                         break;
                 }

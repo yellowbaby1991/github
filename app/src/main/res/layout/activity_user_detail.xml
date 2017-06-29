@@ -551,7 +551,7 @@
 
 
         </android.support.v4.widget.NestedScrollView>
-        R
+
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items">
+        <item>Java</item>
+        <item>C</item>
+        <item>C++</item>
+        <item>C#</item>
+        <item>Python</item>
+        <item>PHP</item>
+        <item>JavaScript</item>
+        <item>Delphi</item>
+        <item>Swift</item>
+        <item>Perl</item>
+        <item>Ruby</item>
+        <item>R</item>
+        <item>Object-C</item>
+        <item>GO</item>
+    </string-array>
+
+    <string-array name="sort_type_items">
+        <item>Most stars</item>
+        <item>Best match</item>
+        <item>Most forks</item>
+        <item>Recently updated</item>
+    </string-array>
+    　　
+</resources>

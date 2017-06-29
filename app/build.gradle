@@ -89,5 +89,8 @@ dependencies {
     //codeview https://github.com/Thereisnospon/CodeView
     compile 'thereisnospon.codeview:codeview:0.3.1'
 
+    //material-dialogs https://github.com/afollestad/material-dialogs
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+
     testCompile 'junit:junit:4.12'
 }
