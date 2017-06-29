@@ -26,6 +26,8 @@ import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.ActivityUtils;
 import app.yellow.github.util.GlideUtil;
+import app.yellow.github.util.NetworkUtil;
+import app.yellow.github.util.UIUtils;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -120,7 +122,9 @@ public class UserDetailActivity extends BaseDetailActivity<UserDetailBean> imple
 
         mNameTv.setText(mDetailBean.name);
 
-        mPresenter.checkUserBeingFollowed(mDetailBean.name);
+        if (NetworkUtil.isConnected(UIUtils.getContext())){
+            mPresenter.checkUserBeingFollowed(mDetailBean.name);
+        }
 
     }
 

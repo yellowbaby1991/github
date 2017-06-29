@@ -32,6 +32,8 @@ import app.yellow.github.data.GithubLocalDataSource;
 import app.yellow.github.data.GithubRemoteDataSource;
 import app.yellow.github.util.Constants;
 import app.yellow.github.util.GlideUtil;
+import app.yellow.github.util.NetworkUtil;
+import app.yellow.github.util.UIUtils;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.tajchert.waitingdots.DotsTextView;
@@ -103,9 +105,11 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
         mForkAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.forkRep(mDetailBean.owener, mDetailBean.name);
-                mForkAction.setClickable(false);
-                mForkAction.setColorNormalResId(R.color.half_black);
+                if (NetworkUtil.isConnected(UIUtils.getContext())){
+                    mPresenter.forkRep(mDetailBean.owener, mDetailBean.name);
+                    mForkAction.setClickable(false);
+                    mForkAction.setColorNormalResId(R.color.half_black);
+                }
             }
         });
 
@@ -206,7 +210,10 @@ public class RepositroyDetailActivity extends BaseDetailActivity<RepositoryDetai
 
     @Override
     public void showRep(RepositoryDetailBean detailBean) {
-        mPresenter.checkRepBeingStarred(detailBean.owener, detailBean.name);
+        if (NetworkUtil.isConnected(UIUtils.getContext())){
+            mPresenter.checkRepBeingStarred(detailBean.owener, detailBean.name);
+        }
+
         mDetailBean = detailBean;
         mOwnerTv.setText("Owner：" + detailBean.owener);
         mUpdatedTv.setText("Last Updated：" + detailBean.lastUpdated);

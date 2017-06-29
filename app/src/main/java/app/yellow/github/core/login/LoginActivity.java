@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         setPresenter(new LoginPresenter(GithubDataRepository.getInstance(GithubRemoteDataSource.getInstance(), GithubLocalDataSource.getInstance()),
                 this));
+
         mPresenter.checkToken();
 
     }
@@ -110,6 +111,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 .error(R.mipmap.icon_login)
                 .into(mNoLoginAvatarUrlImg);
 
+    }
+
+    @Override
+    public void showNoNet() {
+        Toast.makeText(this,"没有网络，请检查网络后重试",Toast.LENGTH_SHORT).show();
     }
 
     @Override

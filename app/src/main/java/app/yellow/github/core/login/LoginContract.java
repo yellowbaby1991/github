@@ -12,6 +12,8 @@ public class LoginContract {
         void showLoginUi();
 
         void showLodingUi();
+
+        void showNoNet();
     }
 
     interface Presenter extends BasePresenter {

@@ -9,6 +9,7 @@ import app.yellow.github.base.BasePresenterImpl;
 import app.yellow.github.bean.userdetail.UserDetailBean;
 import app.yellow.github.data.GithubDataRepository;
 import app.yellow.github.util.Constants;
+import app.yellow.github.util.NetworkUtil;
 import app.yellow.github.util.SPUtils;
 import app.yellow.github.util.UIUtils;
 import rx.Subscription;
@@ -59,6 +60,11 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
 
     @Override
     public void checkToken() {
+        if (!NetworkUtil.isConnected(UIUtils.getContext())){
+            mView.showNoNet();
+            mView.showLodingUi();
+            return;
+        }
         String baseAuth = SPUtils.getString(UIUtils.getContext(), Constants.SP_BASEAUTH, "");
         if (TextUtils.isEmpty(baseAuth)) {
             mView.showLoginUi();

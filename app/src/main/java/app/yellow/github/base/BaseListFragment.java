@@ -85,7 +85,9 @@ public abstract class BaseListFragment<T> extends Fragment {
         mlistRv.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mAdapter.loadMoreComplete();
+                if (mAdapter!=null){
+                    mAdapter.loadMoreComplete();
+                }
             }
         }, 0);
     }
