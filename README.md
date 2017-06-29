@@ -15,11 +15,10 @@ Github上一个看起来很漂亮的Github客户端
   # 功能介绍
   
  1. Explore：支持仓库和用户的搜索，可以按repository和user进行搜索，并且可以选择排序方式和语言类别
+ 
+<img src="images/explore_1.png" width = "30%" />
+<img src="images/explore_2.png" width = "30%" />
+<img src="images/explore_3.png" width = "30%" />
 
 
 
-<center class="half">
-    <img src="./images/explore_1.png" width="250"/>
-    <img src="./images/explore_2.png" width="250"/>
-	<img src="./images/explore_3.png" width="250"/>
-</center>
