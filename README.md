@@ -16,6 +16,8 @@
 	* [Event](#event)
 	* [Setting](#setting)
 * [架构分析](#架构分析)
+	* [MVP](#mvp)
+	* [RxJava](#rxjava)
 
 # Github
 # 项目的起因
@@ -149,7 +151,7 @@ Github上一个看起来很漂亮的Github客户端
 
 
 # 架构分析
-
+## MVP
 谷歌去年在github上发布一整套的它推荐的Android架构Demo，[todo-mvp-rxjava][20] 是之中用来示范rxjava的sample
 
 关于它的这套架构，我画了一个栩栩如生的草图，嗯，栩栩如生
@@ -190,7 +192,7 @@ public interface Contract {
 }
 ```
 
-然后是Presenter的实现类，持有了view的对象和repository的对象，分别用来加载数据和展现数据
+然后是Presenter的实现类，持有了view的对象和repository的对象，分别用来加载数据和展现数据，这里偷懒了没有切换线程，后面用RxJava完成
 
 ``` java
 public class PrensenterImpl implements Contract.Presenter {
@@ -334,6 +336,113 @@ public class Repository implements DataSource{
 
 <img src="images/mvp_seq.png"  width = "100%"/>
 
+## RxJava
+上一节中有两个地方是十足的伪代码，mPresenter.loadList和Repository的具体实现，使用RxJava可以很容易的完成这两个部分的实现
+
+对RxJava还没有概念的请看 [给Android 开发者的 RxJava 详解][21]
+
+这里直接展示用法
+
+添加依赖
+
+``` java
+compile 'io.reactivex:rxjava:1.0.8'
+compile 'io.reactivex:rxandroid:1.2.1'
+```
+
+ 1. 使用RxJava将两个数据源的结果合并返回，返回类型改成了Observable，使用了concat操作符来合并两个数据源，使用first操作符来返回第一个结果
+
+``` java
+public interface DataSource {
+    Observable loadList();
+}
+
+public class LocalDataSource implements DataSource {
+    @Override
+    public Observable loadList() {
+        return Observable.create(new Observable.OnSubscribe<List>() {
+
+            @Override
+            public void call(Subscriber<? super List> subscriber) {
+                List list = new ArrayList();//从本地读取的缓存
+                subscriber.onNext(list);
+            }
+        });//从本地读取缓存
+    }
+}
+
+public class RemoteDataSource implements DataSource{
+    @Override
+    public Observable loadList() {
+        return null;//从网络加载数据
+    }
+}
+
+public class Repository implements DataSource{
+
+    private DataSource mRemoteDataSource;
+    private DataSource mLocalDataSource;
+
+    public Repository(DataSource remoteDataSource,DataSource lemoteDataSource){
+        mRemoteDataSource = remoteDataSource;
+        mLocalDataSource = lemoteDataSource;
+    }
+
+
+    @Override
+    public Observable loadList() {
+
+        Observable localTask = mLocalDataSource.loadList();
+        Observable remoteTask = mRemoteDataSource.loadList();
+
+        return Observable.concat(localTask, remoteTask).first();//让本地缓存先读取，网络拉去后执行，谁先拿到数据就返回谁
+    }
+}
+```
+
+ 2. 使用RxJava实现mPresenter.loadList中的跳转逻辑，避免了使用八百个回调来切换线程
+
+``` java
+public class PrensenterImpl implements Contract.Presenter {
+
+    ...
+
+    @Override
+    public void loadList() {
+
+        //UI 线程
+        mView.showLoading();
+
+        mRepository.loadList()
+                .subscribeOn(Schedulers.io()) //指定上游在IO线程执行
+                .observeOn(AndroidSchedulers.mainThread()) //指定下游在UI线程
+                .subscribe(new Observer<List>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.hideLoading();
+                        mView.showError();
+                    }
+
+                    @Override
+                    public void onNext(List list) {
+                        mView.hideLoading();
+                        if (list.isEmpty()) {
+                            mView.showEmpty();
+                        } else {
+                            mView.showList(list);
+                        }
+                    }
+                });
+
+
+    }
+}
+```
 
 
 
@@ -359,3 +468,4 @@ public class Repository implements DataSource{
   [18]: https://github.com/Thereisnospon/CodeView
   [19]: https://github.com/afollestad/material-dialogs
   [20]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
+  [21]: http://gank.io/post/560e15be2dca930e00da1083

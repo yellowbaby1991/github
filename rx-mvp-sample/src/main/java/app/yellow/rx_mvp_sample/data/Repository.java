@@ -1,6 +1,6 @@
 package app.yellow.rx_mvp_sample.data;
 
-import java.util.List;
+import rx.Observable;
 
 public class Repository implements DataSource{
 
@@ -14,10 +14,11 @@ public class Repository implements DataSource{
 
 
     @Override
-    public List loadList() {
-        List remote = mRemoteDataSource.loadList();
-        List local = mLocalDataSource.loadList();
-        // ....让两个数据源同时去加载数据，谁先加载完成就返回谁的
-        return null;
+    public Observable loadList() {
+
+        Observable localTask = mLocalDataSource.loadList();
+        Observable remoteTask = mRemoteDataSource.loadList();
+
+        return Observable.concat(localTask, remoteTask).first();//让本地缓存先读取，网络拉去后执行，谁先拿到数据就返回谁
     }
 }

@@ -1,7 +1,7 @@
 package app.yellow.rx_mvp_sample.data;
 
-import java.util.List;
+import rx.Observable;
 
 public interface DataSource {
-    List loadList();
+    Observable loadList();
 }

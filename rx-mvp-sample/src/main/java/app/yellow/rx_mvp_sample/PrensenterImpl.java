@@ -3,6 +3,9 @@ package app.yellow.rx_mvp_sample;
 import java.util.List;
 
 import app.yellow.rx_mvp_sample.data.Repository;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class PrensenterImpl implements Contract.Presenter {
 
@@ -21,22 +24,32 @@ public class PrensenterImpl implements Contract.Presenter {
         //UI 线程
         mView.showLoading();
 
-        try{
-            //IO 线程
-            List list = mRepository.loadList();
+        mRepository.loadList()
+                .subscribeOn(Schedulers.io()) //指定上游在IO线程执行
+                .observeOn(AndroidSchedulers.mainThread()) //指定下游在UI线程
+                .subscribe(new Observer<List>() {
+                    @Override
+                    public void onCompleted() {
 
-            //切回UI 线程
-            if (list.isEmpty()){
-                mView.showEmpty();
-            }else {
-                mView.showList(list);
-            }
+                    }
 
-        }catch (Exception e){
-            mView.showError();
-        }finally {
-            mView.hideLoading();
-        }
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.hideLoading();
+                        mView.showError();
+                    }
+
+                    @Override
+                    public void onNext(List list) {
+                        mView.hideLoading();
+                        if (list.isEmpty()) {
+                            mView.showEmpty();
+                        } else {
+                            mView.showList(list);
+                        }
+                    }
+                });
+
 
     }
 }
