@@ -20,6 +20,7 @@
 	* [RxJava](#rxjava)
 
 # Github
+[Github地址][1]
 # 项目的起因
 
 Github上一个看起来很漂亮的Github客户端
@@ -39,54 +40,54 @@ Github上一个看起来很漂亮的Github客户端
 
 # 架构和三方
 
-基于 [google-android-architecture-mvp-rxjava][1] 的RxJava + Retrofit + Mvp架构，该架构会在后面详细讲解，三方库如下
+基于 [google-android-architecture-mvp-rxjava][2] 的RxJava + Retrofit + Mvp架构，该架构会在后面详细讲解，三方库如下
 
 ## Rx
 
-- [RxJava][2] 
-- [RxAndroid][3]
+- [RxJava][3] 
+- [RxAndroid][4]
 
 
 ## 快速开发工具
 
-- [butterknife][4] 大名鼎鼎的黄油刀，让你不再findById
-- [android_dbinspector][5] 不需要root就可以查看真机上数据库内容
-- [fastjson][6] 最快的json解析工具，阿里巴巴出品
+- [butterknife][5] 大名鼎鼎的黄油刀，让你不再findById
+- [android_dbinspector][6] 不需要root就可以查看真机上数据库内容
+- [fastjson][7] 最快的json解析工具，阿里巴巴出品
 
 ## 网络相关
 
- - [Retrofit][7] 新一代网络请求神器
- - [OkHttp logging interceptor][8] 请求日志拦截器
+ - [Retrofit][8] 新一代网络请求神器
+ - [OkHttp logging interceptor][9] 请求日志拦截器
 
 ## 图片加载
 
-- [Glide][9] 图片加载框架
+- [Glide][10] 图片加载框架
 
 ## UI
 
-- [MaterialSearchView][10] Material Design风格的搜索
-- [CircleImageview][11] 圆形头像
-- [BaseRecyclerViewAdapterHelper][12] 强大的RecyclerView万能适配器
-- [FloatingActionButton][13] Material Design风格的浮动按钮
-- [spots-dialog][14] 闪烁的loding进度条
-- [materialish-progress][15] 旋转的菊花圈
-- [MarkdownView][16] 将markdown格式的字符串显示成漂亮的html页面
-- [WaitingDots][17] 闪烁的loding动画
-- [CodeView][18] 将代码显示成漂亮的样式
-- [material-dialogs][19] Material风格的Dialog
+- [MaterialSearchView][11] Material Design风格的搜索
+- [CircleImageview][12] 圆形头像
+- [BaseRecyclerViewAdapterHelper][13] 强大的RecyclerView万能适配器
+- [FloatingActionButton][14] Material Design风格的浮动按钮
+- [spots-dialog][15] 闪烁的loding进度条
+- [materialish-progress][16] 旋转的菊花圈
+- [MarkdownView][17] 将markdown格式的字符串显示成漂亮的html页面
+- [WaitingDots][18] 闪烁的loding动画
+- [CodeView][19] 将代码显示成漂亮的样式
+- [material-dialogs][20] Material风格的Dialog
 
   
 # 功能介绍
-  ## Explore
+## Explore
 
  1. 浏览Repository和User，使用选项卡切换，并且将浏览过的数据缓存在本地（本应用所有数据都做了缓存，并且缓存时间可由用户定制）
 
-<img src="images/explore_4.png" width = "50%" /><img src="images/explore_1.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/explore_4.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/explore_1.png" width = "50%" />
 
 
  2. 支持关键字搜索Repository和User，可以选择排序方式（Most star，Best match，Most fork，Rencent update等），可以按标签换语言分类（排序方式和标签可用用户定制）
 
-<img src="images/explore_2.png" width = "50%" /><img src="images/explore_3.png" width = "50%" /> 
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/explore_2.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/explore_3.png" width = "50%" /> 
 
 ## RepositoryDetail
 
@@ -152,7 +153,7 @@ Github上一个看起来很漂亮的Github客户端
 
 # 架构分析
 ## MVP
-谷歌去年在github上发布一整套的它推荐的Android架构Demo，[todo-mvp-rxjava][20] 是之中用来示范rxjava的sample
+谷歌去年在github上发布一整套的它推荐的Android架构Demo，[todo-mvp-rxjava][21] 是之中用来示范rxjava的sample
 
 关于它的这套架构，我画了一个栩栩如生的草图，嗯，栩栩如生
 
@@ -339,7 +340,7 @@ public class Repository implements DataSource{
 ## RxJava
 上一节中有两个地方是十足的伪代码，mPresenter.loadList和Repository的具体实现，使用RxJava可以很容易的完成这两个部分的实现
 
-对RxJava还没有概念的请看 [给Android 开发者的 RxJava 详解][21]
+对RxJava还没有概念的请看 [给Android 开发者的 RxJava 详解][22]
 
 这里直接展示用法
 
@@ -445,27 +446,25 @@ public class PrensenterImpl implements Contract.Presenter {
 ```
 
 
-
-
-
-  [1]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
-  [2]: https://github.com/ReactiveX/RxJava
-  [3]: https://github.com/ReactiveX/RxAndroid
-  [4]: https://github.com/JakeWharton/butterknife
-  [5]: https://github.com/infinum/android_dbinspector
-  [6]: https://github.com/alibaba/fastjson
-  [7]: https://github.com/square/retrofit
-  [8]: https://github.com/square/okhttp/wiki/Interceptors
-  [9]: https://github.com/bumptech/glide
-  [10]: https://github.com/MiguelCatalan/MaterialSearchView
-  [11]: https://github.com/hdodenhof/CircleImageView
-  [12]: https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-  [13]: https://github.com/makovkastar/FloatingActionButton
-  [14]: https://github.com/d-max/spots-dialog
-  [15]: https://github.com/pnikosis/materialish-progress
-  [16]: https://github.com/mukeshsolanki/MarkdownView-Android
-  [17]: https://github.com/tajchert/WaitingDots
-  [18]: https://github.com/Thereisnospon/CodeView
-  [19]: https://github.com/afollestad/material-dialogs
-  [20]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
-  [21]: http://gank.io/post/560e15be2dca930e00da1083
+  [1]: https://github.com/yellowbaby1991/github
+  [2]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
+  [3]: https://github.com/ReactiveX/RxJava
+  [4]: https://github.com/ReactiveX/RxAndroid
+  [5]: https://github.com/JakeWharton/butterknife
+  [6]: https://github.com/infinum/android_dbinspector
+  [7]: https://github.com/alibaba/fastjson
+  [8]: https://github.com/square/retrofit
+  [9]: https://github.com/square/okhttp/wiki/Interceptors
+  [10]: https://github.com/bumptech/glide
+  [11]: https://github.com/MiguelCatalan/MaterialSearchView
+  [12]: https://github.com/hdodenhof/CircleImageView
+  [13]: https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+  [14]: https://github.com/makovkastar/FloatingActionButton
+  [15]: https://github.com/d-max/spots-dialog
+  [16]: https://github.com/pnikosis/materialish-progress
+  [17]: https://github.com/mukeshsolanki/MarkdownView-Android
+  [18]: https://github.com/tajchert/WaitingDots
+  [19]: https://github.com/Thereisnospon/CodeView
+  [20]: https://github.com/afollestad/material-dialogs
+  [21]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
+  [22]: http://gank.io/post/560e15be2dca930e00da1083
