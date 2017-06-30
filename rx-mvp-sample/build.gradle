@@ -27,11 +27,72 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //android.support
     compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:cardview-v7:24.2.1'
+
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     //rxjava1
     compile 'io.reactivex:rxjava:1.0.8'
     compile 'io.reactivex:rxandroid:1.2.1'
+
+    //retrofit2
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    //Material Design风格的搜索 https://github.com/MiguelCatalan/MaterialSearchView
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    //圆形图标
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    //万能RecyclerView适配器
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18'
+
+    //图片加载框架
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //recyclerview缩放动画 https://github.com/wasabeef/recyclerview-animators
+    compile 'jp.wasabeef:recyclerview-animators:2.2.6'
+
+    //Material Design风格的浮动按钮
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+
+    //闪烁的loding进度条 https://github.com/d-max/spots-dialog
+    compile 'com.github.d-max:spots-dialog:0.7@aar'
+
+    //旋转的菊花圈 https://github.com/pnikosis/materialish-progress
+    compile 'com.pnikosis:materialish-progress:1.7'
+
+    //数据库观察器
+    debugCompile 'im.dino:dbinspector:3.4.1@aar'
+
+    //最快的json解析工具
+    compile 'com.alibaba:fastjson:1.1.56.android'
+
+    //小巧玲珑的ORM数据库 https://github.com/LitePalFramework/LitePal
+    compile 'org.litepal.android:core:1.5.1'
+
+    //MarkdownView https://github.com/mukeshsolanki/MarkdownView-Android
+    compile 'com.github.mukeshsolanki:MarkdownView-Android:1.0.4'
+
+    //闪烁的loding动画 https://github.com/tajchert/WaitingDots
+    compile 'com.github.tajchert:WaitingDots:0.4.0'
+
+    //codeview https://github.com/Thereisnospon/CodeView
+    compile 'thereisnospon.codeview:codeview:0.3.1'
+
+    //material-dialogs https://github.com/afollestad/material-dialogs
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
 
     testCompile 'junit:junit:4.12'
 }

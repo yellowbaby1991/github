@@ -451,7 +451,11 @@ public class PrensenterImpl implements Contract.Presenter {
 ## 框架搭建
 从业务上来看，我们的功能看起来比较多，但是很多页面都很相似，来梳理一下
 
- 1. 双List页面，比如[Explore][23]，Follow，
+ 1. 双List页面，比如[Explore][23]，[Follow][24]
+ 2. 单List页面，比如[Event][25]，[RepositoryList][26]，[UserList][27]
+ 3. 详情页面，比如[UserDetai][28]，[RepositoryDetail][29]
+
+并且，可以看出多处跳转的页面是类似的，所以必须使用Fragment
 
 
   [1]: https://github.com/yellowbaby1991/github
@@ -477,3 +481,9 @@ public class PrensenterImpl implements Contract.Presenter {
   [21]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
   [22]: http://gank.io/post/560e15be2dca930e00da1083
   [23]: #explore
+  [24]: #userlist
+  [25]: #event
+  [26]: #repositoryList
+  [27]: #userList
+  [28]: #userDetai
+  [29]: #repositoryDetail
