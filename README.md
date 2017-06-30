@@ -93,62 +93,62 @@ Github上一个看起来很漂亮的Github客户端
 
  1. Repository简要信息查看，并且可以进行star，unstar，fork操作
 
-<img src="images/repositorydetail_1.png" width = "50%" /><img src="images/repositorydetail_2.png" width = "50%" /> 
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repositorydetail_1.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repositorydetail_2.png" width = "50%" /> 
 
  2. 异步加载ReadMe，按markdown格式显示ReadMe
  
- <img src="images/repositorydetail_3.png" width = "50%" />
+ <img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repositorydetail_3.png" width = "50%" />
  
  3. 显示code树，查看代码内容，因为缓存的原因，点击加载过的节点可以秒加载
  
- <img src="images/repositorydetail_4.png" width = "50%" /><img src="images/repositorydetail_5.png" width = "50%" />
+ <img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repositorydetail_4.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repositorydetail_5.png" width = "50%" />
  
 ## UserDetail
 
  1. User简要信息查看，并且可以进行follow，unfollow操作
 
-<img src="images/userdetail_1.png" width = "50%" /><img src="images/userdetail_2.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/userdetail_1.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/userdetail_2.png" width = "50%" />
 
 ## RepositoryList
 
  1. 查询自己的Repository
  
-<img src="images/repository_1.png" width = "50%" /><img src="images/repository_2.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_1.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_2.png" width = "50%" />
  
  2. 查询自己Star过的Repository
 
-<img src="images/repository_3.png" width = "50%" /><img src="images/repository_4.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_3.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_4.png" width = "50%" />
 
  3. 查询RepositoryDetail被fork过的Repository
 
-<img src="images/repository_5.png" width = "50%" /><img src="images/repository_6.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_5.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_6.png" width = "50%" />
 
  4. 查询UserDetail被拥有的Repository
 
-<img src="images/repository_7.png" width = "50%" /><img src="images/repository_8.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_7.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/repository_8.png" width = "50%" />
 
 ## UserList
 
  1. 查询自己，以及其他User的following和follower
 
- <img src="images/user_1.png" width = "50%" /><img src="images/user_2.png" width = "50%" />
+ <img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/user_1.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/user_2.png" width = "50%" />
  
  2. 查询RepositoryDetail的Contributors和Stargazers
  
- <img src="images/user_3.png" width = "50%" /><img src="images/user_4.png" width = "50%" />
+ <img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/user_3.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/user_4.png" width = "50%" />
 
 
 ## Event
 
  1. 可以查询，自己，User，Repository的Event
 
-<img src="images/event_1.png" width = "50%" /><img src="images/event_2.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/event_1.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/event_2.png" width = "50%" />
 
 ## Setting
 
  1. 设置Explore页面首先查询的语言，右下方应该有几个语言选项，默认的排序方式
 
-<img src="images/setting_1.png" width = "50%" /><img src="images/setting_2.png" width = "50%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/setting_1.png" width = "50%" /><img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/setting_2.png" width = "50%" />
 
 
 # 架构分析
@@ -157,11 +157,11 @@ Github上一个看起来很漂亮的Github客户端
 
 关于它的这套架构，我画了一个栩栩如生的草图，嗯，栩栩如生
 
-<img src="images/rxjava_mvp.png"  width = "100%"/>
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/rxjava_mvp.png"  width = "100%"/>
 
 是不是已经被我的美术功底震惊的说不出话来，就冲这图你不给Star一个？
 
-<img src="images/huaji.jpg" width = "20%" />
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/huaji.jpg" width = "20%" />
 
 只看图可能容易蒙蔽，用代码来解释一下
 
@@ -335,7 +335,7 @@ public class Repository implements DataSource{
 
 从来实现了数据的展示，请求，分发三层分离，时序图如下图：
 
-<img src="images/mvp_seq.png"  width = "100%"/>
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/mvp_seq.png"  width = "100%"/>
 
 ## RxJava
 上一节中有两个地方是十足的伪代码，mPresenter.loadList和Repository的具体实现，使用RxJava可以很容易的完成这两个部分的实现
@@ -445,6 +445,13 @@ public class PrensenterImpl implements Contract.Presenter {
 }
 ```
 
+以上就是Google-Mvp-RxJava 的大体设计思路
+
+## 框架搭建
+从业务上来看，我们的功能看起来比较多，但是很多页面都很相似，来梳理一下
+
+ 1. 双List页面，比如[Explore][23]，Follow，
+
 
   [1]: https://github.com/yellowbaby1991/github
   [2]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
@@ -468,3 +475,4 @@ public class PrensenterImpl implements Contract.Presenter {
   [20]: https://github.com/afollestad/material-dialogs
   [21]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
   [22]: http://gank.io/post/560e15be2dca930e00da1083
+  [23]: #explore
