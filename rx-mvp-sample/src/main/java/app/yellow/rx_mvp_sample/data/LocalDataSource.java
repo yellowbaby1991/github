@@ -18,4 +18,9 @@ public class LocalDataSource implements DataSource {
             }
         });//从本地读取缓存
     }
+
+    @Override
+    public Observable getUsersByUrl(String url, int page) {
+        return null;
+    }
 }

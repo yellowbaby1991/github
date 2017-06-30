@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import app.yellow.rx_mvp_sample.R;
+import app.yellow.rx_mvp_sample.config.GithubConfig;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -137,7 +138,7 @@ public abstract class BaseListFragment<T> extends Fragment {
             mlistRv.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (getItemCount() < 100) {//PageSize
+                    if (getItemCount() < GithubConfig.PER_PAGE) {//PageSize
                         loadMoreEnd();
                     } else {
                         if (isNeedLoadMore()) {

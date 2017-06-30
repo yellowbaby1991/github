@@ -133,6 +133,7 @@ public abstract class BaseListFragment<T> extends Fragment {
             mlistRv.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    int i = getItemCount();
                     // |etItemCount() == mDataSet.size() + 1
                     if (getItemCount() < GithubConfig.PER_PAGE ) {
                         loadMoreEnd();
