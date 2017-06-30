@@ -447,6 +447,7 @@ public class PrensenterImpl implements Contract.Presenter {
 
 以上就是Google-Mvp-RxJava 的大体设计思路
 
+
 ## 框架搭建
 从业务上来看，我们的功能看起来比较多，但是很多页面都很相似，来梳理一下
 
