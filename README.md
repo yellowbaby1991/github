@@ -563,3 +563,39 @@ public class UserListPageFragment extends BaseSingleListPageFragment<UserListCon
   [28]: #userDetai
   [29]: #repositoryDetail
   [30]: https://github.com/yellowbaby1991/github/tree/master/rx-mvp-sample
+## 缓存设计
+一开始我的想法是将讲本次访问的URL和得到的Json内容存在本地数据库中，然后采用谷歌的设计方案，两个数据源，得到结果合并，如果本地没有缓存，在拉取网路缓存后就存入本地后再返回，流程如下
+
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/mvp_cache.png"  width = "100%"/>
+
+代码结构就是这样的
+
+``` java
+public class GithubDataRepository implements GithubDataSource {
+	...
+    @Override
+    public Observable getUsersByUrl(String url, int page) {
+
+        final String key = KeyFactory.getUrlKey(url, page);
+
+        Observable localTask = mLocalDataSource.getUsersByUrl(url, page);
+
+        Observable remoteTask = mRemoteDataSource.getUsersByUrl(url, page).doOnNext(new BaseSaveAction<List<UserBean>>(key));
+
+        return Observable.concat(localTask, remoteTask).first();
+    }
+	...
+}
+```
+
+同样也做了一些基类的抽取，看起来比较简洁，两个数据源，一个读本地，一个读网路，第一个返回成功了就不再执行第二个请求
+
+嗯，我一开始的确是这样做的，直到我发现了Retrofit+Okhttp自带了很强大的缓存
+
+只需要配置拦截器和加上相应的请求头，Retrofit会自动的缓存，可以控制有网的时候缓存多长时间，没网情况强制读取缓存
+
+使用步骤为，具体看代码
+
+ 1. 配置缓存目录
+ 2. 配置request Cache-Control
+ 3. 配置response Cache-Control
