@@ -457,7 +457,7 @@ public class PrensenterImpl implements Contract.Presenter {
 
 并且，可以看出多处跳转的页面是类似的
 
-所以我做了很多抽取，详情可以看 rx-mvp-sample，将流程化公共部分抽取到基类中，将需要实现的具体业务逻辑下放到子类
+所以我做了很多抽取，详情可以看 [rx-mvp-sample][30]，简化了逻辑，单纯的显示了一个加载UserList的界面，用来展现架构思路，将流程化公共部分抽取到基类中，将需要实现的具体业务逻辑下放到子类
 
 首先接口的抽取
 
@@ -466,6 +466,72 @@ public class PrensenterImpl implements Contract.Presenter {
  - BaseView：大部分的View都需要这几个方法，所以抽取出来
  - BaseListView：如果显示的是列表，需要增加，显示List，显示下拉加载数据，下拉加载错误，下拉结束等方法
  - BasePresenter：订阅和反订阅方法，一般用来控制RxJava任务的生命周期
+
+然后抽取两个基类
+
+ 1. BaseSingleListPageFragment 用来显示单页List的Fragment，内部持有一个BaseListFragment来展示数据
+ 2. BasePresenterImpl，基本Presenterr的实现类
+
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/base_impl.png"  width = "100%"/>
+
+经过抽取后的UserListPresenter和UserListPageFragment异常简单
+
+``` java
+public class UserListPresenter extends BasePresenterImpl<UserListContract.View> implements UserListContract.Presenter {
+
+    public UserListPresenter(@NonNull Repository repository, UserListContract.View view) {
+        super(repository, view);
+    }
+
+    @Override
+    public void searchUsersByUrl(String url) {
+        mView.showLoading();
+        SubscriptionCreator.searchListSubscription(mSubscriptions, mRepository.getUsersByUrl(url, 1), mView);
+    }
+
+    @Override
+    public void loadMoreUsersByUrl(String url, int page) {
+        SubscriptionCreator.loadMoreSubscription(mSubscriptions, mRepository.getUsersByUrl(url, page), mView);
+    }
+}
+```
+
+``` java
+public class UserListPageFragment extends BaseSingleListPageFragment<UserListContract.Presenter> implements UserListContract.View,UserListFragment.UserListListener {
+
+    private String mUrl;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mPresenter = new UserListPresenter(mRepository, this);
+
+        mPresenter.searchUsersByUrl(mUrl);
+    }
+
+    @Override
+    protected BaseListFragment getListFragment() {
+        return new UserListFragment(this);
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.user_list_page;
+    }
+
+    @Override
+    public void loadMoreUser(int nextPage) {
+        mPresenter.loadMoreUsersByUrl(mUrl, nextPage);
+    }
+
+    public void setUrl(String url) {
+        mUrl = url;
+    }
+
+}
+```
+
 
   [1]: https://github.com/yellowbaby1991/github
   [2]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
@@ -496,3 +562,4 @@ public class PrensenterImpl implements Contract.Presenter {
   [27]: #userList
   [28]: #userDetai
   [29]: #repositoryDetail
+  [30]: https://github.com/yellowbaby1991/github/tree/master/rx-mvp-sample
