@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseSingleListPageFragment<T extends BasePresenter> extends Fragment {
+public abstract class BaseSingleListPageFragment<T extends BasePresenter> extends Fragment implements BaseListView<T>{
 
     protected T mPresenter;
 
@@ -72,30 +73,31 @@ public abstract class BaseSingleListPageFragment<T extends BasePresenter> extend
         unbinder.unbind();
     }
 
+    @Override
     public void showEmpty() {
         mEmptyTv.setVisibility(View.VISIBLE);
         mErrorTv.setVisibility(View.GONE);
         mFragmentContainer.setVisibility(View.GONE);
     }
 
-
+    @Override
     public void showError() {
         mEmptyTv.setVisibility(View.GONE);
         mErrorTv.setVisibility(View.VISIBLE);
         mFragmentContainer.setVisibility(View.GONE);
     }
 
-
+    @Override
     public void showLoading() {
-
+        Toast.makeText(getContext(),"Loading",Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
     public void hideLoading() {
-
+        Toast.makeText(getContext(),"Loading Finish",Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
     public void showList(List list) {
         mErrorTv.setVisibility(View.GONE);
         mEmptyTv.setVisibility(View.GONE);
@@ -103,21 +105,22 @@ public abstract class BaseSingleListPageFragment<T extends BasePresenter> extend
         mListFragment.createList(list);
     }
 
-
+    @Override
     public void showMoreAdd(List moreData) {
         mListFragment.updateList(moreData);
     }
 
-
+    @Override
     public void showLoadMoreError() {
         mListFragment.showLoadMoreError();
     }
 
-
+    @Override
     public void showLoadMoreEnd() {
         mListFragment.showLoadMoreError();
     }
 
+    @Override
     public void setPresenter(T presenter) {
         mPresenter = presenter;
     }

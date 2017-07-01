@@ -455,8 +455,17 @@ public class PrensenterImpl implements Contract.Presenter {
  2. 单List页面，比如[Event][25]，[RepositoryList][26]，[UserList][27]
  3. 详情页面，比如[UserDetai][28]，[RepositoryDetail][29]
 
-并且，可以看出多处跳转的页面是类似的，所以必须使用Fragment
+并且，可以看出多处跳转的页面是类似的
 
+所以我做了很多抽取，详情可以看 rx-mvp-sample，将流程化公共部分抽取到基类中，将需要实现的具体业务逻辑下放到子类
+
+首先接口的抽取
+
+<img src="https://raw.githubusercontent.com/yellowbaby1991/github/master/images/base_interface.png"  width = "100%"/>
+
+ - BaseView：大部分的View都需要这几个方法，所以抽取出来
+ - BaseListView：如果显示的是列表，需要增加，显示List，显示下拉加载数据，下拉加载错误，下拉结束等方法
+ - BasePresenter：订阅和反订阅方法，一般用来控制RxJava任务的生命周期
 
   [1]: https://github.com/yellowbaby1991/github
   [2]: https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/
